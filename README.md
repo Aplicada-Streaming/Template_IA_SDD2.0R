@@ -4,13 +4,16 @@
 
 
 
-[Guía de usuario](sdd2.0D/guides/guia-usuario-sdd2.0_v1.0.md)
+[Guía de usuario](sdd2.1D/guides/guia-usuario-sdd2.0_v1.0.md)
 
-[Marco teórico](sdd2.0D/devs/guides/marco-teorico-sdd_v1.0.md)
+[Marco teórico](sdd2.1D/devs/guides/marco-teorico-sdd_v1.0.md)
 
 [Resumen](https://docs.google.com/document/d/1S0LlnTQbsV-5zxHtKwbxpTZaQrtgKu5q/preview)
 
-SDD1.0
-SDD2.0M
-SDD2.0D
-SDD2.0R
+- SDD1.0
+
+- SDD2.1M
+
+- SDD2.1D  sdd de diseño
+
+- SDD2.1R  sdd de relevamiento

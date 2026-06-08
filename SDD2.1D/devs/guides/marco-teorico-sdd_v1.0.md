@@ -1,10 +1,10 @@
-# Marco Teórico SDD 2.0
+# Marco Teórico SDD 2.1
 
 **Documento:** marco-teorico-sdd_v1.0.md
 **Versión:** 1.0
 **Estado:** Aprobado
 **Fecha:** 2026-05-17
-**Autor:** Equipo Template SDD 2.0 — UTN
+**Autor:** Equipo Template SDD 2.1 — UTN
 **Audiencia:** estudiantes universitarios (UTN), docentes, profesionales que adopten el template
 **Idioma:** español rioplatense neutro técnico
 **Norma bibliográfica:** APA 7
@@ -16,7 +16,7 @@
 
 - [§1 Introducción y encuadre](#1-introducción-y-encuadre)
 - [§2 Fundamentos del enfoque SDD](#2-fundamentos-del-enfoque-sdd)
-- [§3 Metodología del template SDD 2.0](#3-metodología-del-template-sdd-20)
+- [§3 Metodología del template SDD 2.1](#3-metodología-del-template-sdd-21)
 - [§4 Especialidades del template](#4-especialidades-del-template)
 - [§5 Metodología ágil aplicada](#5-metodología-ágil-aplicada)
 - [§6 Técnicas de descomposición y planificación](#6-técnicas-de-descomposición-y-planificación)
@@ -35,11 +35,11 @@
 
 ## 1.1 Propósito de este marco
 
-Este documento es el cuerpo doctrinal del template SDD 2.0. Su función es explicar el porqué de cada decisión metodológica que el template propone, ofrecer la fundamentación académica e industrial que sostiene esas decisiones y servir de material de estudio profundo para estudiantes universitarios y profesionales que adopten el template como base operativa.
+Este documento es el cuerpo doctrinal del template SDD 2.1. Su función es explicar el porqué de cada decisión metodológica que el template propone, ofrecer la fundamentación académica e industrial que sostiene esas decisiones y servir de material de estudio profundo para estudiantes universitarios y profesionales que adopten el template como base operativa.
 
 El marco teórico no enseña a operar el template paso a paso (esa es función de la guía de usuario, documento operativo separado). Acá se discute por qué la especificación es el artefacto central, por qué se separan 13 especialidades, por qué se prefiere Scrum como punto de partida, por qué se versionan los artefactos con SemVer, por qué se prohíben emojis en el cuerpo normativo y por qué la separación entre orquestador y subagentes es deliberada.
 
-Quien lea este documento de principio a fin termina con un mapa conceptual completo del enfoque Specification-Driven Development aplicado al template SDD 2.0, con capacidad para auditar, criticar, extender o adaptar el método a contextos nuevos.
+Quien lea este documento de principio a fin termina con un mapa conceptual completo del enfoque Specification-Driven Development aplicado al template SDD 2.1, con capacidad para auditar, criticar, extender o adaptar el método a contextos nuevos.
 
 ## 1.2 Audiencia primaria
 
@@ -86,12 +86,12 @@ Es importante no confundir este marco teórico con la guía de usuario del templ
 
 Las dos piezas son complementarias y se referencian mutuamente, pero no se solapan. Si un lector necesita saber cómo completar la plantilla `intake-vision`, debe acudir a la guía de usuario. Si necesita saber por qué la plantilla pregunta lo que pregunta, debe acudir a este marco teórico.
 
-## 1.5 Mapa visual del template SDD 2.0
+## 1.5 Mapa visual del template SDD 2.1
 
 El template se organiza en dos planos paralelos:
 
 ```text
-e:/repos/...../sdd2.0/
+e:/repos/...../SDD2.1D/
 ├── devs/                    Plano metodológico (marco teórico, plantillas, reglas)
 │   ├── guides/              Marco teórico (este documento)
 │   ├── intake/              Plantillas de carga inicial
@@ -119,9 +119,9 @@ La separación `/devs/` versus `/docs/` proviene del aprendizaje del fuente SDD 
 
 ## 1.6 Origen del template
 
-Este template se construyó a partir de la auditoría del fuente SDD 1.0 aplicado al caso de estudio histórico Motor DSL en la cátedra de Aplicada del cuatrimestre 2026. El audit Fase 0 (ver `sdd2.0/devs/_bootstrap/audit-sdd1.md`) inventarió 161 archivos markdown, identificó 14 patrones repetibles, 14 inconsistencias y un mapa de cobertura por capítulo. Sobre ese análisis se generalizó el material domain-specific para producir el template stack-agnóstico que SDD 2.0 propone.
+Este template se construyó a partir de la auditoría del fuente SDD 1.0 aplicado al caso de estudio histórico Motor DSL en la cátedra de Aplicada del cuatrimestre 2026. El audit Fase 0 (ver `SDD2.1D/devs/_bootstrap/audit-sdd1.md`) inventarió 161 archivos markdown, identificó 14 patrones repetibles, 14 inconsistencias y un mapa de cobertura por capítulo. Sobre ese análisis se generalizó el material domain-specific para producir el template stack-agnóstico que SDD 2.1 propone.
 
-Las menciones al caso original se conservan exclusivamente como referencia formal del origen, no como contenido canónico del template. El template SDD 2.0 cubre ocho tipos de proyecto distintos (decisión D8): library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service.
+Las menciones al caso original se conservan exclusivamente como referencia formal del origen, no como contenido canónico del template. El template SDD 2.1 cubre ocho tipos de proyecto distintos (decisión D8): library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service.
 
 ---
 
@@ -167,7 +167,7 @@ El flujo es lineal: el equipo escribe la spec, la IA o el desarrollador la imple
 
 ### Nivel 2 — Spec-Anchored
 
-Tanto la especificación como el código se mantienen como artefactos vivos. Los cambios a la spec preceden a los cambios de código. Este es el nivel estándar que SDD 2.0 propone para proyectos con equipo o con horizonte de mantenimiento mayor a seis meses.
+Tanto la especificación como el código se mantienen como artefactos vivos. Los cambios a la spec preceden a los cambios de código. Este es el nivel estándar que SDD 2.1 propone para proyectos con equipo o con horizonte de mantenimiento mayor a seis meses.
 
 **Cuándo aplica.** Proyectos con múltiples contribuyentes, sistemas que requieren documentación de compliance, productos con horizonte de mantenimiento de seis meses o más, features que sufrirán múltiples iteraciones.
 
@@ -191,7 +191,7 @@ La especificación es el artefacto principal y el código se regenera bajo deman
 | Código repetitivo o desechable con buena cobertura de tests | Spec-as-Source (3) |
 | Experimento personal con buena cobertura | Spec-as-Source (3) |
 
-**Recomendación general.** Empezar con Spec-First y migrar a Spec-Anchored cuando el proyecto involucre equipo o tenga horizonte de mantenimiento largo. Reservar Spec-as-Source para contextos controlados con tests que garanticen el comportamiento esperado. El template SDD 2.0 está diseñado por defecto para operar en nivel Spec-Anchored.
+**Recomendación general.** Empezar con Spec-First y migrar a Spec-Anchored cuando el proyecto involucre equipo o tenga horizonte de mantenimiento largo. Reservar Spec-as-Source para contextos controlados con tests que garanticen el comportamiento esperado. El template SDD 2.1 está diseñado por defecto para operar en nivel Spec-Anchored.
 
 ## 2.4 Comparación con TDD y BDD
 
@@ -203,7 +203,7 @@ SDD no reemplaza ni excluye a Test-Driven Development (TDD) ni a Behavior-Driven
 | **BDD** | Escenarios Given/When/Then (cómo se verifica el comportamiento) | Producto + QA + desarrollo | ¿Cómo se observa que el sistema cumple la spec? |
 | **TDD** | Test unitario (cómo se valida una unidad de código) | Desarrollo | ¿Cómo se construye correctamente la implementación? |
 
-En un flujo combinado típico bajo SDD 2.0:
+En un flujo combinado típico bajo SDD 2.1:
 
 1. SDD produce la especificación funcional (`docs/02_especificacion_funcional/`).
 2. BDD traduce los casos de uso de la spec a escenarios Given/When/Then ejecutables.
@@ -213,7 +213,7 @@ Las tres prácticas son compatibles y se refuerzan. Ninguna sustituye a la otra.
 
 ## 2.5 Por qué SDD encaja con el desarrollo asistido por IA
 
-El contexto industrial de adopción de SDD 2.0 incluye el uso de asistentes de IA basados en LLM (Claude, GitHub Copilot, Cursor, entre otros). En ese contexto, la especificación cumple cuatro funciones adicionales a las clásicas:
+El contexto industrial de adopción de SDD 2.1 incluye el uso de asistentes de IA basados en LLM (Claude, GitHub Copilot, Cursor, entre otros). En ese contexto, la especificación cumple cuatro funciones adicionales a las clásicas:
 
 1. **Contrato para el modelo.** El LLM lee la spec y produce código que la respeta. Sin spec, el modelo improvisa.
 2. **Mecanismo de verificación.** El equipo puede pedirle al modelo que verifique si el código existente cumple la spec, detectando deriva.
@@ -229,15 +229,15 @@ SDD no es bala de plata. Tiene costos y riesgos que conviene reconocer:
 - **Riesgo de over-engineering documental.** Hay equipos que producen specs barrocas que nadie lee. La spec debe ser tan extensa como sea necesario y tan breve como sea posible.
 - **Curva de aprendizaje.** Equipos acostumbrados a "shipear primero, documentar después" tardan en internalizar la inversión.
 
-El template SDD 2.0 mitiga estos riesgos con plantillas mínimas, validación automatizada de nomenclatura, y un proceso explícito de actualización spec-code que se describe en §3 y §11.
+El template SDD 2.1 mitiga estos riesgos con plantillas mínimas, validación automatizada de nomenclatura, y un proceso explícito de actualización spec-code que se describe en §3 y §11.
 
 ---
 
-# §3 Metodología del template SDD 2.0
+# §3 Metodología del template SDD 2.1
 
 ## 3.1 Visión general del flujo
 
-El template SDD 2.0 propone un flujo de seis pasos que va desde la idea informal hasta la documentación operativa lista para codificar. El flujo se diseñó con dos premisas:
+El template SDD 2.1 propone un flujo de seis pasos que va desde la idea informal hasta la documentación operativa lista para codificar. El flujo se diseñó con dos premisas:
 
 1. **El humano decide; la IA ejecuta.** El equipo humano aporta visión, restricciones y criterio profesional. La IA materializa esas decisiones en artefactos coherentes con la estructura del template.
 2. **El plan precede a la acción.** En cada paso se pide a la IA que explique qué va a hacer antes de hacerlo, para que el humano confirme antes de comprometer cambios.
@@ -282,7 +282,7 @@ Por qué dos plantillas y no una sola: visión y tipo de proyecto se mueven en v
 
 ## 3.5 Paso 4 — Bootstrap local en Claude Code
 
-El humano clona o crea el repositorio del proyecto, copia el árbol `/sdd2.0/devs/` del template adentro, y abre el repositorio en Claude Code (o el agente CLI equivalente). En este momento ya están en el repo:
+El humano clona o crea el repositorio del proyecto, copia el árbol `/SDD2.1D/devs/` del template adentro, y abre el repositorio en Claude Code (o el agente CLI equivalente). En este momento ya están en el repo:
 
 - Las plantillas de intake completadas.
 - Las reglas de nomenclatura (`devs/rules/`).
@@ -302,7 +302,7 @@ El humano ejecuta en Claude Code el prompt orquestador maestro. Este prompt:
 4. Cada subagente genera la documentación de su sección respetando las plantillas y la nomenclatura.
 5. El orquestador consolida los resultados, valida coherencia cruzada y reporta inconsistencias.
 
-El producto del paso 5 es el árbol `/sdd2.0/docs/` poblado con las secciones que aplican al proyecto, listo para revisión humana.
+El producto del paso 5 es el árbol `/SDD2.1D/docs/` poblado con las secciones que aplican al proyecto, listo para revisión humana.
 
 **Paralelización vs serialización.** Las secciones que dependen del resultado de otras se ejecutan en serie. El orden canónico es: AG-00 → AG-01 → AG-02 → AG-03 → AG-04 → AG-05 → AG-06 → AG-07 → AG-08 → AG-09 → AG-10 → AG-11. Las secciones que no dependen entre sí (por ejemplo AG-08 y AG-10) pueden ejecutarse en paralelo si el agente lo soporta.
 
@@ -338,7 +338,7 @@ A partir de este punto, el equipo opera en nivel Spec-Anchored: cualquier cambio
 |             |                                                      |
 |             v                                                      |
 |    PASO 4: Bootstrap en repo local + Claude Code                   |
-|    Copia /sdd2.0/devs/ al repo, abre Claude Code                   |
+|    Copia /SDD2.1D/devs/ al repo, abre Claude Code                  |
 |             |                                                      |
 |             v                                                      |
 |    PASO 5: Ejecucion del master-prompt                             |
@@ -356,7 +356,7 @@ A partir de este punto, el equipo opera en nivel Spec-Anchored: cualquier cambio
 |    Consolidacion + validacion cruzada                              |
 |             |                                                      |
 |             v                                                      |
-|    /sdd2.0/docs/ poblado                                           |
+|    /SDD2.1D/docs/ poblado                                          |
 |             |                                                      |
 |             v                                                      |
 |    PASO 6: Confirmacion humana                                     |
@@ -375,9 +375,9 @@ El diagrama representa el flujo lineal pero los pasos 5 y 6 pueden iterar. Si el
 
 ## 3.9 Diferencias con SDD 1.0
 
-SDD 2.0 hereda el patrón general del fuente SDD 1.0 (la cadena AG-00 → AG-11, la numeración `00..11`, las plantillas de CU/NB/RN/US/BT) pero introduce mejoras tomadas de la auditoría Fase 0:
+SDD 2.1 hereda el patrón general del fuente SDD 1.0 (la cadena AG-00 → AG-11, la numeración `00..11`, las plantillas de CU/NB/RN/US/BT) pero introduce mejoras tomadas de la auditoría Fase 0:
 
-| Aspecto | SDD 1.0 | SDD 2.0 |
+| Aspecto | SDD 1.0 | SDD 2.1 |
 |---|---|---|
 | Stack | Específico .NET / MAUI / NuGet | Stack-agnóstico con perfil por tipo D8 |
 | Separación devs/docs | Implícita | Explícita: `/devs/` versus `/docs/` |
@@ -563,7 +563,7 @@ Esta cadena es la materialización de la trazabilidad vertical que define el enf
 
 ## 5.1 Por qué Scrum por defecto
 
-El template SDD 2.0 propone Scrum como metodología ágil por defecto. La elección no es dogmática: se justifica porque Scrum aporta tres cosas que SDD necesita:
+El template SDD 2.1 propone Scrum como metodología ágil por defecto. La elección no es dogmática: se justifica porque Scrum aporta tres cosas que SDD necesita:
 
 1. **Cadencia fija para sincronización spec-código.** El sprint funciona como ventana en la que la spec y el código se alinean. Al cierre de cada sprint, ambos artefactos están coherentes.
 2. **Roles explícitos.** Product Owner (que valida la spec contra el negocio) y Scrum Master (que protege el ritmo) tienen contrapartes naturales en AG-00 y AG-07.
@@ -583,7 +583,7 @@ Cuando Scrum no encaja, el template admite Kanban o Scrumban. La elección depen
 | Métrica principal | Velocity | Lead time, cycle time | Velocity + WIP |
 | Cuándo elegir | Producto nuevo, equipo cohesionado, roadmap claro | Soporte, mantenimiento, equipos multi-proyecto | Transición desde Scrum cuando la demanda se vuelve menos predecible |
 
-**Recomendación operativa para SDD 2.0.** Empezar con Scrum en proyectos nuevos. Migrar a Scrumban si la demanda externa rompe el sprint goal con frecuencia (más de 30% de los sprints comprometidos se renegocian). Kanban puro queda reservado para equipos de soporte o mantenimiento de productos ya estabilizados.
+**Recomendación operativa para SDD 2.1.** Empezar con Scrum en proyectos nuevos. Migrar a Scrumban si la demanda externa rompe el sprint goal con frecuencia (más de 30% de los sprints comprometidos se renegocian). Kanban puro queda reservado para equipos de soporte o mantenimiento de productos ya estabilizados.
 
 ## 5.3 Sprint 0 y artefactos previos
 
@@ -624,7 +624,7 @@ Solo cuando estos artefactos están en su lugar, el equipo arranca el Sprint 1.
 
 ## 5.5 Roles de Scrum
 
-| Rol Scrum | Mapeo en SDD 2.0 | Responsabilidad nuclear |
+| Rol Scrum | Mapeo en SDD 2.1 | Responsabilidad nuclear |
 |---|---|---|
 | **Product Owner** | AG-00 (Product Manager) | Maximizar el valor del producto; dueño del Product Backlog |
 | **Scrum Master** | AG-06 + AG-07 | Facilitar el proceso; remover impedimentos; coachar al equipo |
@@ -644,7 +644,7 @@ Los tres artefactos son siempre transparentes y siempre actualizados. Un Product
 
 ## 5.7 Definition of Ready (DoR) canónica
 
-Una historia entra a Sprint Planning solo si cumple el DoR. El template SDD 2.0 propone como DoR mínima:
+Una historia entra a Sprint Planning solo si cumple el DoR. El template SDD 2.1 propone como DoR mínima:
 
 - La historia está escrita en formato "Como [rol], quiero [acción], para [beneficio]".
 - Tiene al menos tres escenarios de criterios de aceptación (happy path + dos edge cases) en formato Given/When/Then.
@@ -656,7 +656,7 @@ Una historia entra a Sprint Planning solo si cumple el DoR. El template SDD 2.0 
 
 ## 5.8 Definition of Done (DoD) canónica
 
-Una historia se considera terminada solo si cumple el DoD. El template SDD 2.0 propone como DoD mínima:
+Una historia se considera terminada solo si cumple el DoD. El template SDD 2.1 propone como DoD mínima:
 
 - El código fue revisado y aprobado en pull request por al menos una persona distinta del autor.
 - Tiene tests automatizados (unit + integración cuando aplica).
@@ -762,7 +762,7 @@ Todo el equipo trabaja simultáneamente en una sola estación, alternando quién
 
 ## 7.1 La decisión D8 — Ocho tipos de proyecto
 
-El template SDD 2.0 soporta ocho tipos de proyecto. La decisión D8 (definida en el intake) selecciona uno, y el resto del template se calibra en consecuencia.
+El template SDD 2.1 soporta ocho tipos de proyecto. La decisión D8 (definida en el intake) selecciona uno, y el resto del template se calibra en consecuencia.
 
 | ID D8 | Tipo de proyecto | Descripción corta |
 |---|---|---|
@@ -1039,7 +1039,7 @@ Jakob Nielsen (1994) propuso diez heurísticas que siguen siendo la herramienta 
 
 ## 8.4 Accesibilidad WCAG 2.2 nivel AA
 
-WCAG 2.2 (W3C, 2023) define tres niveles de conformidad: A (mínimo), AA (estándar industrial), AAA (estricto). El template SDD 2.0 recomienda AA como objetivo por defecto.
+WCAG 2.2 (W3C, 2023) define tres niveles de conformidad: A (mínimo), AA (estándar industrial), AAA (estricto). El template SDD 2.1 recomienda AA como objetivo por defecto.
 
 **Cuatro principios POUR.**
 
@@ -1068,7 +1068,7 @@ Diátaxis (Procida, 2022) es un framework que organiza la documentación técnic
 | **Reference** | Estudio | Encontrar información precisa | "¿Cuál era el parámetro Y?" |
 | **Explanation** | Estudio | Entender el porqué | "¿Por qué funciona así?" |
 
-El template SDD 2.0 organiza los artefactos por modo Diátaxis:
+El template SDD 2.1 organiza los artefactos por modo Diátaxis:
 
 | Artefacto | Modo Diátaxis |
 |---|---|
@@ -1139,7 +1139,7 @@ La pirámide de testing (Cohn, 2009) es la heurística de distribución de tests
 
 ## 9.3 ISO/IEC 25010 — Atributos de calidad
 
-ISO/IEC 25010:2011 (actualizada en 2023) define ocho atributos de calidad de producto. SDD 2.0 los usa como checklist en la definición de la estrategia de calidad por proyecto.
+ISO/IEC 25010:2011 (actualizada en 2023) define ocho atributos de calidad de producto. SDD 2.1 los usa como checklist en la definición de la estrategia de calidad por proyecto.
 
 | Atributo | Definición operativa | Cómo se verifica |
 |---|---|---|
@@ -1280,7 +1280,7 @@ A partir de 2022 (Log4Shell, SolarWinds) la cadena de suministro de software se 
 | **NIST SSDF SP 800-218** | Marco de prácticas seguras de desarrollo | Compliance regulatorio |
 | **CycloneDX 1.6** | Formato estándar para SBOM | Interoperabilidad |
 
-**Recomendación SDD 2.0.** Como mínimo SBOM en cada release. Firma cuando el feed lo soporte. Apuntar a SLSA L2 como objetivo para librerías públicas.
+**Recomendación SDD 2.1.** Como mínimo SBOM en cada release. Firma cuando el feed lo soporte. Apuntar a SLSA L2 como objetivo para librerías públicas.
 
 ## 10.9 Feeds preview vs stable
 
@@ -1299,7 +1299,7 @@ El feed preview permite que consumidores integren cambios temprano y reporten pr
 | **Métricas** | Tendencias, agregaciones, SLOs | Prometheus + Grafana, Datadog |
 | **Trazas** | Latencia y errores cruzando servicios | OpenTelemetry, Jaeger, Zipkin |
 
-**OpenTelemetry** (CNCF Graduated, 2024) es el estándar de facto para instrumentación neutra. SDD 2.0 lo recomienda como punto de partida.
+**OpenTelemetry** (CNCF Graduated, 2024) es el estándar de facto para instrumentación neutra. SDD 2.1 lo recomienda como punto de partida.
 
 ## 10.11 GitOps
 
@@ -1326,7 +1326,7 @@ Patrón donde el estado deseado de infraestructura y aplicaciones está declarad
 
 ## 11.1 El patrón nuclear — Plan-then-confirm
 
-El patrón de trabajo con IA que SDD 2.0 adopta se llama **plan-then-confirm con subagentes especializados y audit independiente**. Sus tres elementos:
+El patrón de trabajo con IA que SDD 2.1 adopta se llama **plan-then-confirm con subagentes especializados y audit independiente**. Sus tres elementos:
 
 1. **Plan-then-confirm.** El agente IA primero declara qué va a hacer (lectura previa, archivos a crear, restricciones a respetar, criterios de éxito). El humano confirma antes de que el agente actúe. Esto evita acciones destructivas no intencionadas y obliga al humano a internalizar el plan.
 2. **Subagentes especializados.** El trabajo se divide entre agentes con perfil profesional acotado (uno por especialidad AG-XX). Cada subagente conoce solo su scope y sus criterios. Esto evita que un solo agente cubra demasiado terreno y diluya criterios.
@@ -1451,7 +1451,7 @@ El patrón plan-then-confirm tiene fundamentos en la literatura de prompt engine
 - **Multi-agent collaboration** (Wu et al., 2023; Anthropic, 2024): agentes especializados colaborando producen mejores resultados que un solo agente generalista.
 - **Constitutional AI** (Bai et al., 2022): definir restricciones y criterios de aceptación explícitamente mejora alineamiento.
 
-La metodología SDD 2.0 toma elementos de estos enfoques y los compone en un patrón aplicable a la generación y mantenimiento de documentación técnica.
+La metodología SDD 2.1 toma elementos de estos enfoques y los compone en un patrón aplicable a la generación y mantenimiento de documentación técnica.
 
 ## 11.7 Cadena de trazabilidad spec-prompt-código
 
@@ -1472,7 +1472,7 @@ Cada paso del ciclo tiene un dueño (especialidad AG-XX) y un artefacto verifica
 
 # §12 Anti-patrones y errores frecuentes
 
-Este capítulo consolida los errores típicos al adoptar SDD 2.0, agrupados por categoría. Cada anti-patrón se acompaña del problema concreto que genera y de una mitigación accionable.
+Este capítulo consolida los errores típicos al adoptar SDD 2.1, agrupados por categoría. Cada anti-patrón se acompaña del problema concreto que genera y de una mitigación accionable.
 
 ## 12.1 Anti-patrones de proceso SDD
 
@@ -1558,7 +1558,7 @@ Este capítulo consolida los errores típicos al adoptar SDD 2.0, agrupados por 
 
 # §13 Glosario
 
-Términos canónicos del template SDD 2.0. Cada uno con definición operativa en una a dos líneas.
+Términos canónicos del template SDD 2.1. Cada uno con definición operativa en una a dos líneas.
 
 | Término | Definición |
 |---|---|

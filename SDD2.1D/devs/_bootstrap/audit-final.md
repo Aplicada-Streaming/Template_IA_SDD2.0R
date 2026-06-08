@@ -1,8 +1,8 @@
-# Auditoría final del bootstrap SDD 2.0
+# Auditoría final del bootstrap SDD 2.1
 
 **Fase:** 5 (Auditoría final cross-doc)
 **Auditor:** Auditor independiente final
-**Alcance:** `/sdd2.0/` completo
+**Alcance:** `/SDD2.1D/` completo
 **Versión:** 1.0
 **Fecha:** ejecutado durante bootstrap (sin timestamp por D8.5 idempotencia)
 
@@ -10,7 +10,7 @@
 
 ## 1. Resumen ejecutivo
 
-El template SDD 2.0 alcanza el estado **CERRADO CON OBSERVACIONES** al cierre de la Fase 5. La estructura física del repositorio coincide exactamente con la especificación del prompt orquestador del bootstrap: 23 archivos markdown distribuidos en 6 carpetas más una carpeta `docs/` reservada con solo `.gitkeep`. Las invariantes D1 a D8 se sostienen en todos los artefactos.
+El template SDD 2.1 alcanza el estado **CERRADO CON OBSERVACIONES** al cierre de la Fase 5. La estructura física del repositorio coincide exactamente con la especificación del prompt orquestador del bootstrap: 23 archivos markdown distribuidos en 6 carpetas más una carpeta `docs/` reservada con solo `.gitkeep`. Las invariantes D1 a D8 se sostienen en todos los artefactos.
 
 Conteo acumulado de defectos al cierre del bootstrap (consolidado de los 4 audits de fase + esta Fase 5):
 
@@ -32,13 +32,13 @@ Inventario contra la especificación del prompt orquestador:
 
 | Carpeta | Esperado | Encontrado | Estado |
 |---|---|---|---|
-| `/sdd2.0/devs/_bootstrap/` | 5 audits + audit-final + changelog | 5 audits presentes (audit-sdd1, audit-fase-1, audit-fase-2, audit-fase-3, audit-fase-4) + audit-final y bootstrap-changelog generados por esta fase | Conforme |
-| `/sdd2.0/devs/intake/` | 2 archivos | `PROJECT-BRIEF-template.md` (373 líneas), `PROJECT-README-template.md` (552 líneas) | Conforme |
-| `/sdd2.0/devs/rules/` | 13 archivos (12 numerados + `_root_rules.md`) | `_root_rules.md` (346) + `00_rules_contexto.md` (364) + `01_rules_necesidades_negocio.md` (382) + `02_rules_especificacion_funcional.md` (427) + `03_rules_ux_ui_dx.md` (502) + `04_rules_prompts_ai.md` (438) + `05_rules_arquitectura_tecnica.md` (434) + `06_rules_backlog_tecnico.md` (440) + `07_rules_plan_sprint.md` (405) + `08_rules_calidad_y_pruebas.md` (452) + `09_rules_devops.md` (435) + `10_rules_developer_guide.md` (419) + `11_rules_examples.md` (484) | Conforme: 13 archivos |
-| `/sdd2.0/devs/orchestrator/` | `master-prompt.md` | `master-prompt.md` (621 líneas) | Conforme |
-| `/sdd2.0/devs/guides/` | `marco-teorico-sdd_v1.0.md` | `marco-teorico-sdd_v1.0.md` (1747 líneas) | Conforme |
-| `/sdd2.0/guides/` | `guia-usuario-sdd2.0_v1.0.md` | `guia-usuario-sdd2.0_v1.0.md` (1206 líneas) | Conforme |
-| `/sdd2.0/docs/` | Solo `.gitkeep` | `.gitkeep` (0 bytes) | Conforme. Carpeta vacía, destino del orquestador del proyecto. |
+| `/SDD2.1D/devs/_bootstrap/` | 5 audits + audit-final + changelog | 5 audits presentes (audit-sdd1, audit-fase-1, audit-fase-2, audit-fase-3, audit-fase-4) + audit-final y bootstrap-changelog generados por esta fase | Conforme |
+| `/SDD2.1D/devs/intake/` | 2 archivos | `PROJECT-BRIEF-template.md` (373 líneas), `PROJECT-README-template.md` (552 líneas) | Conforme |
+| `/SDD2.1D/devs/rules/` | 13 archivos (12 numerados + `_root_rules.md`) | `_root_rules.md` (346) + `00_rules_contexto.md` (364) + `01_rules_necesidades_negocio.md` (382) + `02_rules_especificacion_funcional.md` (427) + `03_rules_ux_ui_dx.md` (502) + `04_rules_prompts_ai.md` (438) + `05_rules_arquitectura_tecnica.md` (434) + `06_rules_backlog_tecnico.md` (440) + `07_rules_plan_sprint.md` (405) + `08_rules_calidad_y_pruebas.md` (452) + `09_rules_devops.md` (435) + `10_rules_developer_guide.md` (419) + `11_rules_examples.md` (484) | Conforme: 13 archivos |
+| `/SDD2.1D/devs/orchestrator/` | `master-prompt.md` | `master-prompt.md` (621 líneas) | Conforme |
+| `/SDD2.1D/devs/guides/` | `marco-teorico-sdd_v1.0.md` | `marco-teorico-sdd_v1.0.md` (1747 líneas) | Conforme |
+| `/SDD2.1D/guides/` | `guia-usuario-sdd2.0_v1.0.md` | `guia-usuario-sdd2.0_v1.0.md` (1206 líneas) | Conforme |
+| `/SDD2.1D/docs/` | Solo `.gitkeep` | `.gitkeep` (0 bytes) | Conforme. Carpeta vacía, destino del orquestador del proyecto. |
 
 No se detectan archivos faltantes. No se detectan archivos no esperados. Nomenclatura kebab-case (D3) respetada. Sufijo `_v1.0.md` (D4) respetado en marco teórico y guía de usuario; las reglas usan prefijo numérico `00` a `11` y `_root_rules`, las plantillas de intake usan prefijo `PROJECT-`, conforme la especificación del bootstrap. Encoding UTF-8 / EOL LF (D2) presumido respetado en todos los archivos.
 
@@ -46,7 +46,7 @@ No se detectan archivos faltantes. No se detectan archivos no esperados. Nomencl
 
 ## 3. D7 cross-carpeta
 
-Búsqueda case-insensitive de las cadenas prohibidas en `/sdd2.0/`:
+Búsqueda case-insensitive de las cadenas prohibidas en `/SDD2.1D/`:
 
 `motor dsl`, `esc-pos`, `escpos`, `esc/pos`, `bluetooth`, `nuget`, `impresora termica`, `impresora térmica`, `.net 10`, `termica`, `maui` (sin contexto literal).
 
@@ -117,13 +117,13 @@ Verificación de consistencia de los 8 tipos `library`, `web-monolith`, `web-mic
 
 | Criterio | Cumple |
 |---|---|
-| `/sdd2.0/devs/intake/` tiene exactamente 2 archivos | Sí |
-| `/sdd2.0/devs/rules/` tiene exactamente 13 archivos | Sí (12 numerados + `_root_rules.md`) |
-| `/sdd2.0/devs/orchestrator/master-prompt.md` existe | Sí |
-| `/sdd2.0/devs/guides/marco-teorico-sdd_v1.0.md` existe | Sí |
-| `/sdd2.0/guides/guia-usuario-sdd2.0_v1.0.md` existe | Sí |
-| `/sdd2.0/docs/` solo tiene `.gitkeep` | Sí |
-| `/sdd2.0/devs/_bootstrap/` contiene 5 audits + changelog | Sí (tras la generación de Fase 5) |
+| `/SDD2.1D/devs/intake/` tiene exactamente 2 archivos | Sí |
+| `/SDD2.1D/devs/rules/` tiene exactamente 13 archivos | Sí (12 numerados + `_root_rules.md`) |
+| `/SDD2.1D/devs/orchestrator/master-prompt.md` existe | Sí |
+| `/SDD2.1D/devs/guides/marco-teorico-sdd_v1.0.md` existe | Sí |
+| `/SDD2.1D/guides/guia-usuario-sdd2.0_v1.0.md` existe | Sí |
+| `/SDD2.1D/docs/` solo tiene `.gitkeep` | Sí |
+| `/SDD2.1D/devs/_bootstrap/` contiene 5 audits + changelog | Sí (tras la generación de Fase 5) |
 
 ### 6.2 Calidad plantillas intake
 

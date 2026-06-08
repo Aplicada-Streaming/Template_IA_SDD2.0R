@@ -366,7 +366,7 @@ _El brief se considera listo para ser usado como input del flujo SDD (Visión �
 
 | Versión | Fecha | Cambios | Autor |
 |---|---|---|---|
-| 1.0 | [YYYY-MM-DD] | Plantilla inicial generada durante bootstrap SDD 2.0 | Bootstrap SDD 2.0 |
+| 1.0 | [YYYY-MM-DD] | Plantilla inicial generada durante bootstrap SDD 2.1 | Bootstrap SDD 2.1 |
 
 ---
 

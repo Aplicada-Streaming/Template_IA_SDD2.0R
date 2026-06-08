@@ -1,12 +1,12 @@
 # Reglas constructivas — 04 Prompts AI
 
-**Carpeta target:** `/sdd2.0/docs/04_prompts_ai/`
+**Carpeta target:** `/SDD2.1D/docs/04_prompts_ai/`
 **Subagente target del orquestador:** Ingeniero de Prompts / AI Specialist (AG-04)
 **Versión de las reglas:** 1.0
 
 ---
 
-## 0. Posición en la cadena SDD 2.0
+## 0. Posición en la cadena SDD 2.1
 
 La categoría 04 produce los artefactos que rigen toda interacción del sistema con modelos de lenguaje (LLMs) y demás componentes de IA generativa. Es una categoría **opcional** y **gated** por declaración explícita del proyecto. Recibe insumos de 01 (necesidades de negocio que declaran feature LLM) y del PROJECT-README (§15 decisiones pre-ADR, §13 NFR). Alimenta a 02 (CU que delegan parte del flujo en LLM), a 05 (arquitectura del pipeline AI), a 08 (tests de comportamiento del prompt y umbrales) y a 09 (rate limits, costos por entorno). Esta categoría no es transversal: si el proyecto no consume LLMs, no se genera.
 
@@ -53,7 +53,7 @@ Esta categoría se genera **solo** si el proyecto declara explícitamente que us
 - PROJECT-README §15 (decisiones pre-ADR): bandera `usa_llm: true|false`.
 - PROJECT-README §13 (NFR): NFR explícita de funcionalidad asistida por IA o de procesamiento de lenguaje natural.
 
-El orquestador lee este flag al inicio del bootstrap. Si `usa_llm = false` (o ambos campos están ausentes), **omite por completo la generación de la carpeta `/sdd2.0/docs/04_prompts_ai/`**, deja constancia en el log del orquestador y no produce ningún artefacto de 04. Si el flag pasa de `false` a `true` en una iteración posterior, la categoría se activa de forma retroactiva en esa iteración y se reabren los criterios de aceptación del §6.
+El orquestador lee este flag al inicio del bootstrap. Si `usa_llm = false` (o ambos campos están ausentes), **omite por completo la generación de la carpeta `/SDD2.1D/docs/04_prompts_ai/`**, deja constancia en el log del orquestador y no produce ningún artefacto de 04. Si el flag pasa de `false` a `true` en una iteración posterior, la categoría se activa de forma retroactiva en esa iteración y se reabren los criterios de aceptación del §6.
 
 Queda prohibido producir documentos de 04 sin el flag positivo. Queda prohibido omitir documentos de 04 cuando el flag es positivo.
 
@@ -245,7 +245,7 @@ Tabla de trazabilidad del prompt:
 | Confiar ciegamente en la salida del LLM | Efectos críticos aplicados sin validación humana | Declarar bucle de control humano para tareas con efecto irreversible |
 | Prompt monolítico con varias tareas | Difícil de evaluar y de versionar | Chain of prompts: un archivo por tarea con contrato propio |
 | Métricas sin umbral numérico | "Debe ser buena" no es evaluable | Cada métrica con umbral cuantitativo y acción si no se alcanza |
-| Patrón heredado `.v<X.Y>` | Convención prohibida en SDD 2.0 | Forzar `_v<X.Y>` |
+| Patrón heredado `.v<X.Y>` | Convención prohibida en SDD 2.1 | Forzar `_v<X.Y>` |
 | Casing inconsistente en el slug | Rompe automatizaciones | Forzar kebab lowercase estricto |
 
 ---
@@ -404,7 +404,7 @@ Proveedor primario: {{proveedor-1}}. Alternativa documentada: {{proveedor-2}}. P
 Sos un {{ESPECIALIDAD-VARIANTE}} responsable de la categoría 04 (prompts AI) del proyecto {{NOMBRE_PROYECTO}}.
 
 Precondición de gating:
-- Antes de generar cualquier artefacto, verificá que PROJECT-README declare explícitamente `usa_llm = true` en §15 o una NFR de IA en §13. Si no está declarado, NO generes la carpeta /sdd2.0/docs/04_prompts_ai/ y dejá constancia en el log.
+- Antes de generar cualquier artefacto, verificá que PROJECT-README declare explícitamente `usa_llm = true` en §15 o una NFR de IA en §13. Si no está declarado, NO generes la carpeta /SDD2.1D/docs/04_prompts_ai/ y dejá constancia en el log.
 
 Insumos:
 - PROJECT-BRIEF: {{path}}
@@ -426,7 +426,7 @@ Política de versionado: §3.5; una sola versión vigente; anteriores a `_legacy
 
 Restricciones: no introducir stacks concretos, productos comerciales del dominio fuente ni protocolos específicos de impresión. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /sdd2.0/docs/04_prompts_ai/<estructura>.
+Salida: /SDD2.1D/docs/04_prompts_ai/<estructura>.
 ```
 
 ---
@@ -435,4 +435,4 @@ Salida: /sdd2.0/docs/04_prompts_ai/<estructura>.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.0. Categoría opcional con gating explícito por PROJECT-README. |
+| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1. Categoría opcional con gating explícito por PROJECT-README. |

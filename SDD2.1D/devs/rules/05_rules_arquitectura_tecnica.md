@@ -1,12 +1,12 @@
 # Reglas constructivas — 05 Arquitectura técnica
 
-**Carpeta target:** `/sdd2.0/docs/05_arquitectura_tecnica/`
+**Carpeta target:** `/SDD2.1D/docs/05_arquitectura_tecnica/`
 **Subagente target del orquestador:** Arquitecto de Software Senior (AG-05)
 **Versión de las reglas:** 1.0
 
 ---
 
-## 0. Posición en la cadena SDD 2.0
+## 0. Posición en la cadena SDD 2.1
 
 La categoría 05 es la primera categoría de diseño técnico de la cadena de trazabilidad D6. Recibe upstream de 00 (visión y restricciones técnicas implícitas), 01 (necesidades de negocio NB-XX), 02 (CU, RN, modelo conceptual y RC) y 04 (contratos de prompts si el proyecto delega lógica en un LLM). Produce los artefactos que sirven como ancla para 06 (US y backlog técnico), 07 (sprint plan), 08 (testing técnico y de integración), 09 (DevOps y despliegue), 10 (developer guide) y 11 (examples). Su salida define el cómo estructural del sistema sin entrar en detalle de implementación de cada US. Aplica de manera obligatoria a los ocho tipos D8: ningún tipo está exento de producir al menos una arquitectura de solución y una colección de ADRs individuales.
 
@@ -100,7 +100,7 @@ Queda prohibido el patrón heredado `decisiones-arquitectura.v1.0.md` o el patr�
 
 ### 3.3 Convención crítica de ADR individuales
 
-La auditoría de Fase 0 del bootstrap (`_bootstrap/audit-sdd1.md`) detectó que el fuente Motor DSL consolida todas las decisiones en un único archivo `decisiones-arquitectura_v1.0.md` con secciones internas, sin archivos individuales por ADR. SDD 2.0 corrige esta práctica de manera obligatoria:
+La auditoría de Fase 0 del bootstrap (`_bootstrap/audit-sdd1.md`) detectó que el fuente Motor DSL consolida todas las decisiones en un único archivo `decisiones-arquitectura_v1.0.md` con secciones internas, sin archivos individuales por ADR. SDD 2.1 corrige esta práctica de manera obligatoria:
 
 1. Cada ADR vive en un archivo independiente bajo `adrs/`.
 2. El archivo `decisiones-arquitectura_v1.0.md` se reduce a un índice navegable con identificador, título, estado, fecha y categoría.
@@ -422,7 +422,7 @@ Criterios de calidad: §6 de 05_rules_arquitectura_tecnica.md.
 
 Restricciones: no introducir stacks concretos, productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /sdd2.0/docs/05_arquitectura_tecnica/<estructura>.
+Salida: /SDD2.1D/docs/05_arquitectura_tecnica/<estructura>.
 ```
 
 ---

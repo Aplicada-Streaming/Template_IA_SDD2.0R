@@ -1,7 +1,7 @@
 # Reglas constructivas — README raíz del proyecto
 
-**Carpeta target:** `/sdd2.0/docs/`
-**Archivo target:** `/sdd2.0/docs/README.md`
+**Carpeta target:** `/SDD2.1D/docs/`
+**Archivo target:** `/SDD2.1D/docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
 **Versión de las reglas:** 1.0
 
@@ -30,7 +30,7 @@ El orquestador lee esta tabla y, según el campo `Tipo de proyecto` declarado en
 
 ### 1.3 Multi-especialidad
 
-Cuando el README raíz necesita atender audiencias mixtas, se admite combinar AG-ROOT con el Technical Writer (AG-10) para refinar la narrativa orientada a desarrollador externo, y con el Analista de Negocio (AG-01) para validar que la propuesta de valor expuesta en la sección de identidad coincide con la visión declarada en `/sdd2.0/docs/00_contexto/`. En proyectos `library` y `cli-tool` se recomienda incorporar a AG-11 (Developer Advocate) para curar el bloque de quick-start. La regla es: AG-ROOT mantiene la propiedad del documento; las multi-especialidades aportan revisión y enmienda, no autoría compartida.
+Cuando el README raíz necesita atender audiencias mixtas, se admite combinar AG-ROOT con el Technical Writer (AG-10) para refinar la narrativa orientada a desarrollador externo, y con el Analista de Negocio (AG-01) para validar que la propuesta de valor expuesta en la sección de identidad coincide con la visión declarada en `/SDD2.1D/docs/00_contexto/`. En proyectos `library` y `cli-tool` se recomienda incorporar a AG-11 (Developer Advocate) para curar el bloque de quick-start. La regla es: AG-ROOT mantiene la propiedad del documento; las multi-especialidades aportan revisión y enmienda, no autoría compartida.
 
 ---
 
@@ -40,10 +40,10 @@ Cuando el README raíz necesita atender audiencias mixtas, se admite combinar AG
 
 | Archivo | Obligatorio para | Recomendado para | Omitir para | Descripción |
 | --- | --- | --- | --- | --- |
-| `/sdd2.0/docs/README.md` | Todos los tipos D8 | — | — | Punto de entrada de la documentación del proyecto y ancla del árbol SDD. |
-| `/sdd2.0/docs/CHANGELOG.md` | library, rest-api, cli-tool | web-monolith, web-microservices, worker-service, desktop-app, mobile-app-maui | — | Bitácora de cambios con relevancia para consumidores externos. |
-| `/sdd2.0/docs/CONTRIBUTING.md` | library, cli-tool | rest-api, worker-service | web-monolith | Guía de contribución cuando el proyecto admite aportes externos. |
-| `/sdd2.0/docs/LICENSE.md` | library, cli-tool | rest-api | — | Texto de licencia visible desde el árbol de documentación. |
+| `/SDD2.1D/docs/README.md` | Todos los tipos D8 | — | — | Punto de entrada de la documentación del proyecto y ancla del árbol SDD. |
+| `/SDD2.1D/docs/CHANGELOG.md` | library, rest-api, cli-tool | web-monolith, web-microservices, worker-service, desktop-app, mobile-app-maui | — | Bitácora de cambios con relevancia para consumidores externos. |
+| `/SDD2.1D/docs/CONTRIBUTING.md` | library, cli-tool | rest-api, worker-service | web-monolith | Guía de contribución cuando el proyecto admite aportes externos. |
+| `/SDD2.1D/docs/LICENSE.md` | library, cli-tool | rest-api | — | Texto de licencia visible desde el árbol de documentación. |
 
 ### 2.2 Reglas de inclusión/exclusión por tipo de proyecto
 
@@ -58,7 +58,7 @@ El README raíz es siempre obligatorio. Lo que varía es la presencia de bloques
 - `cli-tool`: incluye instalación, comandos principales y ejemplos.
 - `worker-service`: incluye fuentes y sinks de eventos, política de reintentos y observabilidad.
 
-Los archivos `CHANGELOG.md`, `CONTRIBUTING.md` y `LICENSE.md` se incluyen en `/sdd2.0/docs/` solo cuando el proyecto requiere comunicación con consumidores externos al equipo.
+Los archivos `CHANGELOG.md`, `CONTRIBUTING.md` y `LICENSE.md` se incluyen en `/SDD2.1D/docs/` solo cuando el proyecto requiere comunicación con consumidores externos al equipo.
 
 ---
 
@@ -90,7 +90,7 @@ Todos los nombres respetan kebab-case estricto en minúsculas (D3) y sufijo de v
 
 ### 3.4 README de la sección
 
-No aplica. Este archivo es el README de la raíz de `/sdd2.0/docs/`. Los README de sección (uno por cada carpeta numerada) son responsabilidad de los respectivos AG-00 a AG-11 y se rigen por su propio archivo de reglas.
+No aplica. Este archivo es el README de la raíz de `/SDD2.1D/docs/`. Los README de sección (uno por cada carpeta numerada) son responsabilidad de los respectivos AG-00 a AG-11 y se rigen por su propio archivo de reglas.
 
 ---
 
@@ -202,7 +202,7 @@ Tabla C: Estado actual.
 ### 5.3 Trazabilidad
 
 - ¿Las 12 categorías están enlazadas con un párrafo breve de propósito?
-- ¿Los enlaces apuntan a rutas existentes en `/sdd2.0/docs/`?
+- ¿Los enlaces apuntan a rutas existentes en `/SDD2.1D/docs/`?
 - ¿La cadena Visión → NB → CU → RN → ADR → US → BT → Sprint → Test → Pipeline está visible al menos como referencia conceptual en §3?
 - ¿El roadmap del README es un enlace y no una copia?
 
@@ -225,7 +225,7 @@ Tabla C: Estado actual.
 - [ ] El tipo de proyecto declarado en PROJECT-README está reflejado en la cabecera y condiciona las secciones opcionales incluidas.
 - [ ] El flujo de lectura está diferenciado para al menos 3 audiencias en la Tabla B, con justificación por rol.
 - [ ] El glosario rápido tiene mínimo 10 términos del dominio del proyecto, definidos en una línea cada uno.
-- [ ] Todos los enlaces internos del README apuntan a rutas que existen en `/sdd2.0/docs/`; no hay enlaces rotos.
+- [ ] Todos los enlaces internos del README apuntan a rutas que existen en `/SDD2.1D/docs/`; no hay enlaces rotos.
 - [ ] La cabecera respeta el bloque obligatorio de §4.1 con todos los campos completos.
 - [ ] El documento tiene entre 200 y 400 líneas en su versión final.
 - [ ] No aparecen emojis, negritas decorativas, ni términos del dominio prohibido por D7.
@@ -327,14 +327,14 @@ Insumos:
 - PROJECT-BRIEF: {{path}}
 - PROJECT-README: {{path}}
 - Documentos upstream ya generados: ninguno (sos el ancla).
-- Documentos downstream que vas a enlazar: /sdd2.0/docs/00..11/README.md
+- Documentos downstream que vas a enlazar: /SDD2.1D/docs/00..11/README.md
 
 Reglas de redacción: §4 de _root_rules.md.
 Trazabilidad esperada: enlazar las 12 categorías con descripción de propósito.
 Criterios de calidad: §6 de _root_rules.md (10 ítems verificables).
 Restricciones: respetar D1 a D8; no incluir emojis, negritas decorativas, ni términos del dominio prohibido por D7.
 
-Salida: /sdd2.0/docs/README.md (sin versión en el nombre, con versión 1.0 en la cabecera).
+Salida: /SDD2.1D/docs/README.md (sin versión en el nombre, con versión 1.0 en la cabecera).
 ```
 
 ---
@@ -343,4 +343,4 @@ Salida: /sdd2.0/docs/README.md (sin versión en el nombre, con versión 1.0 en l
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.0 |
+| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1 |

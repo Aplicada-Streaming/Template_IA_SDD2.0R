@@ -246,7 +246,7 @@ Pasos correctivos requeridos antes de cerrar la Fase 1:
 2. **Importante**: restituir tildes en PROJECT-README-template.md para alinear con D1 y con el BRIEF (P1-001).
 3. **Cosmético**: unificar capitalización "Nombre del proyecto" en ambas cabeceras y considerar documentar la derivación de `<nombre-kebab>` (P2-001, P2-002).
 
-Las plantillas en general son sólidas, completas, internamente coherentes y honran la separación de responsabilidades negocio ↔ técnico exigida por SDD 2.0. Una vez corregido el P0 las plantillas quedan en condición APROBADAS.
+Las plantillas en general son sólidas, completas, internamente coherentes y honran la separación de responsabilidades negocio ↔ técnico exigida por SDD 2.1. Una vez corregido el P0 las plantillas quedan en condición APROBADAS.
 
 ---
 

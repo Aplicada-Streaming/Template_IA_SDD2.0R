@@ -1,4 +1,4 @@
-# Guía de usuario del template SDD 2.0
+# Guía de usuario del template SDD 2.1
 
 ```yaml
 Documento: guia-usuario-sdd2.0_v1.0.md
@@ -14,13 +14,13 @@ Estado: vigente
 
 ---
 
-## §1 ¿Qué es el template SDD 2.0?
+## §1 ¿Qué es el template SDD 2.1?
 
-El template SDD 2.0 es un kit de trabajo orientado a equipos de desarrollo que necesitan generar la documentación viva de un proyecto de software antes de escribir la primera línea de código. SDD se lee como "Specification-Driven Development", desarrollo guiado por la especificación. La idea es simple: si el problema está bien capturado, las decisiones técnicas están justificadas y la trazabilidad entre necesidades, casos de uso y tareas está cerrada, la codificación pasa a ser una consecuencia ordenada del diseño, no una serie de improvisaciones.
+El template SDD 2.1 es un kit de trabajo orientado a equipos de desarrollo que necesitan generar la documentación viva de un proyecto de software antes de escribir la primera línea de código. SDD se lee como "Specification-Driven Development", desarrollo guiado por la especificación. La idea es simple: si el problema está bien capturado, las decisiones técnicas están justificadas y la trazabilidad entre necesidades, casos de uso y tareas está cerrada, la codificación pasa a ser una consecuencia ordenada del diseño, no una serie de improvisaciones.
 
-El template resuelve un dolor concreto y repetido: el equipo arranca a codear sin haber escrito la especificación, descubre los huecos del problema a mitad del sprint, paga los costos de retrabajo y termina con una documentación post-facto que nadie mantiene. SDD 2.0 invierte el orden. Primero conversación con el cliente, después intake estructurado, después documentación auditada por categorías, después codificación.
+El template resuelve un dolor concreto y repetido: el equipo arranca a codear sin haber escrito la especificación, descubre los huecos del problema a mitad del sprint, paga los costos de retrabajo y termina con una documentación post-facto que nadie mantiene. SDD 2.1 invierte el orden. Primero conversación con el cliente, después intake estructurado, después documentación auditada por categorías, después codificación.
 
-A diferencia de plantillas ad-hoc o de un README inflado, SDD 2.0 se apoya en tres pilares:
+A diferencia de plantillas ad-hoc o de un README inflado, SDD 2.1 se apoya en tres pilares:
 
 - Una cadena de trazabilidad cerrada (Visión → Necesidad de Negocio → Caso de Uso → Regla de Negocio → ADR → User Story → Backlog Técnico → Sprint → Test → Pipeline), todos los eslabones formales y verificables.
 - Un conjunto de 12 categorías documentales numeradas (`00_contexto/` a `11_examples/`) más un README raíz, cada una con su propio archivo de reglas constructivas que codifica especialidad, documentos a producir, criterios de aceptación y prompts ejemplares.
@@ -30,7 +30,7 @@ La audiencia primaria son desarrolladores, analistas, líderes técnicos y estud
 
 Si el lector necesita la fundamentación teórica (por qué se eligió plan-then-confirm, por qué el principio de delegación de la especialidad, qué nodos cubre la cadena D6, qué invariantes globales D1 a D8 se aplican), eso se documenta en el marco teórico del template. Esta guía es operativa.
 
-Un proyecto típico que usa SDD 2.0 termina con una carpeta `/sdd2.0/docs/` poblada por categoría, un informe de audit por cada fase, un README raíz consolidado y un Sprint 1 listo para arrancar codificación. El handoff a codificación es explícito: el orquestador no escribe código sin confirmación humana.
+Un proyecto típico que usa SDD 2.1 termina con una carpeta `/SDD2.1D/docs/` poblada por categoría, un informe de audit por cada fase, un README raíz consolidado y un Sprint 1 listo para arrancar codificación. El handoff a codificación es explícito: el orquestador no escribe código sin confirmación humana.
 
 ---
 
@@ -40,7 +40,7 @@ Antes de arrancar con el template, asegurate de tener lo siguiente:
 
 - Cuenta de Claude.ai web con plan que admita proyectos y archivos adjuntos. El template fue diseñado para Claude Pro o equivalente con la capacidad de subir documentos largos al chat y mantener proyectos persistentes.
 - Claude Code instalado y autenticado en tu máquina local. Claude Code es la CLI que ejecuta el master-prompt sobre tu repositorio. Verificá que `claude --version` o el equivalente de tu instalación respondan sin error.
-- Repositorio Git inicializado en local. SDD 2.0 trabaja sobre archivos versionados; el orquestador asume que vas a poder hacer commits intermedios entre fases.
+- Repositorio Git inicializado en local. SDD 2.1 trabaja sobre archivos versionados; el orquestador asume que vas a poder hacer commits intermedios entre fases.
 - Editor de texto con soporte de markdown (Visual Studio Code, Cursor, Zed o cualquier otro). Es muy útil tener vista previa de markdown mientras revisás los entregables.
 - Acceso a una terminal funcional. En Windows, PowerShell 5.1 o superior (también podés usar Git Bash o WSL). En Linux y macOS, cualquier shell POSIX.
 
@@ -71,7 +71,7 @@ Si los tres comandos responden, estás listo.
 
 ## §3 Cuándo usar este template y cuándo no
 
-SDD 2.0 no es universal. Está pensado para proyectos donde el esfuerzo de documentación inicial se paga con creces en el flujo posterior. Las siguientes dimensiones ayudan a perfilar si te conviene.
+SDD 2.1 no es universal. Está pensado para proyectos donde el esfuerzo de documentación inicial se paga con creces en el flujo posterior. Las siguientes dimensiones ayudan a perfilar si te conviene.
 
 ### 3.1 Perfilado por tamaño de equipo
 
@@ -209,14 +209,14 @@ Guardá ese documento aparte. Lo vamos a usar como input del paso siguiente.
 
 ### 4.3 Paso 3 — Volcado a las plantillas intake
 
-Acá entran en juego las dos plantillas oficiales del template: `PROJECT-BRIEF-template.md` y `PROJECT-README-template.md`. Las dos viven en `/sdd2.0/devs/intake/` del template fuente.
+Acá entran en juego las dos plantillas oficiales del template: `PROJECT-BRIEF-template.md` y `PROJECT-README-template.md`. Las dos viven en `/SDD2.1D/devs/intake/` del template fuente.
 
 El BRIEF es el intake de negocio: 13 secciones que capturan lo que el cliente quiere en lenguaje de negocio, sin decisiones técnicas. El README es el intake técnico: 17 secciones que capturan cómo se va a construir el sistema, incluido el campo crítico `Tipo de proyecto` con los 8 valores D8.
 
 Subí ambas plantillas al chat de Claude.ai como archivos adjuntos. Después le decís:
 
 ```text
-Te paso dos plantillas oficiales del template SDD 2.0:
+Te paso dos plantillas oficiales del template SDD 2.1:
 PROJECT-BRIEF-template.md y PROJECT-README-template.md.
 
 Quiero que tomes la información del documento consolidado que generamos
@@ -261,44 +261,44 @@ Si ya tenés un repositorio Git para tu proyecto y querés sumar el template com
 
 ```bash
 # Desde la raíz de tu repo
-cp -r ruta/al/template/sdd2.0 ./sdd2.0
+cp -r ruta/al/template/SDD2.1D ./SDD2.1D
 ```
 
 Una vez bajado, reemplazá los archivos de la carpeta `intake/` con los tuyos:
 
 ```bash
 # Asumiendo que guardaste tus intakes llenos en una carpeta intermedia:
-cp BRIEF-lleno.md sdd2.0/devs/intake/PROJECT-BRIEF-sistema-turnos-medicos_v1.0.md
-cp README-lleno.md sdd2.0/devs/intake/PROJECT-README-sistema-turnos-medicos_v1.0.md
+cp BRIEF-lleno.md SDD2.1D/devs/intake/PROJECT-BRIEF-sistema-turnos-medicos_v1.0.md
+cp README-lleno.md SDD2.1D/devs/intake/PROJECT-README-sistema-turnos-medicos_v1.0.md
 ```
 
 En PowerShell el equivalente es:
 
 ```powershell
-Copy-Item BRIEF-lleno.md sdd2.0\devs\intake\PROJECT-BRIEF-sistema-turnos-medicos_v1.0.md
-Copy-Item README-lleno.md sdd2.0\devs\intake\PROJECT-README-sistema-turnos-medicos_v1.0.md
+Copy-Item BRIEF-lleno.md SDD2.1D\devs\intake\PROJECT-BRIEF-sistema-turnos-medicos_v1.0.md
+Copy-Item README-lleno.md SDD2.1D\devs\intake\PROJECT-README-sistema-turnos-medicos_v1.0.md
 ```
 
 Hacé un commit del estado inicial:
 
 ```bash
-git add sdd2.0/
-git commit -m "chore: bootstrap inicial SDD 2.0 con intakes completos"
+git add SDD2.1D/
+git commit -m "chore: bootstrap inicial SDD 2.1 con intakes completos"
 ```
 
 Validá rápidamente que el árbol está bien:
 
 ```bash
-ls sdd2.0/devs/intake/
-ls sdd2.0/devs/orchestrator/
-ls sdd2.0/devs/rules/
+ls SDD2.1D/devs/intake/
+ls SDD2.1D/devs/orchestrator/
+ls SDD2.1D/devs/rules/
 ```
 
 Debería listar el master-prompt en `orchestrator/`, los archivos de reglas `00_rules_*.md` a `11_rules_*.md` y `_root_rules.md` en `rules/`, y tus dos intakes personalizados en `intake/`.
 
 ### 4.5 Paso 5 — Ejecutar el master-prompt en Claude Code
 
-Acá empieza la parte más interesante: el orquestador toma tus intakes y genera la documentación completa del proyecto en `/sdd2.0/docs/`.
+Acá empieza la parte más interesante: el orquestador toma tus intakes y genera la documentación completa del proyecto en `/SDD2.1D/docs/`.
 
 Abrí una terminal en la raíz de tu proyecto y lanzá Claude Code:
 
@@ -307,12 +307,12 @@ cd mi-proyecto
 claude
 ```
 
-Una vez dentro de la sesión interactiva de Claude Code, copiá literalmente el contenido del archivo `sdd2.0/devs/orchestrator/master-prompt.md` y pegalo como primera instrucción. Alternativamente, podés referenciarlo así:
+Una vez dentro de la sesión interactiva de Claude Code, copiá literalmente el contenido del archivo `SDD2.1D/devs/orchestrator/master-prompt.md` y pegalo como primera instrucción. Alternativamente, podés referenciarlo así:
 
 ```text
-Leé /sdd2.0/devs/orchestrator/master-prompt.md y arrancá la ejecución
-del orquestador SDD 2.0 sobre este repositorio. Mis intakes ya están
-en /sdd2.0/devs/intake/. El proyecto se llama [nombre del proyecto].
+Leé /SDD2.1D/devs/orchestrator/master-prompt.md y arrancá la ejecución
+del orquestador SDD 2.1 sobre este repositorio. Mis intakes ya están
+en /SDD2.1D/devs/intake/. El proyecto se llama [nombre del proyecto].
 ```
 
 Claude Code va a:
@@ -357,7 +357,7 @@ A partir de ahí, el orquestador despacha subagentes fase por fase:
 - Fase G: 11_examples (si aplica) + audit G.
 - Fase H: README raíz + audit final consolidado.
 
-Entre cada fase, el orquestador se detiene, presenta el informe del audit (`/sdd2.0/docs/_audit/<fase>-<categoria>_v1.0.md`) y espera tu confirmación para continuar.
+Entre cada fase, el orquestador se detiene, presenta el informe del audit (`/SDD2.1D/docs/_audit/<fase>-<categoria>_v1.0.md`) y espera tu confirmación para continuar.
 
 Si un audit devuelve `RECHAZADO` por hallazgos P0, el orquestador no avanza. Hay que corregir y re-auditar.
 
@@ -389,7 +389,7 @@ Confirmo handoff a codificación. Arrancamos Sprint 1 con los items
 listados en el resumen ejecutivo.
 ```
 
-A partir de ahí, ya salís del scope de SDD 2.0 (que es documentación) y entrás en el ciclo de desarrollo iterativo. La documentación generada queda como referencia viva: se actualiza cuando hay cambios reales, no porque sí.
+A partir de ahí, ya salís del scope de SDD 2.1 (que es documentación) y entrás en el ciclo de desarrollo iterativo. La documentación generada queda como referencia viva: se actualiza cuando hay cambios reales, no porque sí.
 
 ---
 
@@ -462,7 +462,7 @@ Fases ejecutadas en orden: A, B, C, D, E, F, G, H. Cada una con su audit. La fas
 
 #### Muestras de documentos generados
 
-Extracto de `/sdd2.0/docs/02_especificacion_funcional/casos-de-uso/CU-03-reservar-turno_v1.0.md`:
+Extracto de `/SDD2.1D/docs/02_especificacion_funcional/casos-de-uso/CU-03-reservar-turno_v1.0.md`:
 
 ```markdown
 # CU-03 — Reservar turno
@@ -496,7 +496,7 @@ Paciente registrado
 - Downstream: US-08, BT-12, RC-04, TC-15
 ```
 
-Extracto de `/sdd2.0/docs/05_arquitectura_tecnica/adrs/ADR-002-estilo-clean-architecture_v1.0.md`:
+Extracto de `/SDD2.1D/docs/05_arquitectura_tecnica/adrs/ADR-002-estilo-clean-architecture_v1.0.md`:
 
 ```markdown
 # ADR-002 — Adopción de Clean Architecture
@@ -579,7 +579,7 @@ La fase de arquitectura genera 3 ADR mínimos: estilo arquitectónico, superfici
 
 #### Muestras de documentos generados
 
-Extracto de `/sdd2.0/docs/00_contexto/vision-producto_v1.0.md`:
+Extracto de `/SDD2.1D/docs/00_contexto/vision-producto_v1.0.md`:
 
 ```markdown
 # Visión del producto — csv-parser-lib
@@ -608,7 +608,7 @@ la empresa con N scripts ad-hoc.
 - Tiempo de respuesta a issues críticas: ≤ 2 días hábiles.
 ```
 
-Extracto de `/sdd2.0/docs/11_examples/README.md`:
+Extracto de `/SDD2.1D/docs/11_examples/README.md`:
 
 ```markdown
 # Samples — csv-parser-lib
@@ -679,7 +679,7 @@ La fase de DevOps genera estrategia de publicación atada a los ciclos de las st
 
 #### Muestras de documentos generados
 
-Extracto de `/sdd2.0/docs/03_ux_ui_dx/wireframes-pantalla-escaneo_v1.0.md`:
+Extracto de `/SDD2.1D/docs/03_ux_ui_dx/wireframes-pantalla-escaneo_v1.0.md`:
 
 ```markdown
 # Wireframe — pantalla de escaneo
@@ -706,7 +706,7 @@ base local. Si la conexión está disponible, se sincroniza en
 background sin bloquear al usuario.
 ```
 
-Extracto de `/sdd2.0/docs/09_devops/entornos-deploy_v1.0.md`:
+Extracto de `/SDD2.1D/docs/09_devops/entornos-deploy_v1.0.md`:
 
 ```markdown
 # Estrategia de entornos y publicación
@@ -748,11 +748,11 @@ Pasos:
 
 Revisá primero el `project_type` declarado en PROJECT-README §1. Si está mal, corregilo, el orquestador retrocede a la fase A y regenera lo afectado. Si está bien, abrí el archivo de reglas correspondiente (`XX_rules_<categoria>.md`), verificá §2.1 y §2.2 (tabla maestra de documentos y reglas por tipo). Si el documento estaba marcado como "Omitir" para tu tipo y aun así se generó, es un bug del subagente. Pedile al orquestador que regenere esa categoría con instrucciones explícitas.
 
-Si simplemente decidiste que no querés ese documento aunque la regla lo recomiende, eliminalo a mano y registrá un ADR en `/sdd2.0/docs/05_arquitectura_tecnica/` documentando la omisión.
+Si simplemente decidiste que no querés ese documento aunque la regla lo recomiende, eliminalo a mano y registrá un ADR en `/SDD2.1D/docs/05_arquitectura_tecnica/` documentando la omisión.
 
 ### F-03 — Quiero forzar un cambio en una regla de categoría, ¿dónde lo modifico?
 
-Las reglas viven en `/sdd2.0/devs/rules/`. Cada categoría tiene su archivo `XX_rules_<categoria>.md`. Para cambiar comportamiento de una categoría:
+Las reglas viven en `/SDD2.1D/devs/rules/`. Cada categoría tiene su archivo `XX_rules_<categoria>.md`. Para cambiar comportamiento de una categoría:
 
 1. Editás el archivo de reglas correspondiente.
 2. Si es un cambio editorial menor, subís minor (`v1.0` → `v1.1`).
@@ -767,7 +767,7 @@ P0 significa hallazgo bloqueante: viola D1-D8 (idioma, encoding, kebab-case, ver
 
 Pasos:
 
-1. Abrí el informe en `/sdd2.0/docs/_audit/<fase>-<categoria>_v1.0.md`.
+1. Abrí el informe en `/SDD2.1D/docs/_audit/<fase>-<categoria>_v1.0.md`.
 2. Identificá el archivo, sección y evidencia del hallazgo.
 3. Si es un error de contenido (placeholder sin completar, sección omitida), pedile al orquestador que regenere ese documento.
 4. Si es un error de trazabilidad, revisá los documentos upstream o downstream y arreglá las referencias.
@@ -788,7 +788,7 @@ Para una traducción completa del template, copiá el repo y traducí los archiv
 Indicale al orquestador qué documento querés regenerar. Ejemplo:
 
 ```text
-Regenerá únicamente /sdd2.0/docs/05_arquitectura_tecnica/adrs/ADR-003-persistencia_v1.0.md
+Regenerá únicamente /SDD2.1D/docs/05_arquitectura_tecnica/adrs/ADR-003-persistencia_v1.0.md
 manteniendo el resto intacto.
 ```
 
@@ -820,7 +820,7 @@ Si la información nueva afecta el intake (por ejemplo, el cliente cambió el al
 2. Identificá las fases afectadas por el cambio (por ejemplo, un cambio en §10 Restricciones del BRIEF afecta 00, 01, 09).
 3. Pedile al orquestador que retroceda a la fase más temprana afectada y regenere desde ahí.
 
-Si la información nueva es técnica (por ejemplo, agregás un ADR durante el desarrollo), agregalo a `/sdd2.0/docs/05_arquitectura_tecnica/adrs/` y actualizá la trazabilidad downstream a mano o pedile al orquestador que la rehidrate.
+Si la información nueva es técnica (por ejemplo, agregás un ADR durante el desarrollo), agregalo a `/SDD2.1D/docs/05_arquitectura_tecnica/adrs/` y actualizá la trazabilidad downstream a mano o pedile al orquestador que la rehidrate.
 
 ### F-10 — El subagente generó algo distinto a lo que esperaba
 
@@ -830,25 +830,25 @@ Segundo paso: si el subagente realmente se desvió, pedile al orquestador que re
 
 ```text
 Regenerá CU-04-cancelar-turno_v1.0.md respetando estrictamente la
-estructura de §4.2 de /sdd2.0/devs/rules/02_rules_especificacion_funcional.md.
+estructura de §4.2 de /SDD2.1D/devs/rules/02_rules_especificacion_funcional.md.
 El documento actual omite la sección de criterios Given/When/Then.
 ```
 
-### F-11 — ¿Puedo correr varios proyectos SDD 2.0 en el mismo repositorio?
+### F-11 — ¿Puedo correr varios proyectos SDD 2.1 en el mismo repositorio?
 
 Sí, en carpetas separadas. Por ejemplo, para una arquitectura de microservicios podés tener:
 
 ```text
 mi-mono-repo/
 ├── servicio-a/
-│   └── sdd2.0/
+│   └── SDD2.1D/
 ├── servicio-b/
-│   └── sdd2.0/
+│   └── SDD2.1D/
 └── servicio-c/
-    └── sdd2.0/
+    └── SDD2.1D/
 ```
 
-Cada subcarpeta es un proyecto SDD 2.0 independiente con sus propios intakes y su propia documentación generada. El orquestador se ejecuta una vez por cada subproyecto.
+Cada subcarpeta es un proyecto SDD 2.1 independiente con sus propios intakes y su propia documentación generada. El orquestador se ejecuta una vez por cada subproyecto.
 
 ### F-12 — La generación de una fase tarda mucho, ¿es normal?
 
@@ -889,10 +889,10 @@ Imaginemos que querés agregar una categoría `12_observabilidad/` para proyecto
 
 Pasos:
 
-1. Creá la carpeta `/sdd2.0/devs/rules/12_rules_observabilidad.md` siguiendo la estructura de las reglas existentes (§1 Especialidad, §2 Documentos, §3 Nomenclatura, §4 Estructura, §5 Preguntas guía, §6 Criterios, §7 Anti-patrones, §8 Prompt-snippet).
+1. Creá la carpeta `/SDD2.1D/devs/rules/12_rules_observabilidad.md` siguiendo la estructura de las reglas existentes (§1 Especialidad, §2 Documentos, §3 Nomenclatura, §4 Estructura, §5 Preguntas guía, §6 Criterios, §7 Anti-patrones, §8 Prompt-snippet).
 2. Definí la especialidad base (por ejemplo, "Site Reliability Engineer Senior") y las variantes por tipo D8.
 3. Listá los documentos a producir: `estrategia-observabilidad_v1.0.md`, `dashboards_v1.0.md`, `alertas_v1.0.md`, `runbooks/RB-XX-<kebab>_v1.0.md`, `README.md`.
-4. Actualizá `/sdd2.0/devs/orchestrator/master-prompt.md` §6 (plan de generación por categoría) para incluir la nueva categoría. Subí minor del master-prompt.
+4. Actualizá `/SDD2.1D/devs/orchestrator/master-prompt.md` §6 (plan de generación por categoría) para incluir la nueva categoría. Subí minor del master-prompt.
 5. Decidí en qué fase entra (si es transversal, queda como fase F o G; si es post-DevOps, queda como fase F2 nueva).
 6. Probá el flujo completo con un proyecto piloto.
 
@@ -1025,7 +1025,7 @@ Si el template se usa en contexto académico (cátedra, evaluación de trabajos 
 - Conformidad D1 a D8 del entregable final (idioma, encoding, naming, versionado, política de deprecación, trazabilidad, vocabulario, conjunto cerrado D8).
 - Completitud por categoría: cada una de las 12 categorías tiene los documentos obligatorios para su tipo.
 - Trazabilidad cerrada: la cadena Visión → NB → CU → ADR → US → BT → Sprint → Test → Pipeline cierra sin huérfanos.
-- Calidad de los audits: los informes de `/sdd2.0/docs/_audit/` muestran hallazgos reales y veredictos justificados.
+- Calidad de los audits: los informes de `/SDD2.1D/docs/_audit/` muestran hallazgos reales y veredictos justificados.
 - Coherencia narrativa: el README raíz y los READMEs de cada categoría cuentan una historia coherente.
 
 Una matriz de evaluación posible:
@@ -1054,7 +1054,7 @@ Quince términos esenciales para usar el template. Para el glosario exhaustivo d
 | Intake | Documentos de entrada del proyecto: PROJECT-BRIEF (negocio) y PROJECT-README (técnico). Son fuente de verdad. |
 | BRIEF | Plantilla intake de negocio, 13 secciones. Captura lo que el cliente quiere en lenguaje de negocio. |
 | README (intake) | Plantilla intake técnica, 17 secciones. Captura cómo se construye el sistema. No confundir con el README raíz de salida. |
-| Master-prompt | Archivo único `/sdd2.0/devs/orchestrator/master-prompt.md` que ejecuta el orquestador. Es la instrucción que se pega en Claude Code. |
+| Master-prompt | Archivo único `/SDD2.1D/devs/orchestrator/master-prompt.md` que ejecuta el orquestador. Es la instrucción que se pega en Claude Code. |
 | Orquestador | Agente principal que coordina la generación de la documentación. Lee los intakes, planifica, despacha subagentes, audita. |
 | Subagente | Agente especializado que produce los documentos de una categoría. Su especialidad vive en §1 del archivo de reglas correspondiente. |
 | Audit independiente | Revisión cierre de fase por un subagente auditor sin contexto previo. Veredicto bloqueante: APROBADO, APROBADO CON OBSERVACIONES o RECHAZADO. |
@@ -1069,11 +1069,11 @@ Quince términos esenciales para usar el template. Para el glosario exhaustivo d
 
 ### 10.2 Mapa visual de la estructura de carpetas
 
-Árbol esperado de un proyecto que aplica el template SDD 2.0:
+Árbol esperado de un proyecto que aplica el template SDD 2.1:
 
 ```text
 mi-proyecto/
-├── sdd2.0/
+├── SDD2.1D/
 │   ├── devs/
 │   │   ├── intake/
 │   │   │   ├── PROJECT-BRIEF-template.md
@@ -1192,7 +1192,7 @@ Notas sobre el árbol:
 
 - Las carpetas marcadas con "según gating" se generan solo si los flags del intake las habilitan.
 - Cada categoría tiene un README.md propio que es el índice navegable.
-- `/sdd2.0/docs/_audit/` se popula a medida que avanzan las fases.
+- `/SDD2.1D/docs/_audit/` se popula a medida que avanzan las fases.
 - El árbol mostrado es el caso completo; tu proyecto va a tener algunas omisiones según `project_type` y flags.
 
 ---

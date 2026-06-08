@@ -1,12 +1,12 @@
 # Reglas constructivas — 07 Plan de sprint
 
-**Carpeta target:** `/sdd2.0/docs/07_plan-sprint/`
+**Carpeta target:** `/SDD2.1D/docs/07_plan-sprint/`
 **Subagente target del orquestador:** Scrum Master / Gestión Ágil de Proyectos senior (AG-07)
 **Versión de las reglas:** 1.0
 
 ---
 
-## 0. Posición en la cadena SDD 2.0
+## 0. Posición en la cadena SDD 2.1
 
 La categoría 07 es la primera categoría de ejecución iterativa de la cadena de trazabilidad D6. Recibe upstream de 06 (backlog técnico priorizado, US y BT con estimación), 02 (CU y RN cuya trazabilidad sobrevive sprint a sprint) y 05 (arquitectura y ADRs que condicionan el alcance técnico). Alimenta 08 (acceptance tests del sprint vigente y plan de pruebas por iteración), 09 (DevOps si el sprint introduce cambios de pipeline o despliegue) y 10 (developer guide cuando una decisión del sprint impacta convenciones de código). La categoría 07 no decide qué se construye en el largo plazo, eso lo hace 06; decide qué se construye en la ventana timeboxed del sprint vigente, con compromiso del equipo y métrica de cumplimiento. Es obligatoria para todos los proyectos con equipo mayor a un desarrollador; para proyectos de un solo dev se reduce a un mini-plan documentado, pero no se omite.
 
@@ -81,7 +81,7 @@ Sprint 0 corresponde al sprint de arranque dedicado a setup técnico, validació
 - `velocidad-equipo_v<X.Y>.md` para el tracking de velocidad.
 - `mini-plan_v<X.Y>.md` para proyectos de un solo dev.
 
-La auditoría de Fase 0 del bootstrap detectó que el fuente Motor DSL usa el patrón `plan-iteracion_sprint-01_v1.0.md`, que mezcla dos separadores (`_sprint-01` y luego `_v1.0`) sin coherencia con el resto del repositorio. SDD 2.0 corrige esta práctica: el separador interno del nombre lógico es el guion (`-`), y el guion bajo (`_`) se reserva exclusivamente para anteceder a la versión. Queda prohibido el patrón `plan-iteracion_sprint-XX_v<X.Y>.md` con doble separador; el patrón correcto y único es `plan-iteracion-sprint-XX_v<X.Y>.md`.
+La auditoría de Fase 0 del bootstrap detectó que el fuente Motor DSL usa el patrón `plan-iteracion_sprint-01_v1.0.md`, que mezcla dos separadores (`_sprint-01` y luego `_v1.0`) sin coherencia con el resto del repositorio. SDD 2.1 corrige esta práctica: el separador interno del nombre lógico es el guion (`-`), y el guion bajo (`_`) se reserva exclusivamente para anteceder a la versión. Queda prohibido el patrón `plan-iteracion_sprint-XX_v<X.Y>.md` con doble separador; el patrón correcto y único es `plan-iteracion-sprint-XX_v<X.Y>.md`.
 
 ### 3.2 Duración estándar del sprint
 
@@ -393,7 +393,7 @@ Estimación: en story points; declarar la unidad en §1.
 
 Restricciones: no introducir stacks concretos, productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /sdd2.0/docs/07_plan-sprint/<estructura>.
+Salida: /SDD2.1D/docs/07_plan-sprint/<estructura>.
 ```
 
 ---

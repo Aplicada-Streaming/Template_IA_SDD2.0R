@@ -1,12 +1,12 @@
 # Reglas constructivas — 06 Backlog técnico
 
-**Carpeta target:** `/sdd2.0/docs/06_backlog-tecnico/`
+**Carpeta target:** `/SDD2.1D/docs/06_backlog-tecnico/`
 **Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-06)
 **Versión de las reglas:** 1.0
 
 ---
 
-## 0. Posición en la cadena SDD 2.0
+## 0. Posición en la cadena SDD 2.1
 
 La categoría 06 es la bisagra entre el diseño y la ejecución dentro de la cadena de trazabilidad D6. Recibe upstream de 01 (necesidades de negocio NB-XX), 02 (CU, RN, modelo conceptual) y 05 (arquitectura de solución, ADRs y modelo lógico). Produce los artefactos que alimentan 07 (sprint plan), 08 (acceptance tests y QA) y 10 (developer guide cuando se trata de onboarding al backlog). Su salida define qué se construye y en qué orden, sin entrar en el detalle de planificación temporal por sprint, que vive en 07. Aplica de manera obligatoria a los ocho tipos D8: ningún tipo está exento de producir un product backlog priorizado, un backlog técnico y una Definition of Ready acotada.
 
@@ -90,7 +90,7 @@ Queda prohibido el patrón heredado `product-backlog.v1.0.md`; la versión siemp
 
 ### 3.2 Convención crítica de identificadores de dos dígitos
 
-La auditoría de Fase 0 del bootstrap (`_bootstrap/audit-sdd1.md`) detectó que el fuente Motor DSL usa identificadores heterogéneos: `US-01` con dos dígitos en el product-backlog y `BT-001` con tres dígitos en el backlog técnico. SDD 2.0 corrige esta práctica de manera obligatoria:
+La auditoría de Fase 0 del bootstrap (`_bootstrap/audit-sdd1.md`) detectó que el fuente Motor DSL usa identificadores heterogéneos: `US-01` con dos dígitos en el product-backlog y `BT-001` con tres dígitos en el backlog técnico. SDD 2.1 corrige esta práctica de manera obligatoria:
 
 1. Todos los identificadores de US y BT llevan dos dígitos uniformes (`US-01` a `US-99`, `BT-01` a `BT-99`).
 2. Si un proyecto supera 99 US o 99 BT, debe descomponerse en épicas separadas o subdividirse en sub-backlogs por bounded context antes de saltar a tres dígitos.
@@ -428,7 +428,7 @@ Criterios de calidad: §6 de 06_rules_backlog_tecnico.md.
 
 Restricciones: no introducir stacks concretos, productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /sdd2.0/docs/06_backlog-tecnico/<estructura>.
+Salida: /SDD2.1D/docs/06_backlog-tecnico/<estructura>.
 ```
 
 ---

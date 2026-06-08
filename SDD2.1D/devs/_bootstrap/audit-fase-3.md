@@ -2,7 +2,7 @@
 
 **Fase:** 3 (Master-prompt del orquestador)
 **Auditor:** Auditor independiente del master-prompt
-**Alcance:** /sdd2.0/devs/orchestrator/master-prompt.md
+**Alcance:** /SDD2.1D/devs/orchestrator/master-prompt.md
 **Versión:** 1.0
 **Fecha:** 2026-05-17
 
@@ -18,23 +18,23 @@ El master-prompt está completo, coherente y operativamente ejecutable. Cubre la
 
 | Path referenciado | Existe | Línea(s) | Veredicto |
 | --- | --- | --- | --- |
-| `/sdd2.0/devs/intake/PROJECT-BRIEF-<nombre-kebab>_v1.0.md` | Plantilla `PROJECT-BRIEF-template.md` presente; el master-prompt usa nombre derivado en runtime | 7, 18, 73, 301, 371, 485 | OK (plantilla de origen presente; instanciación es runtime) |
-| `/sdd2.0/devs/intake/PROJECT-README-<nombre-kebab>_v1.0.md` | Plantilla `PROJECT-README-template.md` presente | 7, 19, 74, 302, 372, 485 | OK |
-| `/sdd2.0/devs/rules/_root_rules.md` | Sí | 214, 498, 506, 508 | OK |
-| `/sdd2.0/devs/rules/00_rules_contexto.md` | Sí | 58, 202 | OK |
-| `/sdd2.0/devs/rules/01_rules_necesidades_negocio.md` | Sí | 203 | OK |
-| `/sdd2.0/devs/rules/02_rules_especificacion_funcional.md` | Sí | 204, 359, 373 | OK |
-| `/sdd2.0/devs/rules/03_rules_ux_ui_dx.md` | Sí | 205 | OK |
-| `/sdd2.0/devs/rules/04_rules_prompts_ai.md` | Sí | 206 | OK |
-| `/sdd2.0/devs/rules/05_rules_arquitectura_tecnica.md` | Sí | 207 | OK |
-| `/sdd2.0/devs/rules/06_rules_backlog_tecnico.md` | Sí | 208 | OK |
-| `/sdd2.0/devs/rules/07_rules_plan_sprint.md` | Sí | 137, 209 | OK |
-| `/sdd2.0/devs/rules/08_rules_calidad_y_pruebas.md` | Sí | 210 | OK |
-| `/sdd2.0/devs/rules/09_rules_devops.md` | Sí | 211 | OK |
-| `/sdd2.0/devs/rules/10_rules_developer_guide.md` | Sí | 212 | OK |
-| `/sdd2.0/devs/rules/11_rules_examples.md` | Sí | 213 | OK |
-| `/sdd2.0/devs/_bootstrap/audit-sdd1.md` | Sí | 330 | OBSERVADO (acoplamiento bootstrap, ver §9) |
-| `/sdd2.0/devs/_bootstrap/audit-fase-2.md` | Sí | 330, 460 | OBSERVADO (acoplamiento bootstrap, ver §9) |
+| `/SDD2.1D/devs/intake/PROJECT-BRIEF-<nombre-kebab>_v1.0.md` | Plantilla `PROJECT-BRIEF-template.md` presente; el master-prompt usa nombre derivado en runtime | 7, 18, 73, 301, 371, 485 | OK (plantilla de origen presente; instanciación es runtime) |
+| `/SDD2.1D/devs/intake/PROJECT-README-<nombre-kebab>_v1.0.md` | Plantilla `PROJECT-README-template.md` presente | 7, 19, 74, 302, 372, 485 | OK |
+| `/SDD2.1D/devs/rules/_root_rules.md` | Sí | 214, 498, 506, 508 | OK |
+| `/SDD2.1D/devs/rules/00_rules_contexto.md` | Sí | 58, 202 | OK |
+| `/SDD2.1D/devs/rules/01_rules_necesidades_negocio.md` | Sí | 203 | OK |
+| `/SDD2.1D/devs/rules/02_rules_especificacion_funcional.md` | Sí | 204, 359, 373 | OK |
+| `/SDD2.1D/devs/rules/03_rules_ux_ui_dx.md` | Sí | 205 | OK |
+| `/SDD2.1D/devs/rules/04_rules_prompts_ai.md` | Sí | 206 | OK |
+| `/SDD2.1D/devs/rules/05_rules_arquitectura_tecnica.md` | Sí | 207 | OK |
+| `/SDD2.1D/devs/rules/06_rules_backlog_tecnico.md` | Sí | 208 | OK |
+| `/SDD2.1D/devs/rules/07_rules_plan_sprint.md` | Sí | 137, 209 | OK |
+| `/SDD2.1D/devs/rules/08_rules_calidad_y_pruebas.md` | Sí | 210 | OK |
+| `/SDD2.1D/devs/rules/09_rules_devops.md` | Sí | 211 | OK |
+| `/SDD2.1D/devs/rules/10_rules_developer_guide.md` | Sí | 212 | OK |
+| `/SDD2.1D/devs/rules/11_rules_examples.md` | Sí | 213 | OK |
+| `/SDD2.1D/devs/_bootstrap/audit-sdd1.md` | Sí | 330 | OBSERVADO (acoplamiento bootstrap, ver §9) |
+| `/SDD2.1D/devs/_bootstrap/audit-fase-2.md` | Sí | 330, 460 | OBSERVADO (acoplamiento bootstrap, ver §9) |
 
 Todos los archivos de reglas (13) y las plantillas de intake existen. No hay path roto. Aparecen dos referencias a archivos del bootstrap que el master-prompt cita textualmente como fuente de vocabulario prohibido y como referencia estructural de audit; se discute en §9.
 
@@ -113,7 +113,7 @@ Veredicto: cumplido y reforzado en cuatro secciones.
 ## 7. Handoff a codificación
 
 - Detención explícita: sí. L514: "el orquestador NO inicia automáticamente la generación de código. Se detiene y presenta al usuario un resumen ejecutivo".
-- Texto literal obligatorio del cierre: L527-529 con la frase formal: "Documentación `/sdd2.0/docs/` generada y auditada. Antes de avanzar a la generación de código, necesito confirmación explícita del usuario para arrancar el Sprint 1...".
+- Texto literal obligatorio del cierre: L527-529 con la frase formal: "Documentación `/SDD2.1D/docs/` generada y auditada. Antes de avanzar a la generación de código, necesito confirmación explícita del usuario para arrancar el Sprint 1...".
 - Refuerzo bloqueante: L531 "El orquestador no escribe código bajo ninguna circunstancia sin recibir la confirmación literal".
 - Resumen ejecutivo enumerado: tabla L519-526 con 6 bloques obligatorios:
   1. Documentos generados por categoría (cantidad/tamaño/estado por carpeta + README raíz).
@@ -155,8 +155,8 @@ Observación P2: §6 fila A-00 hace referencia condicional "acuerdo-equipo si eq
   - `_bootstrap/audit-sdd1.md` (L330): referenciado como fuente del listado de términos del dominio prohibido.
   - `_bootstrap/audit-fase-2.md` (L330 y L460): referenciado como fuente de términos prohibidos y como modelo estructural del informe de audit.
 - Autocontención: parcial. El usuario final que ejecute el master-prompt necesita haber recibido (o tener acceso a) los dos archivos de bootstrap citados para que el subagente conozca el listado exacto de vocabulario prohibido. Esto no rompe la ejecución, porque el archivo `audit-sdd1.md` describe vocabulario del dominio fuente del bootstrap, no instrucciones operativas; pero el master-prompt asume que el lector acepta esa lista vinculada por referencia. Marcado P1.
-- Separación bootstrap vs proyecto: declarada explícitamente en §5 L171-172: "Las invariantes D1-D8 del bootstrap son globales del template (idioma, encoding, kebab-case, versionado, política, trazabilidad D6, prohibición de ejemplos del dominio fuente, conjunto cerrado D8). Sobre esa base, cada proyecto define otro conjunto de invariantes propias". §15 L590 ratifica en el glosario: "Existen invariantes globales del template (D1-D8 del bootstrap) e invariantes del proyecto (las recolectadas en §5)". §15 L595 declara: "Master-prompt ... Es la única instrucción que el usuario ejecuta para obtener /sdd2.0/docs/. Es autocontenido."
-- Separación bootstrap vs master-prompt: §16 L611 cierra el control de cambios con autor "Bootstrap SDD 2.0", reconociendo que el bootstrap generó este archivo pero ya no es el actor. El master-prompt no se autocomporta como prompt del bootstrap.
+- Separación bootstrap vs proyecto: declarada explícitamente en §5 L171-172: "Las invariantes D1-D8 del bootstrap son globales del template (idioma, encoding, kebab-case, versionado, política, trazabilidad D6, prohibición de ejemplos del dominio fuente, conjunto cerrado D8). Sobre esa base, cada proyecto define otro conjunto de invariantes propias". §15 L590 ratifica en el glosario: "Existen invariantes globales del template (D1-D8 del bootstrap) e invariantes del proyecto (las recolectadas en §5)". §15 L595 declara: "Master-prompt ... Es la única instrucción que el usuario ejecuta para obtener /SDD2.1D/docs/. Es autocontenido."
+- Separación bootstrap vs master-prompt: §16 L611 cierra el control de cambios con autor "Bootstrap SDD 2.1", reconociendo que el bootstrap generó este archivo pero ya no es el actor. El master-prompt no se autocomporta como prompt del bootstrap.
 
 Observación: la afirmación L595 ("autocontenido") tiene una tensión literal con las dos referencias de L330 y L460 al bootstrap. Es resoluble bajando esas referencias a "notas de inspiración" sin dependencia operativa.
 
@@ -172,7 +172,7 @@ Ninguno.
 
 **P1-1 — Acoplamiento residual al bootstrap en §8 y §10.**
 - Archivo: master-prompt.md L330 y L460.
-- Evidencia: L330 enumera como prohibición "No introducir vocabulario ... (ver el listado de términos prohibidos en la auditoría `_bootstrap/audit-sdd1.md` y `_bootstrap/audit-fase-2.md`)". L460 dice "El informe sigue la estructura del audit de Fase 2 que se generó durante el bootstrap (`/sdd2.0/devs/_bootstrap/audit-fase-2.md`) como referencia."
+- Evidencia: L330 enumera como prohibición "No introducir vocabulario ... (ver el listado de términos prohibidos en la auditoría `_bootstrap/audit-sdd1.md` y `_bootstrap/audit-fase-2.md`)". L460 dice "El informe sigue la estructura del audit de Fase 2 que se generó durante el bootstrap (`/SDD2.1D/devs/_bootstrap/audit-fase-2.md`) como referencia."
 - Problema: el master-prompt se declara autocontenido en L595 pero referencia dos archivos del bootstrap como fuente activa de información operativa. Un usuario externo que reciba solo el template podría no recibir `_bootstrap/`.
 - Recomendación: o bien incorporar el listado de términos prohibidos directamente como sección del master-prompt (o como invariante de §5), o bien aclarar que las referencias son meramente inspirativas y describir la estructura del informe de audit íntegramente en §10.
 

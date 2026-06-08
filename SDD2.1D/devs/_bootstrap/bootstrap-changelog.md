@@ -1,4 +1,4 @@
-# Changelog del bootstrap SDD 2.0
+# Changelog del bootstrap SDD 2.1
 
 **Versión del bootstrap:** 1.0
 **Estado:** Cerrado con observaciones (según veredicto del audit final §8)
@@ -7,9 +7,9 @@
 
 ## Resumen ejecutivo
 
-El bootstrap del template SDD 2.0 produjo, en 6 fases (F0 a F5) y a través de aproximadamente 20 despachos de subagentes coordinados por un master-prompt de bootstrap, un template metodológico stack-agnóstico orientado a la construcción de proyectos por especificación viva, basado en la auditoría del fuente SDD 1.0 (caso de estudio histórico "Motor DSL" de la cátedra de Aplicada 2026).
+El bootstrap del template SDD 2.1 produjo, en 6 fases (F0 a F5) y a través de aproximadamente 20 despachos de subagentes coordinados por un master-prompt de bootstrap, un template metodológico stack-agnóstico orientado a la construcción de proyectos por especificación viva, basado en la auditoría del fuente SDD 1.0 (caso de estudio histórico "Motor DSL" de la cátedra de Aplicada 2026).
 
-Se generaron 23 archivos markdown distribuidos en seis carpetas funcionales: `/sdd2.0/devs/_bootstrap/`, `/sdd2.0/devs/intake/`, `/sdd2.0/devs/rules/`, `/sdd2.0/devs/orchestrator/`, `/sdd2.0/devs/guides/`, `/sdd2.0/guides/`. La carpeta `/sdd2.0/docs/` queda reservada vacía con `.gitkeep` como destino del orquestador del proyecto.
+Se generaron 23 archivos markdown distribuidos en seis carpetas funcionales: `/SDD2.1D/devs/_bootstrap/`, `/SDD2.1D/devs/intake/`, `/SDD2.1D/devs/rules/`, `/SDD2.1D/devs/orchestrator/`, `/SDD2.1D/devs/guides/`, `/SDD2.1D/guides/`. La carpeta `/SDD2.1D/docs/` queda reservada vacía con `.gitkeep` como destino del orquestador del proyecto.
 
 El bootstrap incorporó auditoría sistemática entre fases (5 audits intermedios + 1 audit final) y sostuvo las invariantes D1 a D8 a lo largo de todo el ciclo. Los defectos P0 detectados durante el camino fueron resueltos antes del cierre de su fase. Los P1 y P2 abiertos al cierre se documentan para v1.1.
 
@@ -17,7 +17,7 @@ El bootstrap incorporó auditoría sistemática entre fases (5 audits intermedio
 
 | Métrica | Valor |
 |---|---|
-| Archivos generados en `/sdd2.0/` | 23 markdown + 1 `.gitkeep` |
+| Archivos generados en `/SDD2.1D/` | 23 markdown + 1 `.gitkeep` |
 | Líneas markdown totales | 11.217 líneas |
 | Palabras aproximadas | ~90.000 palabras |
 | Subagentes despachados | ~20 (F1=2, F2=13, F3=1, F4=2, F5=2 auditoría, F0 y audits intermedios completan el conteo) |
@@ -27,7 +27,7 @@ El bootstrap incorporó auditoría sistemática entre fases (5 audits intermedio
 
 ## Inventario completo
 
-### /sdd2.0/devs/_bootstrap/
+### /SDD2.1D/devs/_bootstrap/
 
 | Archivo | Líneas | Propósito |
 |---|---|---|
@@ -39,14 +39,14 @@ El bootstrap incorporó auditoría sistemática entre fases (5 audits intermedio
 | `audit-final.md` | (esta fase) | Auditoría final cross-doc del bootstrap. Consolida el veredicto del template. |
 | `bootstrap-changelog.md` | (esta fase) | Este documento. Trazabilidad histórica del bootstrap. |
 
-### /sdd2.0/devs/intake/
+### /SDD2.1D/devs/intake/
 
 | Archivo | Líneas | Propósito |
 |---|---|---|
 | `PROJECT-BRIEF-template.md` | 373 | Plantilla del documento de necesidades de negocio. Captura visión, problema, objetivos, alcance, métricas, restricciones. Input bloqueante de la cadena D6. |
 | `PROJECT-README-template.md` | 552 | Plantilla del documento técnico de construcción. Captura tipo de proyecto (D8), stack, arquitectura, testing, CI/CD, samples. Gobierna las variantes de especialidad de las 12 categorías SDD. |
 
-### /sdd2.0/devs/rules/
+### /SDD2.1D/devs/rules/
 
 | Archivo | Líneas | Categoría |
 |---|---|---|
@@ -64,25 +64,25 @@ El bootstrap incorporó auditoría sistemática entre fases (5 audits intermedio
 | `10_rules_developer_guide.md` | 419 | Guía de desarrollador del proyecto. |
 | `11_rules_examples.md` | 484 | Samples y ejemplos por nivel/capacidad (corrección obligatoria: prohibido nombrar por dominio). |
 
-### /sdd2.0/devs/orchestrator/
+### /SDD2.1D/devs/orchestrator/
 
 | Archivo | Líneas | Propósito |
 |---|---|---|
-| `master-prompt.md` | 621 | Prompt orquestador autocontenido del proyecto. Despacha la generación de `/sdd2.0/docs/` por fases A–H trazables a la cadena D6, con auditoría entre fases. |
+| `master-prompt.md` | 621 | Prompt orquestador autocontenido del proyecto. Despacha la generación de `/SDD2.1D/docs/` por fases A–H trazables a la cadena D6, con auditoría entre fases. |
 
-### /sdd2.0/devs/guides/
+### /SDD2.1D/devs/guides/
 
 | Archivo | Líneas | Propósito |
 |---|---|---|
-| `marco-teorico-sdd_v1.0.md` | 1.747 | Marco teórico SDD 2.0: 14 capítulos. Spec-First / Spec-Anchored / Spec-as-Source, cadena D6, 8 tipos D8, ADRs, calidad, DevOps, prompting colaborativo, bibliografía. |
+| `marco-teorico-sdd_v1.0.md` | 1.747 | Marco teórico SDD 2.1: 14 capítulos. Spec-First / Spec-Anchored / Spec-as-Source, cadena D6, 8 tipos D8, ADRs, calidad, DevOps, prompting colaborativo, bibliografía. |
 
-### /sdd2.0/guides/
+### /SDD2.1D/guides/
 
 | Archivo | Líneas | Propósito |
 |---|---|---|
 | `guia-usuario-sdd2.0_v1.0.md` | 1.206 | Guía de usuario del template. 6 pasos del flujo, 3 mini-casos por tipo D8, glosario, comparación SDD 1.0 vs 2.0. |
 
-### /sdd2.0/docs/
+### /SDD2.1D/docs/
 
 Carpeta vacía con `.gitkeep`. Destino del orquestador del proyecto cuando un usuario consuma el template para un proyecto nuevo.
 
@@ -199,7 +199,7 @@ Carpeta vacía con `.gitkeep`. Destino del orquestador del proyecto cuando un us
 
 ## Próximos pasos para el usuario del template
 
-1. Validar el template ejecutándolo en un proyecto piloto real, completando ambas plantillas de intake y disparando el `master-prompt.md` para generar `/sdd2.0/docs/`.
+1. Validar el template ejecutándolo en un proyecto piloto real, completando ambas plantillas de intake y disparando el `master-prompt.md` para generar `/SDD2.1D/docs/`.
 2. Recolectar feedback estructurado: registro de ambigüedades del master-prompt, completitud de las 13 reglas, ejemplos faltantes por tipo D8.
 3. Iterar a v1.1 cerrando los 7 defectos P1 documentados arriba (especialmente F2-P1-01 sobre cobertura agregada de `desktop-app` y `mobile-app-maui`, y F3-P1-01 sobre autocontención del master-prompt).
 4. Publicar v1.1 como versión consolidada de uso general.

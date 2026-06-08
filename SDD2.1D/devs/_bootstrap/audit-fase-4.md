@@ -2,7 +2,7 @@
 
 **Fase:** 4
 **Auditor:** Auditor independiente cross-doc
-**Alcance:** `sdd2.0/devs/guides/marco-teorico-sdd_v1.0.md` + `sdd2.0/guides/guia-usuario-sdd2.0_v1.0.md`
+**Alcance:** `SDD2.1D/devs/guides/marco-teorico-sdd_v1.0.md` + `SDD2.1D/guides/guia-usuario-sdd2.0_v1.0.md`
 **Versión del informe:** 1.0
 **Fecha:** 2026-05-17
 

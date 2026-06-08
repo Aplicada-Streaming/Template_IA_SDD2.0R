@@ -1,18 +1,18 @@
 # Reglas constructivas — 10 Developer guide
 
-**Carpeta target:** `/sdd2.0/docs/10_developer_guide/`
+**Carpeta target:** `/SDD2.1D/docs/10_developer_guide/`
 **Subagente target del orquestador:** Technical Writer / Developer Advocate Senior (AG-10)
 **Versión de las reglas:** 1.0
 
 ---
 
-## 0. Posición en la cadena SDD 2.0
+## 0. Posición en la cadena SDD 2.1
 
 La categoría 10 es la ventana que el proyecto le abre al desarrollador que lo va a consumir. Recibe upstream de 02 (casos de uso y modelo de datos lógico que explican qué resuelve el sistema), de 05 (arquitectura, contratos públicos, NFR y puntos de extensión que el consumidor debe respetar) y de 08 (estrategia de testing y convenciones de pruebas que la guía cita pero no redefine). Alimenta a 11 (examples ejecutables que ilustran los flujos descriptos por la guía) y, de manera transversal, a cualquier release y a su changelog público.
 
 Esta categoría es **obligatoria para library, rest-api y cli-tool**, donde la audiencia es explícitamente un desarrollador externo o integrador. Es **recomendada para web-microservices** cuando expone APIs públicas o un BFF documentado. Es **opcional para web-monolith, desktop-app, mobile-app-maui y worker-service**, casos en los que la documentación de consumo se limita al equipo interno y suele resolverse con el README del repositorio.
 
-La auditoría de Fase 0 (`_bootstrap/audit-sdd1.md`) detectó dos déficits del fuente SDD 1.0 que SDD 2.0 corrige aquí. Primero, los artefactos de `10_developer_guide/` del fuente carecen del sufijo `_v<X.Y>.md` (aparecen como `conceptos-fundamentales.md`, `formato-dsl-templates.md`, `guia-integracion-maui.md`, etc.), rompiendo la convención de versionado del resto del repositorio. Segundo, los nombres atan la guía a un sistema objetivo concreto (`guia-integracion-maui.md`), lo cual contamina la plantilla. SDD 2.0 corrige ambos puntos: impone `_v<X.Y>.md` uniforme y parametriza el nombre de la guía de integración como `guia-integracion-<sistema-objetivo>_v<X.Y>.md`.
+La auditoría de Fase 0 (`_bootstrap/audit-sdd1.md`) detectó dos déficits del fuente SDD 1.0 que SDD 2.1 corrige aquí. Primero, los artefactos de `10_developer_guide/` del fuente carecen del sufijo `_v<X.Y>.md` (aparecen como `conceptos-fundamentales.md`, `formato-dsl-templates.md`, `guia-integracion-maui.md`, etc.), rompiendo la convención de versionado del resto del repositorio. Segundo, los nombres atan la guía a un sistema objetivo concreto (`guia-integracion-maui.md`), lo cual contamina la plantilla. SDD 2.1 corrige ambos puntos: impone `_v<X.Y>.md` uniforme y parametriza el nombre de la guía de integración como `guia-integracion-<sistema-objetivo>_v<X.Y>.md`.
 
 ---
 

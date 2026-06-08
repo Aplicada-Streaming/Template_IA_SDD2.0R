@@ -1,6 +1,6 @@
 # Reglas constructivas — 00 Contexto del producto
 
-**Carpeta target:** `/sdd2.0/docs/00_contexto/`
+**Carpeta target:** `/SDD2.1D/docs/00_contexto/`
 **Subagente target del orquestador:** Product Manager Senior (AG-00) en conjunción con Analista de Negocio Senior (AG-01) si el proyecto tiene stakeholders múltiples.
 **Versión de las reglas:** 1.0
 
@@ -85,7 +85,7 @@ No se aplica en esta categoría. Los documentos de contexto no usan prefijos del
 
 ### 3.4 README de la sección
 
-Recomendado. La carpeta `/sdd2.0/docs/00_contexto/` lleva un `README.md` (sin versión) que enumera los 5 documentos con su propósito, su estado y el orden de lectura sugerido. Si algún documento fue omitido por aplicación de §2.2, el README declara el motivo. El README también lista los stakeholders del proyecto con nombre o rol.
+Recomendado. La carpeta `/SDD2.1D/docs/00_contexto/` lleva un `README.md` (sin versión) que enumera los 5 documentos con su propósito, su estado y el orden de lectura sugerido. Si algún documento fue omitido por aplicación de §2.2, el README declara el motivo. El README también lista los stakeholders del proyecto con nombre o rol.
 
 ---
 
@@ -352,7 +352,7 @@ Trazabilidad esperada: declarar upstream a PROJECT-BRIEF/PROJECT-README y downst
 Criterios de calidad: §6 de 00_rules_contexto.md (11 ítems verificables).
 Restricciones: idioma rioplatense técnico, UTF-8 LF, sin emojis, sin negritas decorativas, sin referencias a stack en visión y alcance.
 
-Salida: /sdd2.0/docs/00_contexto/<archivos>_v1.0.md.
+Salida: /SDD2.1D/docs/00_contexto/<archivos>_v1.0.md.
 ```
 
 ---
@@ -361,4 +361,4 @@ Salida: /sdd2.0/docs/00_contexto/<archivos>_v1.0.md.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.0 |
+| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1 |

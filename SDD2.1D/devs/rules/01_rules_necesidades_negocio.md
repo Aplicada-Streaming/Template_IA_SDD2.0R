@@ -1,6 +1,6 @@
 # Reglas constructivas — 01 Necesidades de negocio
 
-**Carpeta target:** `/sdd2.0/docs/01_necesidades_negocio/`
+**Carpeta target:** `/SDD2.1D/docs/01_necesidades_negocio/`
 **Subagente target del orquestador:** Analista de Negocio Senior (AG-01)
 **Versión de las reglas:** 1.0
 
@@ -10,7 +10,7 @@
 
 ### 1.1 Especialidad base
 
-Analista de Negocio Senior, equivalente al AG-01 del catálogo de especialidades. Su rol es traducir los dolores y oportunidades capturados en PROJECT-BRIEF y en la visión del producto (categoría 00) en necesidades de negocio (NB) estructuradas, medibles y trazables hacia los casos de uso (CU) que las implementarán. El AG-01 trabaja a partir del intake y consolida cada NB en un archivo independiente bajo `/sdd2.0/docs/01_necesidades_negocio/necesidades-de-negocio/`, además de mantener un índice maestro en la raíz de la categoría. Su responsabilidad no es definir flujos funcionales (eso es del AG-02) ni decisiones técnicas (AG-05), sino articular qué problema concreto del negocio se resuelve, para quién, con qué métrica de éxito y con qué prioridad relativa.
+Analista de Negocio Senior, equivalente al AG-01 del catálogo de especialidades. Su rol es traducir los dolores y oportunidades capturados en PROJECT-BRIEF y en la visión del producto (categoría 00) en necesidades de negocio (NB) estructuradas, medibles y trazables hacia los casos de uso (CU) que las implementarán. El AG-01 trabaja a partir del intake y consolida cada NB en un archivo independiente bajo `/SDD2.1D/docs/01_necesidades_negocio/necesidades-de-negocio/`, además de mantener un índice maestro en la raíz de la categoría. Su responsabilidad no es definir flujos funcionales (eso es del AG-02) ni decisiones técnicas (AG-05), sino articular qué problema concreto del negocio se resuelve, para quién, con qué métrica de éxito y con qué prioridad relativa.
 
 ### 1.2 Variantes según tipo de proyecto
 
@@ -72,7 +72,7 @@ El índice se llama `necesidades-negocio_v1.0.md` (sin sufijo de proyecto). Cada
 - La versión inicial es `_v1.0.md` y sigue D5.
 
 Ejemplo válido: `NB-03-trazabilidad-pedidos_v1.0.md`.
-Ejemplo inválido a evitar: `NB-03-Trazabilidad-Pedidos.v1.0.md` (mayúsculas en kebab y punto antes de la versión; éste es el patrón heredado del material fuente SDD 1.0 explícitamente registrado en la auditoría de Fase 0, §4, y se corrige por convención en SDD 2.0).
+Ejemplo inválido a evitar: `NB-03-Trazabilidad-Pedidos.v1.0.md` (mayúsculas en kebab y punto antes de la versión; éste es el patrón heredado del material fuente SDD 1.0 explícitamente registrado en la auditoría de Fase 0, §4, y se corrige por convención en SDD 2.1).
 
 ### 3.2 Convenciones de prefijos / sufijos
 
@@ -245,7 +245,7 @@ Tabla D (solo para el índice maestro): Resumen de NB.
 
 ## 6. Criterios de aceptación del entregable
 
-- [ ] Existe el índice maestro `necesidades-negocio_v1.0.md` en la raíz de `/sdd2.0/docs/01_necesidades_negocio/` con tabla resumen de todas las NB.
+- [ ] Existe el índice maestro `necesidades-negocio_v1.0.md` en la raíz de `/SDD2.1D/docs/01_necesidades_negocio/` con tabla resumen de todas las NB.
 - [ ] Existen al menos 3 archivos `NB-XX-<kebab>_v1.0.md` dentro de la subcarpeta `necesidades-de-negocio/`.
 - [ ] Cada NB contiene las 10 secciones obligatorias §1 a §10 en el orden definido en §4.2 de estas reglas.
 - [ ] Cada NB tiene al menos 4 criterios de éxito SMART en §5, todos con métrica numérica, target y plazo.
@@ -370,7 +370,7 @@ Trazabilidad esperada: cada NB declara las CU previstas en 02_especificacion_fun
 Criterios de calidad: §6 de 01_rules_necesidades_negocio.md (14 ítems verificables).
 Restricciones: respetar D1 a D8; no incluir emojis, negritas decorativas, ni términos del dominio prohibido por D7.
 
-Salida: /sdd2.0/docs/01_necesidades_negocio/<archivos>.
+Salida: /SDD2.1D/docs/01_necesidades_negocio/<archivos>.
 ```
 
 ---
@@ -379,4 +379,4 @@ Salida: /sdd2.0/docs/01_necesidades_negocio/<archivos>.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.0 |
+| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1 |

@@ -1,20 +1,20 @@
 # Reglas constructivas — 11 Examples
 
-**Carpeta target:** `/sdd2.0/docs/11_examples/`
+**Carpeta target:** `/SDD2.1D/docs/11_examples/`
 **Subagente target del orquestador:** Developer Advocate / Sample Engineer Senior (AG-11)
 **Versión de las reglas:** 1.0
 
 ---
 
-## 0. Posición en la cadena SDD 2.0
+## 0. Posición en la cadena SDD 2.1
 
-La categoría 11 materializa el sistema en código ejecutable concreto. Es el punto final de la cadena de trazabilidad SDD 2.0 y la primera puerta de entrada práctica para todo desarrollador que consuma el producto. Recibe upstream de 02 (casos de uso que cada sample ilustra), de 05 (arquitectura y contratos públicos que cada sample respeta) y de 10 (developer guide cuyos conceptos cada sample demuestra paso a paso). No tiene downstream metodológico dentro de SDD; sus consumidores son externos al ciclo de especificación: equipos integradores, devs nuevos del proyecto, evaluadores técnicos del cliente.
+La categoría 11 materializa el sistema en código ejecutable concreto. Es el punto final de la cadena de trazabilidad SDD 2.1 y la primera puerta de entrada práctica para todo desarrollador que consuma el producto. Recibe upstream de 02 (casos de uso que cada sample ilustra), de 05 (arquitectura y contratos públicos que cada sample respeta) y de 10 (developer guide cuyos conceptos cada sample demuestra paso a paso). No tiene downstream metodológico dentro de SDD; sus consumidores son externos al ciclo de especificación: equipos integradores, devs nuevos del proyecto, evaluadores técnicos del cliente.
 
 A diferencia de la categoría 10, que documenta conceptos y guías intercaladas con snippets, la categoría 11 produce proyectos completos y funcionales que se clonan, se ejecutan en un entorno limpio y se modifican como punto de partida. La diferencia es operativa: 10 explica, 11 ejecuta.
 
 Esta categoría es opcional según el tipo D8. Es obligatoria para `library`, `cli-tool`, `mobile-app-maui`, `rest-api`, `desktop-app` y `web-microservices` porque el consumidor del artefacto necesita ejemplos reproducibles para arrancar. Es recomendada para `web-monolith` y `worker-service` cuando el proyecto se expone como referencia para otros equipos. Es omisible cuando el proyecto es estrictamente interno y no hay nuevos consumidores previsibles.
 
-La auditoría de Fase 0 (`_bootstrap/audit-sdd1.md`) detectó dos déficits del fuente SDD 1.0 que SDD 2.0 corrige aquí. Primero, los archivos del fuente nombran los ejemplos por dominio (`ejemplo-02-multa.md`, `ejemplo-03-multaapp-nuget.md`), atando el sample al producto particular y descartando la idea de progresión didáctica. SDD 2.0 obliga a nombrar por nivel de complejidad o por capacidad demostrada (`ejemplo-01-basico`, `ejemplo-02-intermedio`, `ejemplo-03-avanzado`, o variantes por capacidad como `ejemplo-01-cliente-http-basico`, `ejemplo-02-postman-collection`). Segundo, los markdown del fuente no llevan sufijo de versión; SDD 2.0 obliga al sufijo uniforme `_v<X.Y>.md` para todos los archivos versionables de esta categoría, incluyendo `README.md` cuando se considere artefacto versionable (en este caso se mantiene `README.md` sin sufijo por convención de índice).
+La auditoría de Fase 0 (`_bootstrap/audit-sdd1.md`) detectó dos déficits del fuente SDD 1.0 que SDD 2.1 corrige aquí. Primero, los archivos del fuente nombran los ejemplos por dominio (`ejemplo-02-multa.md`, `ejemplo-03-multaapp-nuget.md`), atando el sample al producto particular y descartando la idea de progresión didáctica. SDD 2.1 obliga a nombrar por nivel de complejidad o por capacidad demostrada (`ejemplo-01-basico`, `ejemplo-02-intermedio`, `ejemplo-03-avanzado`, o variantes por capacidad como `ejemplo-01-cliente-http-basico`, `ejemplo-02-postman-collection`). Segundo, los markdown del fuente no llevan sufijo de versión; SDD 2.1 obliga al sufijo uniforme `_v<X.Y>.md` para todos los archivos versionables de esta categoría, incluyendo `README.md` cuando se considere artefacto versionable (en este caso se mantiene `README.md` sin sufijo por convención de índice).
 
 ---
 
@@ -117,7 +117,7 @@ Esta tabla es vinculante: el contenido de `/samples` no se inventa; se deriva de
 
 La numeración refleja un orden de lectura recomendado de menor a mayor complejidad. Sample 01 introduce el camino feliz mínimo; sample 02 agrega complejidad típica del caso intermedio (configuración, datos reales, integraciones simples); sample 03 demuestra el caso avanzado o el punto de extensión principal. Si el proyecto opta por progresión por capacidad en lugar de por nivel, cada sample debe igual declarar su nivel implícito en §2 del markdown (básico, intermedio o avanzado).
 
-Está prohibida la numeración por dominio del proyecto. La progresión `multa → multaapp-nuget` del fuente es exactamente lo que SDD 2.0 corrige: ese par mezcla nombre de caso de uso con nombre de mecanismo de distribución, sin transmitir progresión didáctica. SDD 2.0 obliga a que el slug responda a "qué demuestra el sample respecto al anterior", no a "qué dominio modela".
+Está prohibida la numeración por dominio del proyecto. La progresión `multa → multaapp-nuget` del fuente es exactamente lo que SDD 2.1 corrige: ese par mezcla nombre de caso de uso con nombre de mecanismo de distribución, sin transmitir progresión didáctica. SDD 2.1 obliga a que el slug responda a "qué demuestra el sample respecto al anterior", no a "qué dominio modela".
 
 ### 3.3 Vinculación cross-doc
 
@@ -472,7 +472,7 @@ Criterios de calidad: §6 de 11_rules_examples.md.
 
 Restricciones: no introducir productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis ni negritas decorativas.
 
-Salida: /sdd2.0/docs/11_examples/<estructura> + /samples/<estructura> en el repo del proyecto.
+Salida: /SDD2.1D/docs/11_examples/<estructura> + /samples/<estructura> en el repo del proyecto.
 ```
 
 ---

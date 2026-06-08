@@ -2,7 +2,7 @@
 
 **Fase:** 2 (Reglas constructivas)
 **Auditor:** Auditor independiente cross-doc
-**Alcance:** 13 archivos de `/sdd2.0/devs/rules/`
+**Alcance:** 13 archivos de `/SDD2.1D/devs/rules/`
 **Fecha:** 2026-05-17
 **Versión del informe:** 1.0
 
@@ -10,7 +10,7 @@
 
 ## 1. Resumen ejecutivo
 
-Las 13 reglas constructivas de la Fase 2 del bootstrap SDD 2.0 están redactadas con consistencia metodológica, respetan la cadena de trazabilidad D6 declarada y aplican explícitamente las lecciones del audit-sdd1.md (Fase 0). La conformidad con D1–D8 es alta y la coherencia cross-doc entre las 13 reglas es satisfactoria. Se detectan pocos defectos, todos de severidad baja o media: una mención de `.NET MAUI` que cae dentro de la excepción admitida (mobile-app-maui), referencias formales (no canónicas) al fuente Motor DSL como justificación de correcciones heredadas y dos archivos (`_root_rules`, `00_rules_contexto`) con cabecera ligeramente incompleta (sin §0 explícito). Total: 0 P0, 5 P1, 6 P2.
+Las 13 reglas constructivas de la Fase 2 del bootstrap SDD 2.1 están redactadas con consistencia metodológica, respetan la cadena de trazabilidad D6 declarada y aplican explícitamente las lecciones del audit-sdd1.md (Fase 0). La conformidad con D1–D8 es alta y la coherencia cross-doc entre las 13 reglas es satisfactoria. Se detectan pocos defectos, todos de severidad baja o media: una mención de `.NET MAUI` que cae dentro de la excepción admitida (mobile-app-maui), referencias formales (no canónicas) al fuente Motor DSL como justificación de correcciones heredadas y dos archivos (`_root_rules`, `00_rules_contexto`) con cabecera ligeramente incompleta (sin §0 explícito). Total: 0 P0, 5 P1, 6 P2.
 
 Veredicto: APROBADO CON OBSERVACIONES.
 
@@ -60,7 +60,7 @@ Observaciones:
 
 Observaciones:
 - Todas las reglas tienen cabecera, las 9 secciones obligatorias, criterios verificables y prompt-snippet ejecutable.
-- 11 reglas (de 00 a 11) incluyen `§0 Posición en la cadena SDD 2.0` adicional al esquema mínimo, lo cual refuerza la trazabilidad pero no es obligatorio.
+- 11 reglas (de 00 a 11) incluyen `§0 Posición en la cadena SDD 2.1` adicional al esquema mínimo, lo cual refuerza la trazabilidad pero no es obligatorio.
 - _root y 00 no presentan `§0`; correcto porque `_root` es el ancla y 00 es upstream de toda la cadena.
 
 ---
@@ -199,19 +199,19 @@ Todos los archivos superan el mínimo de 8 ítems y los criterios son objetivos 
 
 | Archivo | Bloque text | Placeholders | Insumos | Salida | Ejecutable |
 | --- | --- | --- | --- | --- | --- |
-| _root | ✓ | ✓ | PROJECT-BRIEF/README | /sdd2.0/docs/README.md | Sí |
-| 00 | ✓ | ✓ | BRIEF/README | /sdd2.0/docs/00_contexto/ | Sí |
-| 01 | ✓ | ✓ | BRIEF/README + 00 | /sdd2.0/docs/01_necesidades_negocio/ | Sí |
-| 02 | ✓ | ✓ | BRIEF/README + 00/01 | /sdd2.0/docs/02_especificacion_funcional/ | Sí |
-| 03 | ✓ | ✓ | BRIEF/README + 00/02 | /sdd2.0/docs/03_ux_ui_dx/ | Sí |
-| 04 | ✓ | ✓ | BRIEF/README + 01/02 (con gating) | /sdd2.0/docs/04_prompts_ai/ | Sí |
-| 05 | ✓ | ✓ | BRIEF/README + 00/01/02/04 | /sdd2.0/docs/05_arquitectura_tecnica/ | Sí |
-| 06 | ✓ | ✓ | BRIEF/README + 01/02/05 | /sdd2.0/docs/06_backlog-tecnico/ | Sí |
-| 07 | ✓ | ✓ | BRIEF/README + 06/02/05 | /sdd2.0/docs/07_plan-sprint/ | Sí |
-| 08 | ✓ | ✓ | BRIEF/README + 02/05/06/07 | /sdd2.0/docs/08_calidad_y_pruebas/ | Sí |
-| 09 | ✓ | ✓ | BRIEF/README + 05/08 | /sdd2.0/docs/09_devops/ | Sí |
-| 10 | ✓ | ✓ | BRIEF/README + 02/05/08 | /sdd2.0/docs/10_developer_guide/ | Sí |
-| 11 | ✓ | ✓ | BRIEF/README + 02/05/10 | /sdd2.0/docs/11_examples/ + /samples/ | Sí |
+| _root | ✓ | ✓ | PROJECT-BRIEF/README | /SDD2.1D/docs/README.md | Sí |
+| 00 | ✓ | ✓ | BRIEF/README | /SDD2.1D/docs/00_contexto/ | Sí |
+| 01 | ✓ | ✓ | BRIEF/README + 00 | /SDD2.1D/docs/01_necesidades_negocio/ | Sí |
+| 02 | ✓ | ✓ | BRIEF/README + 00/01 | /SDD2.1D/docs/02_especificacion_funcional/ | Sí |
+| 03 | ✓ | ✓ | BRIEF/README + 00/02 | /SDD2.1D/docs/03_ux_ui_dx/ | Sí |
+| 04 | ✓ | ✓ | BRIEF/README + 01/02 (con gating) | /SDD2.1D/docs/04_prompts_ai/ | Sí |
+| 05 | ✓ | ✓ | BRIEF/README + 00/01/02/04 | /SDD2.1D/docs/05_arquitectura_tecnica/ | Sí |
+| 06 | ✓ | ✓ | BRIEF/README + 01/02/05 | /SDD2.1D/docs/06_backlog-tecnico/ | Sí |
+| 07 | ✓ | ✓ | BRIEF/README + 06/02/05 | /SDD2.1D/docs/07_plan-sprint/ | Sí |
+| 08 | ✓ | ✓ | BRIEF/README + 02/05/06/07 | /SDD2.1D/docs/08_calidad_y_pruebas/ | Sí |
+| 09 | ✓ | ✓ | BRIEF/README + 05/08 | /SDD2.1D/docs/09_devops/ | Sí |
+| 10 | ✓ | ✓ | BRIEF/README + 02/05/08 | /SDD2.1D/docs/10_developer_guide/ | Sí |
+| 11 | ✓ | ✓ | BRIEF/README + 02/05/10 | /SDD2.1D/docs/11_examples/ + /samples/ | Sí |
 
 Todos los snippets declaran rol, insumos, documentos a generar, reglas de redacción, trazabilidad, criterios de calidad y path de salida. Ejecutables por subagente sin información adicional.
 
@@ -305,4 +305,4 @@ Pasos correctivos sugeridos (no bloqueantes para la Fase 3 del bootstrap):
 5. Unificar la presencia o ausencia de `§0` entre _root, 00 y 01 con el resto de las reglas, o documentar la excepción.
 6. Completar la Tabla A del _root §4.4 con las 12 entradas para que el README maestro pueda copiarla directamente.
 
-Con estas correcciones no bloqueantes aplicadas o aceptadas como deuda menor, las 13 reglas quedan listas para gobernar la Fase 3 (bootstrap intake del proyecto piloto SDD 2.0).
+Con estas correcciones no bloqueantes aplicadas o aceptadas como deuda menor, las 13 reglas quedan listas para gobernar la Fase 3 (bootstrap intake del proyecto piloto SDD 2.1).

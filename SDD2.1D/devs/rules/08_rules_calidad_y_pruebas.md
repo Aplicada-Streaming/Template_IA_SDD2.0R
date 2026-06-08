@@ -1,18 +1,18 @@
 # Reglas constructivas — 08 Calidad y pruebas
 
-**Carpeta target:** `/sdd2.0/docs/08_calidad_y_pruebas/`
+**Carpeta target:** `/SDD2.1D/docs/08_calidad_y_pruebas/`
 **Subagente target del orquestador:** Ingeniero QA / SDET Senior (AG-08)
 **Versión de las reglas:** 1.0
 
 ---
 
-## 0. Posición en la cadena SDD 2.0
+## 0. Posición en la cadena SDD 2.1
 
 La categoría 08 ancla la disciplina de validación del sistema. Recibe upstream de 02 (casos de uso con criterios de aceptación Given-When-Then y reglas de negocio), de 05 (arquitectura, componentes, contratos y NFR con métricas numéricas), de 06 (Definition of Ready de las US y backlog técnico) y de 07 (sprint goals y compromisos por iteración). Alimenta a 09 (quality gates ejecutados en el pipeline CI/CD), a 10 (developer guide de testing y convenciones de tests del repositorio) y a 11 (examples ejecutables que se validan mediante los mismos casos de prueba).
 
 Esta categoría es **obligatoria para los ocho tipos D8**. Ningún proyecto está exento de declarar su estrategia de calidad, su pirámide de testing, su matriz de cobertura y su Definition of Done. El nivel de exhaustividad y la mezcla de artefactos cambia por tipo, pero la categoría siempre existe.
 
-La auditoría de Fase 0 (`_bootstrap/audit-sdd1.md`) detectó dos déficits del fuente SDD 1.0 que SDD 2.0 corrige aquí. Primero, los artefactos del fuente usan un sufijo de dominio (por ejemplo `estrategia-testing-<dominio>_v1.0.md`, `criterios-validacion-<dominio>_v1.0.md`, `estrategia-calidad-<dominio>_v1.0.md`) que ata el nombre al producto particular. SDD 2.0 unifica todos los nombres con el sufijo `_v<X.Y>.md` sin marcador de dominio. Segundo, el material teórico de calidad estaba ausente en `/references/` y debía deducirse de los `docs/`; estas reglas formalizan el marco.
+La auditoría de Fase 0 (`_bootstrap/audit-sdd1.md`) detectó dos déficits del fuente SDD 1.0 que SDD 2.1 corrige aquí. Primero, los artefactos del fuente usan un sufijo de dominio (por ejemplo `estrategia-testing-<dominio>_v1.0.md`, `criterios-validacion-<dominio>_v1.0.md`, `estrategia-calidad-<dominio>_v1.0.md`) que ata el nombre al producto particular. SDD 2.1 unifica todos los nombres con el sufijo `_v<X.Y>.md` sin marcador de dominio. Segundo, el material teórico de calidad estaba ausente en `/references/` y debía deducirse de los `docs/`; estas reglas formalizan el marco.
 
 ---
 
@@ -440,7 +440,7 @@ Criterios de calidad: §6 de 08_rules_calidad_y_pruebas.md.
 
 Restricciones: no introducir productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis ni negritas decorativas.
 
-Salida: /sdd2.0/docs/08_calidad_y_pruebas/<estructura>.
+Salida: /SDD2.1D/docs/08_calidad_y_pruebas/<estructura>.
 ```
 
 ---

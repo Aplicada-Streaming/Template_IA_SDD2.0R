@@ -1,6 +1,6 @@
 # PROJECT-README-template
 
-Plantilla metodológica SDD 2.0 para producir el documento `PROJECT-README-<nombre-kebab>_v1.0.md` durante la Fase 1.B del bootstrap. Captura las decisiones técnicas de construcción del sistema descripto en `PROJECT-BRIEF`. Este artefacto alimenta downstream a las categorías `05_arquitectura_tecnica/`, `09_devops/` y `11_examples/`, y el campo `Tipo de proyecto` gobierna las variantes de especialidad de las 12 categorías SDD.
+Plantilla metodológica SDD 2.1 para producir el documento `PROJECT-README-<nombre-kebab>_v1.0.md` durante la Fase 1.B del bootstrap. Captura las decisiones técnicas de construcción del sistema descripto en `PROJECT-BRIEF`. Este artefacto alimenta downstream a las categorías `05_arquitectura_tecnica/`, `09_devops/` y `11_examples/`, y el campo `Tipo de proyecto` gobierna las variantes de especialidad de las 12 categorías SDD.
 
 ## Guía de uso de esta plantilla
 
@@ -522,7 +522,7 @@ Verificar antes de marcar el documento como Aprobado. Todos los ítems deben est
 
 ## Trazabilidad downstream
 
-Este documento alimenta las siguientes secciones SDD 2.0:
+Este documento alimenta las siguientes secciones SDD 2.1:
 
 | Sección del README | Categoría SDD destino | Documento downstream típico |
 |---|---|---|
@@ -549,4 +549,4 @@ Este documento alimenta las siguientes secciones SDD 2.0:
 
 | Version | Fecha | Cambios | Autor |
 |---|---|---|---|
-| 1.0 | [YYYY-MM-DD] | Plantilla inicial generada durante bootstrap SDD 2.0 | Bootstrap SDD 2.0 |
+| 1.0 | [YYYY-MM-DD] | Plantilla inicial generada durante bootstrap SDD 2.1 | Bootstrap SDD 2.1 |

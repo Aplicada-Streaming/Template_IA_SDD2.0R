@@ -1,12 +1,12 @@
 # Reglas constructivas — 02 Especificación funcional
 
-**Carpeta target:** `/sdd2.0/docs/02_especificacion_funcional/`
+**Carpeta target:** `/SDD2.1D/docs/02_especificacion_funcional/`
 **Subagente target del orquestador:** Analista Funcional / Ingeniero de Requisitos (AG-02)
 **Versión de las reglas:** 1.0
 
 ---
 
-## 0. Posición en la cadena SDD 2.0
+## 0. Posición en la cadena SDD 2.1
 
 La categoría 02 es el nodo central de la cadena de trazabilidad D6. Recibe insumos de 00 (visión, alcance) y 01 (necesidades de negocio NB-XX) y produce los artefactos que sirven como ancla para 03 (UX/UI), 04 (prompts si aplica), 05 (arquitectura y ADR), 06 (US/BT), 07 (sprints), 08 (tests) y 11 (ejemplos). Su salida define el qué del sistema sin invadir el cómo. Aplica de manera obligatoria a los ocho tipos D8.
 
@@ -231,7 +231,7 @@ Diagrama de flujo del CU expresado como pasos numerados o Mermaid sequenceDiagra
 | Modelo conceptual con tipos físicos (varchar(255), int(11)) | Invade 05 modelo lógico | Mantener nombres y semántica; los tipos viven en 05 |
 | Versionado paralelo `CU-06_v1.0` y `CU-06_v2.0` sin marcar deprecación | Ambigüedad sobre cuál vigencia leer | Aplicar §3.5: una vigente, anteriores a `_legacy/` |
 | Casing inconsistente (`NB-01-Desacople` vs `NB-02-estandarizacion`) | Inconsistencia que rompe automatizaciones | Forzar lowercase + kebab estricto |
-| Patrón `.v1.0` heredado del fuente | Convención prohibida en SDD 2.0 | Forzar `_v1.0` |
+| Patrón `.v1.0` heredado del fuente | Convención prohibida en SDD 2.1 | Forzar `_v1.0` |
 | CU sin escenarios de error | Solo flujo feliz; el sistema queda subdefinido | Agregar al menos una excepción por CU |
 | Criterios de aceptación narrativos sin valores concretos | No automatizables; no anclan tests | Reescribir Given/When/Then con valores explícitos |
 | CU con más de un actor primario | Ambigüedad de responsabilidad | Separar en dos CU o reorganizar el flujo |
@@ -415,7 +415,7 @@ Política de versionado: §3.5; una sola versión vigente; anteriores a `_legacy
 
 Restricciones: no introducir stacks concretos, productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /sdd2.0/docs/02_especificacion_funcional/<estructura>.
+Salida: /SDD2.1D/docs/02_especificacion_funcional/<estructura>.
 ```
 
 ---
@@ -424,4 +424,4 @@ Salida: /sdd2.0/docs/02_especificacion_funcional/<estructura>.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.0. |
+| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1. |

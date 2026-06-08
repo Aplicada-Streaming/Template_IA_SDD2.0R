@@ -1,12 +1,12 @@
 # Reglas constructivas — 03 UX / UI / DX
 
-**Carpeta target:** `/sdd2.0/docs/03_ux_ui_dx/`
+**Carpeta target:** `/SDD2.1D/docs/03_ux_ui_dx/`
 **Subagente target del orquestador:** Especialista UX/UI o Especialista DX (AG-03), según variante.
 **Versión de las reglas:** 1.0
 
 ---
 
-## 0. Posición en la cadena SDD 2.0
+## 0. Posición en la cadena SDD 2.1
 
 La categoría 03 recibe insumos de 00 (visión, alcance, persona objetivo) y de 02 (CU con interacción humana significativa, RN que afectan la presentación). Produce los artefactos que sirven como ancla para 05 (arquitectura de la capa de presentación o del portal de developers), 06 (US con criterios de aceptación visuales o de ergonomía de API), 08 (tests de UI, snapshot y accesibilidad) y 11 (ejemplos de uso ilustrados). Su salida define cómo se siente el producto, sin invadir el qué de 02 ni el cómo de 05.
 
@@ -297,7 +297,7 @@ Tabla de trazabilidad de un artefacto 03:
 | Glosario duplicado con vocabulario distinto entre 02 y 03 | Confusión cross-doc | Reusar términos de 02 y solo agregar los nuevos de 03 |
 | Wireframe sin estados | El developer de 05 no sabe qué dibujar cuando algo falla | Enumerar estados mínimos: vacío, cargando, con datos, error |
 | DX docs que no aplican Diátaxis | Documentación mezclada entre tutorial y reference, ilegible | Separar los cuatro modos y enlazarlos explícitamente |
-| Patrón `.v1.0` heredado | Convención prohibida en SDD 2.0 | Forzar `_v1.0` |
+| Patrón `.v1.0` heredado | Convención prohibida en SDD 2.1 | Forzar `_v1.0` |
 
 ---
 
@@ -490,7 +490,7 @@ Política de versionado: §3.5; una sola versión vigente; anteriores a `_legacy
 
 Restricciones: no introducir stacks concretos, productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /sdd2.0/docs/03_ux_ui_dx/<estructura>.
+Salida: /SDD2.1D/docs/03_ux_ui_dx/<estructura>.
 ```
 
 ---
@@ -499,4 +499,4 @@ Salida: /sdd2.0/docs/03_ux_ui_dx/<estructura>.
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
-| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.0. Variantes UX/UI y DX cubriendo los 8 tipos D8, accesibilidad WCAG 2.2 AA como piso, Diátaxis explícito, política de versionado con `_legacy/`. |
+| 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1. Variantes UX/UI y DX cubriendo los 8 tipos D8, accesibilidad WCAG 2.2 AA como piso, Diátaxis explícito, política de versionado con `_legacy/`. |

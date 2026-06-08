@@ -1,18 +1,18 @@
 # Reglas constructivas — 09 DevOps
 
-**Carpeta target:** `/sdd2.0/docs/09_devops/`
+**Carpeta target:** `/SDD2.1D/docs/09_devops/`
 **Subagente target del orquestador:** Ingeniero DevOps Senior (AG-09)
 **Versión de las reglas:** 1.0
 
 ---
 
-## 0. Posición en la cadena SDD 2.0
+## 0. Posición en la cadena SDD 2.1
 
 La categoría 09 ancla la disciplina de automatización del ciclo de vida del artefacto: build, validación, empaquetado, firma, publicación y rollback. Recibe upstream de 05 (arquitectura, componentes, contratos y NFR con métricas numéricas que el pipeline debe verificar) y de 08 (quality gates, Definition of Done, cobertura mínima por capa). Alimenta a 10 (developer guide de release, instalación local y workflow de versionado consumido por los autores) y a 11 (samples publicados que se consumen desde los canales de distribución declarados acá).
 
 Esta categoría es **obligatoria para los ocho tipos D8**. Ningún proyecto está exento de declarar su pipeline, su estrategia de versionado, sus ambientes o canales de distribución, su guía de publicación y su política de supply chain. Cambia el tipo de artefacto publicado y la arquitectura del pipeline, pero la categoría siempre existe.
 
-La auditoría de Fase 0 (`_bootstrap/audit-sdd1.md`) detectó tres déficits del fuente SDD 1.0 que SDD 2.0 corrige aquí. Primero, el documento `guia-publicacion-nuget_v1.0.md` ata el nombre del artefacto a un gestor de paquetes específico (.NET); SDD 2.0 generaliza el nombre con el patrón `guia-publicacion-<tipo-artefacto>_v<X.Y>.md` parametrizado por el tipo de artefacto del proyecto. Segundo, las reglas de supply chain (SBOM, firma, SLSA, dependency scanning) no estaban formalizadas en un documento dedicado; SDD 2.0 incorpora `supply-chain-seguridad_v<X.Y>.md` como artefacto obligatorio. Tercero, el modelo de "entornos" del fuente confundía publicación de paquete con despliegue de servicio: SDD 2.0 declara explícitamente que el modelo de ambientes depende del tipo D8 (canales preview/stable para library; DEV/QA/STAGING/PROD para servicios desplegables).
+La auditoría de Fase 0 (`_bootstrap/audit-sdd1.md`) detectó tres déficits del fuente SDD 1.0 que SDD 2.1 corrige aquí. Primero, el documento `guia-publicacion-nuget_v1.0.md` ata el nombre del artefacto a un gestor de paquetes específico (.NET); SDD 2.1 generaliza el nombre con el patrón `guia-publicacion-<tipo-artefacto>_v<X.Y>.md` parametrizado por el tipo de artefacto del proyecto. Segundo, las reglas de supply chain (SBOM, firma, SLSA, dependency scanning) no estaban formalizadas en un documento dedicado; SDD 2.1 incorpora `supply-chain-seguridad_v<X.Y>.md` como artefacto obligatorio. Tercero, el modelo de "entornos" del fuente confundía publicación de paquete con despliegue de servicio: SDD 2.1 declara explícitamente que el modelo de ambientes depende del tipo D8 (canales preview/stable para library; DEV/QA/STAGING/PROD para servicios desplegables).
 
 ---
 
@@ -94,7 +94,7 @@ Los modelos son piso. El equipo puede agregar ambientes intermedios cuando el do
 - `supply-chain-seguridad_v<X.Y>.md` para la política de cadena de suministro.
 - `README.md` para el índice de la sección.
 
-El sufijo `_v<X.Y>.md` es uniforme. Queda prohibido el patrón heredado `.v<X.Y>`. Queda prohibido hardcodear un gestor de paquetes en el nombre genérico de la categoría: SDD 2.0 reemplaza el `guia-publicacion-nuget_v1.0.md` del fuente por `guia-publicacion-<tipo-artefacto>_v<X.Y>.md` con `<tipo-artefacto>` elegido en kebab-case según el artefacto real del proyecto. Valores admitidos para `<tipo-artefacto>`: `paquete-nuget`, `paquete-npm`, `paquete-pypi`, `paquete-cargo`, `paquete-maven`, `paquete-gem`, `paquete-composer`, `paquete-github-packages`, `image-docker`, `chart-helm`, `binarios-github-releases`, `instalador-msix`, `instalador-dmg`, `instalador-appimage`, `instalador-deb`, `instalador-rpm`, `store-mobile`, `openapi`. La lista no es cerrada; cualquier tipo nuevo se incorpora respetando kebab-case y la convención de prefijo `paquete-`, `image-`, `chart-`, `binarios-`, `instalador-` o `store-` según familia.
+El sufijo `_v<X.Y>.md` es uniforme. Queda prohibido el patrón heredado `.v<X.Y>`. Queda prohibido hardcodear un gestor de paquetes en el nombre genérico de la categoría: SDD 2.1 reemplaza el `guia-publicacion-nuget_v1.0.md` del fuente por `guia-publicacion-<tipo-artefacto>_v<X.Y>.md` con `<tipo-artefacto>` elegido en kebab-case según el artefacto real del proyecto. Valores admitidos para `<tipo-artefacto>`: `paquete-nuget`, `paquete-npm`, `paquete-pypi`, `paquete-cargo`, `paquete-maven`, `paquete-gem`, `paquete-composer`, `paquete-github-packages`, `image-docker`, `chart-helm`, `binarios-github-releases`, `instalador-msix`, `instalador-dmg`, `instalador-appimage`, `instalador-deb`, `instalador-rpm`, `store-mobile`, `openapi`. La lista no es cerrada; cualquier tipo nuevo se incorpora respetando kebab-case y la convención de prefijo `paquete-`, `image-`, `chart-`, `binarios-`, `instalador-` o `store-` según familia.
 
 ### 3.2 Convenciones de identificadores internos
 
@@ -423,7 +423,7 @@ Criterios de calidad: §6 de 09_rules_devops.md.
 
 Restricciones: no introducir productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis ni negritas decorativas.
 
-Salida: /sdd2.0/docs/09_devops/<estructura>.
+Salida: /SDD2.1D/docs/09_devops/<estructura>.
 ```
 
 ---

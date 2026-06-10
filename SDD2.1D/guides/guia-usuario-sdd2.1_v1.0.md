@@ -1230,7 +1230,7 @@ mi-proyecto/
 │   │   └── _bootstrap/                                   # Material de bootstrapping
 │   ├── guides/
 │   │   ├── guia-usuario-sdd2.1_v1.0.md                   # Este documento
-│   │   └── marco-teorico-sdd_v1.0.md                     # Marco teórico (separado)
+│   │   └── marco-teorico-sdd2.1_v1.0.md                  # Marco teórico (separado)
 │   └── docs/                                             # Generado por el orquestador
 │       ├── _audit/                                       # Informes de audit por fase
 │       │   ├── faseA-00_contexto_v1.0.md

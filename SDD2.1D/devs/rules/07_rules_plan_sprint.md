@@ -2,7 +2,7 @@
 
 **Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/07_plan-sprint/`
 **Subagente target del orquestador:** Scrum Master / Gestión Ágil de Proyectos senior (AG-07)
-**Versión de las reglas:** 1.1
+**Versión de las reglas:** 1.2
 
 ---
 
@@ -371,8 +371,7 @@ Los dos fragmentos son ilustrativos. Cada proyecto adapta el dominio respetando 
 Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar el plan de sprint del proyecto {{NOMBRE_PROYECTO}}.
 
 Insumos:
-- PROJECT-BRIEF: {{path}}
-- PROJECT-README: {{path}}
+- SOLUTION-INTAKE: {{path}}
 - Upstream: 06 (backlog técnico priorizado con US y BT), 02 (CU y NB), 05 (arquitectura y ADRs).
 - Histórico: velocidad-equipo_v1.0.md si existe.
 
@@ -404,3 +403,4 @@ Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/07_plan-sprint/<estruc
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 07. Corrige el patrón heredado con doble separador (`plan-iteracion_sprint-XX_v1.0.md`) y fija el patrón único `plan-iteracion-sprint-XX_v<X.Y>.md`. Define nueve secciones obligatorias del plan de sprint, las plantillas reusables de review y retrospectiva, el tracking de velocidad con promedio móvil de 3 sprints, las variantes por tipo D8 y los criterios de aceptación. Habilita el modo simplificado (`mini-plan_v1.0.md`) para proyectos de un solo dev. |
 | 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/07_plan-sprint/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. |
+| 1.2 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |

@@ -2,7 +2,7 @@
 
 **Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/11_examples/`
 **Subagente target del orquestador:** Developer Advocate / Sample Engineer Senior (AG-11)
-**Versión de las reglas:** 1.1
+**Versión de las reglas:** 1.2
 
 ---
 
@@ -67,7 +67,7 @@ El AG-11 mantiene titularidad de los artefactos. Las demás especialidades aport
 | `ejemplo-03-avanzado_v<X.Y>.md` o `ejemplo-03-<kebab-progresion>_v<X.Y>.md` | library, cli-tool, mobile-app-maui, rest-api | desktop-app, web-microservices | — | Markdown explicativo del sample de nivel avanzado o de integración. |
 | `imagenes/` (carpeta) | Cuando los markdown referencian screenshots o assets visuales | — | Samples sin UI | Carpeta de assets versionados (PNG, SVG). Sin assets binarios pesados; preferir vectoriales. |
 
-Cada markdown explicativo se acompaña de un proyecto ejecutable en `/samples/<carpeta-correspondiente>/` del repositorio. La categoría 11 documenta el sample; la materialización en código vive en `/samples` y se gobierna desde §4.1 del PROJECT-README (materialización de `/samples`).
+Cada markdown explicativo se acompaña de un proyecto ejecutable en `/samples/<carpeta-correspondiente>/` del repositorio. La categoría 11 documenta el sample; la materialización en código vive en `/samples` y se gobierna desde §16.1 del SOLUTION-INTAKE (materialización de `/samples`).
 
 ### 2.2 Cantidad mínima de samples por tipo
 
@@ -216,7 +216,7 @@ Tabla de trazabilidad por sample (en §8 de cada markdown):
 | Más de cinco pasos para correr el sample | Fricción de adopción; el dev abandona antes de ver el resultado | Refactorizar a scripts de bootstrap o usar contenedores |
 | Dependencias externas no documentadas | El sample falla en máquinas limpias y nadie sabe por qué | Prerequisites exhaustivos con versión mínima |
 | Output esperado no documentado | El dev no sabe si su ejecución fue exitosa | §6 con output exacto o screenshot |
-| Samples sólo en un OS sin justificar | Excluye a parte de la audiencia objetivo | Cubrir al menos los OS declarados en §12 del PROJECT-README |
+| Samples sólo en un OS sin justificar | Excluye a parte de la audiencia objetivo | Cubrir al menos los OS declarados en §17 P.9 del SOLUTION-INTAKE |
 | Mezclar progresión por nivel y por dominio en un mismo proyecto | El lector pierde el hilo de lectura | Elegir una progresión (nivel o capacidad) y aplicarla consistentemente |
 
 ---
@@ -248,14 +248,14 @@ Tabla de trazabilidad por sample (en §8 de cada markdown):
 - ¿El código compila en un entorno limpio sin warnings nuevos?
 - ¿El output esperado documentado coincide con la ejecución real?
 - ¿Hay un test en `/samples/XX-<kebab>/tests/` que verifica el output esperado?
-- ¿El sample sigue siendo reproducible bajo los OS declarados en §12 del PROJECT-README?
-- ¿La estructura del código respeta las convenciones de §5 del PROJECT-README?
+- ¿El sample sigue siendo reproducible bajo los OS declarados en §17 P.9 del SOLUTION-INTAKE?
+- ¿La estructura del código respeta las convenciones de §16 del SOLUTION-INTAKE?
 
 ### 5.5 Mantenimiento
 
 - ¿Existe un pipeline CI que compila y ejecuta los samples periódicamente?
 - ¿Los samples se actualizan junto con cambios mayores del producto?
-- ¿Las versiones de prerequisites están alineadas con §12 del PROJECT-README?
+- ¿Las versiones de prerequisites están alineadas con §17 P.9 del SOLUTION-INTAKE?
 
 ---
 
@@ -305,7 +305,7 @@ Intermedio. Asume que el lector ya completó el ejemplo 01 (lectura básica de C
 
 ## 3. Prerequisites
 
-- Runtime objetivo, versión mínima declarada en §12 del PROJECT-README.
+- Runtime objetivo, versión mínima declarada en §17 P.9 del SOLUTION-INTAKE.
 - Gestor de paquetes del ecosistema.
 - Editor con soporte para el lenguaje del proyecto.
 
@@ -453,8 +453,7 @@ Los dos fragmentos son ilustrativos. Cada proyecto adapta el dominio respetando 
 Sos un {{ESPECIALIDAD-VARIANTE-11}} responsable de redactar los markdown explicativos de los samples del proyecto {{NOMBRE_PROYECTO}} y de coordinar la materialización en código en /samples.
 
 Insumos:
-- PROJECT-BRIEF: {{path}}
-- PROJECT-README: {{path}} (sección §1 tipo D8, §5 estructura de repo, §14 estrategia de samples)
+- SOLUTION-INTAKE: {{path}} (sección §13 tipo D8, §16 estructura de repo, §18 estrategia de samples)
 - Upstream: 02 (CU que cada sample ilustra), 05 (arquitectura y puntos de extensión), 10 (developer guide).
 
 A generar (según el `project_type` del proyecto, leído del manifiesto):
@@ -483,3 +482,4 @@ Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/11_examples/<estructur
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 11. Define el README de la sección y los markdown explicativos por sample con sufijo uniforme `_v<X.Y>.md`, fija la matriz tipo D8 vs estructura de `/samples`, establece cantidades mínimas de samples por tipo, formaliza las nueve secciones obligatorias del markdown explicativo y corrige dos antecedentes del fuente SDD 1.0: la nomenclatura por dominio (`multa`, `multaapp-nuget`) se reemplaza por progresión de complejidad o capacidad, y la ausencia de sufijo de versión se reemplaza por `_v<X.Y>.md` obligatorio en todos los archivos versionables. |
 | 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/11_examples/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto), y la referencia a la materialización de `/samples` apunta a §4.1 del PROJECT-README. Tablas §1.2 sin reescritura. |
+| 1.2 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |

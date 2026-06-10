@@ -1,7 +1,7 @@
 # Marco Teórico SDD 2.1
 
 **Documento:** marco-teorico-sdd_v1.0.md
-**Versión:** 1.1
+**Versión:** 1.2
 **Estado:** Aprobado
 **Fecha:** 2026-06-10
 **Autor:** Equipo Template SDD 2.1 — UTN
@@ -85,7 +85,7 @@ Es importante no confundir este marco teórico con la guía de usuario del templ
 | Frecuencia de consulta | Una vez en profundidad, luego como referencia | Cada vez que se inicia un proyecto |
 | Cita fuentes | Sí, con APA 7 | No, asume que el marco las cubre |
 
-Las dos piezas son complementarias y se referencian mutuamente, pero no se solapan. Si un lector necesita saber cómo completar la plantilla `intake-vision`, debe acudir a la guía de usuario. Si necesita saber por qué la plantilla pregunta lo que pregunta, debe acudir a este marco teórico.
+Las dos piezas son complementarias y se referencian mutuamente, pero no se solapan. Si un lector necesita saber cómo completar el documento `SOLUTION-INTAKE`, debe acudir a la guía de usuario. Si necesita saber por qué el intake pregunta lo que pregunta, debe acudir a este marco teórico.
 
 ## 1.5 Mapa visual del template SDD 2.1
 
@@ -280,32 +280,55 @@ Cuando el BRIEF y el README inicial están maduros, se consolidan en un document
 
 El consolidado se guarda como `intake-source.md` o se mantiene en el chat como mensaje fijado. Su rol es funcionar como fuente de verdad para los pasos siguientes.
 
-## 3.4 Paso 3 — Volcado a las dos plantillas de intake
+## 3.4 Paso 3 — Volcado al documento único de intake
 
-El template provee dos plantillas que el humano completa manualmente a partir del consolidado:
+El template provee un único documento de intake que el humano completa manualmente a partir del consolidado: `SOLUTION-INTAKE-<nombre-solucion-kebab>_v1.0.md`. Este documento reemplaza y deja deprecados a los dos artefactos previos (`PROJECT-BRIEF`, que capturaba el negocio, y `PROJECT-README`, que capturaba la técnica): ambos quedan subsumidos como partes de un solo documento de entrada.
 
-- `intake-vision.template.v1.0.md`: captura visión del producto, alcance, stakeholders, criterios de éxito, exclusiones. Es el insumo de AG-00 (Product Manager). Se carga una vez por solución, porque el negocio es uno (intake a nivel solución, ver §3.10.5).
-- `intake-tipo-proyecto.template.v1.0.md`: captura la composición de la solución como una lista de proyectos y, por cada proyecto, su tipo D8, el stack tentativo, las decisiones D1–D8 que ese proyecto adopta y las secciones del SDD que aplican y las que no. En una solución de un único proyecto, la lista tiene un solo elemento y la plantilla se comporta igual que en el modelo de tipo único.
+El intake se organiza en tres partes:
 
-Por qué dos plantillas y no una sola: visión y composición técnica se mueven en velocidades distintas. La visión de negocio es estable (no cambia salvo pivot mayor) y única por solución. La composición técnica (qué proyectos hay, su tipo D8 y sus dependencias) puede ajustarse si el equipo descubre que la elección inicial era inadecuada, e incluso crecer al agregar proyectos. Mantenerlas separadas permite versionarlas de manera independiente. La composición declarada en esta plantilla es la que alimenta el SOLUTION-MANIFEST como fuente única de verdad (ver §3.10.3).
+- Parte A — Negocio (§1 a §12): visión del producto, problema, usuarios, alcance, stakeholders, criterios de éxito y exclusiones. Es el insumo de negocio de AG-00 (Product Manager) y AG-01 (Analista de Negocio). Se carga una vez, porque el negocio es uno por solución (intake a nivel solución, ver §3.10.5).
+- Parte B — Composición (§13 a §16): la tabla de proyectos tipados (§13), el estilo de solución (§14), la descomposición (§15) y la estructura (§16). La tabla de proyectos tipados del §13 declara, para cada proyecto, su tipo D8, su rol y sus dependencias; es la fuente desde la que se deriva el SOLUTION-MANIFEST (ver §3.10.3). En una solución de un único proyecto, la tabla tiene una sola fila y la composición se comporta igual que en el modelo de tipo único.
+- Parte C — Técnica por proyecto (§17): un bloque repetible P.1 a P.12 por cada proyecto, con el stack tentativo, las decisiones D1–D8 que ese proyecto adopta y las secciones del SDD que aplican y las que no.
+
+El documento se cierra con §18 (samples) y §19 (checklist de completitud).
+
+Por qué un único documento de intake y no dos o tres artefactos separados: mantener visión, composición y técnica en un solo archivo da una entrada única y autocontenida que el humano completa de corrido y que el orquestador lee de una sola fuente, sin tener que conciliar versiones de varios documentos. La asimetría negocio/técnica no se pierde: se preserva como secciones del documento (Parte A única por solución, Parte C repetible por proyecto), no como archivos distintos. La composición declarada en la Parte B es la que alimenta el SOLUTION-MANIFEST como fuente única de verdad de la jerarquía (ver §3.10.3); el manifiesto ya no se completa a mano sino que se deriva del §13 (ver §3.6).
 
 ## 3.5 Paso 4 — Bootstrap local en Claude Code
 
 El humano clona o crea el repositorio del proyecto, copia el árbol `/SDD2.1D/devs/` del template adentro, y abre el repositorio en Claude Code (o el agente CLI equivalente). En este momento ya están en el repo:
 
-- Las plantillas de intake completadas.
-- Las reglas de nomenclatura (`devs/rules/`).
+- El documento único de intake completado (`SOLUTION-INTAKE`).
+- Las reglas de nomenclatura (`devs/rules/`), incluida la regla meta `rules/_intake_rules.md` que dirige la validación de intake.
 - Las plantillas de artefactos.
 - Los prompts del orquestador y de los subagentes (`devs/orchestrator/`).
 - Este marco teórico (`devs/guides/marco-teorico-sdd_v1.0.md`).
 
-El humano verifica que los intakes están bien cargados (no hay placeholders sin completar) y que las decisiones D1–D8 están explícitas.
+El humano verifica que el intake está bien cargado (no hay placeholders sin completar) y que las decisiones D1–D8 están explícitas. El SOLUTION-MANIFEST no se completa en este paso: es un artefacto derivado que el orquestador construye en la Fase de validación de intake (ver §3.6) a partir del §13 del intake.
 
 ## 3.6 Paso 5 — Ejecución del master-prompt
 
-El humano ejecuta en Claude Code el prompt orquestador maestro. Este prompt:
+El humano ejecuta en Claude Code el prompt orquestador maestro, en su versión v3.0. Antes de generar artefacto alguno, este prompt corre una Fase de validación de intake (previa a la Fase A de generación) y, recién con el intake validado y el manifiesto confirmado, despacha la generación.
 
-1. Lee los intakes, el SOLUTION-MANIFEST y las reglas.
+### 3.6.1 Fase de validación de intake (previa a la Fase A)
+
+La Fase de validación de intake está dirigida por la regla meta `rules/_intake_rules.md`, que describe cómo leer el intake, qué verificar y cómo derivar el manifiesto. La fase hace tres cosas distintas:
+
+1. Valida la completitud semántica del intake. No se limita al scan sintáctico de placeholders que el humano ya hizo en el Paso 4: revisa que cada parte del intake esté no solo presente sino también suficientemente especificada para generar sin ambigüedad. Es una validación proactiva, previa al despacho de subagentes.
+2. Emite una batería consolidada de preguntas. Cuando detecta subespecificación, el orquestador agrupa todas las preguntas pendientes en una sola batería y la presenta al humano de una vez, en lugar de descubrir los huecos de a uno durante la generación. Responder esa batería antes de generar evita que la IA derive por subespecificación, es decir, que rellene huecos inventando supuestos que después contaminan toda la cadena de artefactos.
+3. Deriva y confirma el manifiesto. El orquestador construye el SOLUTION-MANIFEST desde la tabla de proyectos tipados del §13 del intake y lo presenta para confirmación humana explícita. El manifiesto deja de ser un documento que el usuario completa a mano y pasa a ser un artefacto derivado.
+
+Por qué validar la completitud antes de generar. La generación asistida por IA es vulnerable a la subespecificación: ante un hueco en la entrada, el modelo no se detiene, sino que improvisa un supuesto plausible y sigue. Ese supuesto se propaga por la cadena de trazabilidad y resulta caro de revertir una vez materializado en decenas de artefactos. Concentrar la verificación de completitud al inicio, en una sola batería de preguntas, convierte un problema distribuido y reactivo en un punto de control único y barato: el humano resuelve las ambigüedades antes de que cuesten.
+
+Por qué derivar el manifiesto en lugar de pedirlo. El modelo reformulado tiene dos exigencias que en apariencia tiran en sentidos opuestos: que el humano cargue un único documento de entrada (Paso 3) y que exista una fuente única de verdad de la jerarquía de proyectos (el SOLUTION-MANIFEST, ver §3.10.3). Derivar el manifiesto del §13 del intake concilia ambas: la entrada sigue siendo única (el humano no mantiene dos artefactos en sincronía) y la fuente única de verdad de la jerarquía se preserva, porque el manifiesto se computa de manera determinística desde la tabla declarada y se confirma antes de usarse. Si el humano cargara el manifiesto por separado, podría divergir del §13; al derivarlo, esa divergencia es imposible por construcción.
+
+Esta fase es complementaria, no sustituta, de los mecanismos previos: no reemplaza el scan de placeholders del Paso 4 ni la resolución reactiva de ambigüedad por subagente en runtime; se suma como un control semántico anticipado que esos dos mecanismos no cubrían.
+
+### 3.6.2 Fase A — Generación
+
+Confirmado el manifiesto, el orquestador ejecuta la generación. Esta etapa:
+
+1. Lee el intake y el SOLUTION-MANIFEST derivado y confirmado en la Fase de validación de intake, junto con las reglas.
 2. Genera las categorías de nivel solución (00 y 01) una vez, y determina el orden topológico de los proyectos a partir del grafo de dependencias del manifiesto.
 3. Para cada proyecto, en orden topológico (primero las dependencias, después los dependientes), identifica las secciones 02 a 11 que aplican según su tipo D8 y aplica la variante §1.2 de cada regla correspondiente a ese D8.
 4. Despacha subagentes especializados (uno por sección) en paralelo o en serie según la dependencia, y cada subagente genera la documentación de su sección respetando las plantillas y la nomenclatura.
@@ -340,21 +363,31 @@ A partir de este punto, el equipo opera en nivel Spec-Anchored: cualquier cambio
 |    PASO 2: Consolidacion en documento unico (intake-source.md)     |
 |             |                                                      |
 |             v                                                      |
-|    PASO 3: Volcado a plantillas de intake                          |
-|    +-------------------+    +---------------------------+          |
-|    | intake-vision.md  |    | intake-tipo-proyecto.md   |          |
-|    +-------------------+    +---------------------------+          |
+|    PASO 3: Volcado al documento unico de intake                    |
+|    +-----------------------------------------+                     |
+|    | SOLUTION-INTAKE  (A negocio / B comp. /  |                     |
+|    | C tecnica)  reemplaza BRIEF + README     |                     |
+|    +-----------------------------------------+                     |
 |             |                                                      |
 |             v                                                      |
 |    PASO 4: Bootstrap en repo local + Claude Code                   |
 |    Copia /SDD2.1D/devs/ al repo, abre Claude Code                  |
 |             |                                                      |
 |             v                                                      |
-|    PASO 5: Ejecucion del master-prompt                             |
+|    PASO 5: Ejecucion del master-prompt (v3.0)                      |
 |    +------------------+                                            |
 |    |   Orquestador    |                                            |
 |    +--------+---------+                                            |
 |             |                                                      |
+|             v                                                      |
+|    FASE VALIDACION DE INTAKE (previa a Fase A)                     |
+|    dirigida por rules/_intake_rules.md                            |
+|    - valida completitud semantica del intake                      |
+|    - emite bateria consolidada de preguntas                       |
+|    - deriva SOLUTION-MANIFEST desde §13 y lo confirma             |
+|             |                                                      |
+|             v                                                      |
+|    FASE A: Generacion                                              |
 |             | despacha                                             |
 |             v                                                      |
 |    +----+----+----+----+----+----+----+----+----+----+----+----+   |
@@ -380,7 +413,7 @@ A partir de este punto, el equipo opera en nivel Spec-Anchored: cualquier cambio
 +--------------------------------------------------------------------+
 ```
 
-El diagrama representa el flujo lineal pero los pasos 5 y 6 pueden iterar. Si el humano detecta gaps en la documentación generada, vuelve al paso 5 con un prompt correctivo. Si detecta gaps en el intake, vuelve al paso 3.
+El diagrama representa el flujo lineal pero los pasos 5 y 6 pueden iterar. La Fase de validación de intake, al inicio del Paso 5, es el primer punto donde el flujo puede volver atrás: si la validación de completitud semántica detecta huecos, su batería consolidada de preguntas devuelve el control al humano antes de generar nada. Si el humano detecta gaps en la documentación ya generada, vuelve al paso 5 con un prompt correctivo. Si detecta gaps en el intake, vuelve al paso 3.
 
 ## 3.9 Diferencias con SDD 1.0
 
@@ -418,7 +451,9 @@ Esto preserva intacto el catálogo de las 13 especialidades (ver §4) y la caden
 
 ### 3.10.3 El manifiesto como fuente única de verdad
 
-La composición de la solución se declara en un único artefacto: el SOLUTION-MANIFEST. El manifiesto enumera los proyectos de la solución y, para cada uno, su tipo D8, su rol dentro de la solución, sus dependencias hacia otros proyectos y sus nombres de código. El manifiesto es la fuente única de verdad sobre qué proyectos existen y cómo se relacionan.
+La composición de la solución se consolida en un único artefacto: el SOLUTION-MANIFEST. El manifiesto enumera los proyectos de la solución y, para cada uno, su tipo D8, su rol dentro de la solución, sus dependencias hacia otros proyectos y sus nombres de código. El manifiesto es la fuente única de verdad sobre qué proyectos existen y cómo se relacionan.
+
+El manifiesto no lo completa el humano: es un artefacto derivado. El orquestador lo construye desde la tabla de proyectos tipados del §13 del intake durante la Fase de validación de intake (ver §3.6) y lo presenta para confirmación humana antes de usarlo. De este modo, la composición se declara una sola vez (en el §13 del intake) y el manifiesto que el resto de la generación consume se computa de manera determinística desde esa declaración, sin riesgo de divergencia entre ambos.
 
 Centralizar esta información en un manifiesto, en lugar de dispersarla por los árboles de cada proyecto, tiene tres consecuencias prácticas:
 
@@ -434,11 +469,11 @@ A partir del DAG se obtiene un orden topológico: primero se generan y se constr
 
 ### 3.10.5 Intake a nivel solución
 
-El intake del modelo reformulado (Opción B) opera a nivel solución, coherente con la asimetría negocio/técnica:
+El intake del modelo reformulado opera a nivel solución, coherente con la asimetría negocio/técnica, y se consolida en un único documento: `SOLUTION-INTAKE-<nombre-solucion-kebab>_v1.0.md`. Este documento reemplaza y deja deprecados a los dos artefactos previos (`PROJECT-BRIEF` de negocio y `PROJECT-README` técnico), que dejan de usarse como archivos separados y pasan a ser partes del documento único. La asimetría negocio/técnica se preserva como secciones:
 
-- Un PROJECT-BRIEF de negocio por solución, que captura la visión y el problema una sola vez (el negocio es uno).
-- Un PROJECT-README técnico de solución que contiene un bloque técnico por proyecto (la técnica es por proyecto).
-- El SOLUTION-MANIFEST descrito arriba.
+- Una Parte A de negocio por solución, que captura la visión y el problema una sola vez (el negocio es uno).
+- Una Parte C técnica con un bloque repetible por proyecto (la técnica es por proyecto).
+- Una Parte B de composición, cuya tabla de proyectos tipados (§13) declara la jerarquía y es la fuente desde la que se deriva el SOLUTION-MANIFEST descrito arriba.
 
 De este modo, lo que es único (el negocio) se carga una vez y lo que se especializa (la técnica de cada proyecto) se carga por proyecto, evitando duplicación del negocio y mezcla de tecnologías heterogéneas en un único bloque.
 
@@ -1446,7 +1481,7 @@ Todo prompt destinado a generar artefactos comienza con una lista explícita de 
 
 ```text
 Antes de escribir nada, leé en orden:
-1. devs/intake/intake-vision.completed.md
+1. devs/intake/SOLUTION-INTAKE-<nombre-solucion-kebab>_v1.0.md
 2. devs/rules/decisiones-D1-D8.md
 3. devs/guides/marco-teorico-sdd_v1.0.md (sección §4 si el rol que asumis es AG-XX)
 
@@ -1664,7 +1699,8 @@ Términos canónicos del template SDD 2.1. Cada uno con definición operativa en
 | **GitHub Flow** | Modelo de branching: una rama main protegida, feature branches que mergean vía PR. |
 | **GitOps** | Patrón donde el estado deseado de infraestructura y aplicaciones se declara en git y un agente reconcilia el estado real. |
 | **Given/When/Then** | Formato BDD para criterios de aceptación: contexto inicial, evento, resultado esperado. |
-| **Intake** | Plantilla inicial que el humano completa para alimentar al template (intake-vision, intake-tipo-proyecto). |
+| **Intake** | Documento inicial único que el humano completa para alimentar al template: `SOLUTION-INTAKE`, con tres partes (A negocio, B composición, C técnica por proyecto). Reemplaza a `PROJECT-BRIEF` y `PROJECT-README`, ahora deprecados. |
+| **SOLUTION-INTAKE** | Documento único de entrada del template (`SOLUTION-INTAKE-<nombre-solucion-kebab>_v1.0.md`). Parte A negocio (§1-§12), Parte B composición (§13 tabla de proyectos tipados, §14 estilo, §15 descomposición, §16 estructura), Parte C técnica por proyecto (§17, bloque P.1-P.12), más §18 samples y §19 checklist. Su §13 es la fuente desde la que se deriva el SOLUTION-MANIFEST. |
 | **ISO 25010** | Norma ISO que define ocho atributos de calidad de producto de software. |
 | **ISO 29148** | Norma ISO de ingeniería de requisitos de software y sistemas. |
 | **Manifest-driven** | Patrón donde cada componente expone un manifest declarativo que un sistema consumidor lee para configurar UI o comportamiento. |
@@ -1683,7 +1719,7 @@ Términos canónicos del template SDD 2.1. Cada uno con definición operativa en
 | **SBOM** | Software Bill of Materials. Lista trazable de todos los componentes que conforman un artefacto de software. |
 | **SDD (Specification-Driven Development)** | Enfoque que pone a la especificación como artefacto central del ciclo de desarrollo. |
 | **SemVer** | Semantic Versioning 2.0.0. Estándar de versionado MAJOR.MINOR.PATCH para librerías y APIs. |
-| **SOLUTION-MANIFEST** | Fuente única de verdad de una solución. Enumera sus proyectos y, por cada uno, su tipo D8, rol, dependencias y nombres de código. Su grafo de dependencias es acíclico (DAG). |
+| **SOLUTION-MANIFEST** | Fuente única de verdad de una solución. Enumera sus proyectos y, por cada uno, su tipo D8, rol, dependencias y nombres de código. Su grafo de dependencias es acíclico (DAG). Es un artefacto derivado: el orquestador lo construye desde el §13 del intake en la Fase de validación de intake y lo confirma con el humano; no se completa a mano. |
 | **Solución** | Agrupación de una jerarquía de N proyectos (N≥1). No tiene un D8 propio: su tipo es compuesto. El negocio (categorías 00 y 01) se especifica a nivel solución. |
 | **Sprint** | Iteración de tiempo fijo (típicamente 1 a 4 semanas) donde el equipo entrega un incremento del producto. |
 | **Sprint 0** | Iteración previa al primer sprint productivo, dedicada a producir los artefactos sin los cuales el Sprint 1 no puede arrancar. |
@@ -1828,6 +1864,7 @@ W3C. (2024). *ARIA — Accessible Rich Internet Applications*. https://www.w3.or
 |---|---|---|
 | 1.0 | 2026-05-17 | Versión inicial — 14 capítulos, 50+ términos en glosario, 40+ referencias APA 7, 8 tipos D8 cubiertos. |
 | 1.1 | 2026-06-10 | Actualización al modelo de solución más jerarquía de proyectos: fundamentación del modelo (solución, proyecto como unidad de especialización, manifiesto como fuente única de verdad, orden topológico, caso degenerado como garantía de no ruptura), estructura del template con niveles solución/proyecto y _solucion/, y aclaración de que las variantes D8 y la trazabilidad se aplican por proyecto. Conjunto D8 sin cambios (8 valores). |
+| 1.2 | 2026-06-10 | Actualización al intake unificado: un único documento `SOLUTION-INTAKE` reemplaza a `PROJECT-BRIEF` y `PROJECT-README`; el `SOLUTION-MANIFEST` pasa a artefacto derivado del §13 del intake; se incorpora la fundamentación de la Fase de validación de intake (validación de completitud semántica, batería de preguntas, derivación y confirmación del manifiesto). Conjunto D8 sin cambios. |
 
 ---
 

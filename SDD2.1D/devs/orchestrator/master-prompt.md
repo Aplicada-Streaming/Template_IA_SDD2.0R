@@ -1,25 +1,24 @@
 # Master prompt SDD 2.1 — Orquestador de la solución
 
 **Archivo:** `master-prompt.md`
-**Versión:** 2.2
+**Versión:** 3.0
 **Idioma:** Español rioplatense neutro técnico
 **Modo:** plan-then-confirm con subagentes + audit independiente
-**Prerequisitos:** `/SDD2.1D/devs/intake/SOLUTION-MANIFEST-<nombre-solucion-kebab>_v1.0.md`, `/SDD2.1D/devs/intake/PROJECT-BRIEF-<nombre-solucion-kebab>_v1.0.md` y `/SDD2.1D/devs/intake/PROJECT-README-<nombre-solucion-kebab>_v1.0.md` completos.
+**Prerequisitos:** `/SDD2.1D/devs/intake/SOLUTION-INTAKE-<nombre-solucion-kebab>_v1.0.md` completo. El `SOLUTION-MANIFEST` lo deriva el orquestador del intake durante la fase de validación (§3); no es un insumo a completar a mano.
 **Salida:** `/SDD2.1D/docs/` poblada con la documentación de la solución y de cada proyecto.
 
 ---
 
 ## §0 Cómo usar este prompt
 
-Este prompt se ejecuta una sola vez por solución, sobre un repositorio que ya contiene el manifiesto de solución y los dos documentos de intake completos. Una solución agrupa una jerarquía de proyectos; cada proyecto lleva exactamente uno de los 8 valores cerrados D8 y es la unidad de especialización de los subagentes. La ejecución sigue el patrón plan-then-confirm: en cada fase el orquestador propone, espera confirmación, ejecuta y se detiene para validar antes de avanzar a la siguiente.
+Este prompt se ejecuta una sola vez por solución, sobre un repositorio que ya contiene el documento de intake unificado de la solución completo (`SOLUTION-INTAKE`). Una solución agrupa una jerarquía de proyectos; cada proyecto lleva exactamente uno de los 8 valores cerrados D8 y es la unidad de especialización de los subagentes. La ejecución sigue el patrón plan-then-confirm: en cada fase el orquestador propone, espera confirmación, ejecuta y se detiene para validar antes de avanzar a la siguiente.
 
 Prerrequisitos verificables antes de arrancar:
 
-1. Existe `/SDD2.1D/devs/intake/SOLUTION-MANIFEST-<nombre-solucion-kebab>_v1.0.md` con su checklist íntegramente tildado.
-2. Existe `/SDD2.1D/devs/intake/PROJECT-BRIEF-<nombre-solucion-kebab>_v1.0.md` con su checklist de §13 íntegramente tildado.
-3. Existe `/SDD2.1D/devs/intake/PROJECT-README-<nombre-solucion-kebab>_v1.0.md` con su checklist de §7 íntegramente tildado.
-4. Cada proyecto declarado en el manifiesto tiene un `project_type` que pertenece a los 8 valores cerrados D8, y el manifiesto pasa las validaciones de §3.
-5. La carpeta `/SDD2.1D/docs/` está vacía o no existe. Si tiene contenido previo, el orquestador se detiene y pide al usuario decidir entre archivar el contenido en `/SDD2.1D/docs/_legacy/<fecha>/` o abortar.
+1. Existe `/SDD2.1D/devs/intake/SOLUTION-INTAKE-<nombre-solucion-kebab>_v1.0.md` con su checklist de §19 íntegramente tildado.
+2. Cada proyecto declarado en §13 del intake tiene un `project_type` que pertenece a los 8 valores cerrados D8.
+3. El intake pasa la fase de validación de §3 (completitud y derivación del manifiesto con confirmación).
+4. La carpeta `/SDD2.1D/docs/` está vacía o no existe. Si tiene contenido previo, el orquestador se detiene y pide al usuario decidir entre archivar el contenido en `/SDD2.1D/docs/_legacy/<fecha>/` o abortar.
 
 Mecánica de ejecución:
 
@@ -64,38 +63,45 @@ En consecuencia, toda invocación a un subagente se construye copiando el bloque
 
 ---
 
-## §2 Lectura del manifiesto y de los intake
+## §2 Lectura del intake unificado
 
-Primer paso obligatorio de cualquier sesión: el orquestador lee el manifiesto y ambos intake antes de cualquier otra acción.
+Primer paso obligatorio de cualquier sesión: el orquestador lee el intake unificado antes de cualquier otra acción.
 
 Procedimiento:
 
-1. Resolver el `<nombre-solucion-kebab>`. Si hay un solo archivo `SOLUTION-MANIFEST-*_v1.0.md` en `/SDD2.1D/devs/intake/`, esa es la solución. Si hay varios, pedir al usuario que indique cuál.
-2. Leer `SOLUTION-MANIFEST-<nombre-solucion-kebab>_v1.0.md` íntegro. Es la fuente única de verdad de la enumeración de proyectos, su tipado, sus dependencias y sus nombres de código.
-3. Leer `PROJECT-BRIEF-<nombre-solucion-kebab>_v1.0.md` íntegro (negocio de la solución).
-4. Leer `PROJECT-README-<nombre-solucion-kebab>_v1.0.md` íntegro (técnica de la solución, con un bloque técnico por proyecto en su §5).
-5. Verificar el checklist final de cada documento. Cualquier ítem sin tildar invalida el intake.
+1. Resolver el `<nombre-solucion-kebab>`. Si hay un solo archivo `SOLUTION-INTAKE-*_v1.0.md` en `/SDD2.1D/devs/intake/`, esa es la solución. Si hay varios, pedir al usuario que indique cuál.
+2. Leer `SOLUTION-INTAKE-<nombre-solucion-kebab>_v1.0.md` íntegro: la Parte A (negocio, §1 a §12), la Parte B (composición, §13 a §16, con la tabla de proyectos de la que se deriva el manifiesto) y la Parte C (técnica por proyecto, §17, un bloque por proyecto).
+3. Verificar el checklist final de §19. Cualquier ítem bloqueante sin tildar invalida el intake.
 
 Patrón de detención por intake incompleto:
 
-> Si alguna sección de cualquiera de los tres documentos contiene literalmente "Pendiente", "TBD", "[Reemplazar]", "[Nombre]", "[YYYY-MM-DD]" sin completar, o cualquier placeholder de la plantilla original, el orquestador se detiene de inmediato. No genera nada. Devuelve al usuario una lista enumerada con la ruta del archivo, la sección y el placeholder concreto que está sin resolver, y pide completarlo antes de continuar. Se reanuda recién cuando el usuario confirma que actualizó el intake.
+> Si alguna sección del intake contiene literalmente "Pendiente", "TBD", "[Reemplazar]", "[Nombre]", "[YYYY-MM-DD]" sin completar, o cualquier placeholder de la plantilla original, el orquestador se detiene de inmediato. No genera nada. Devuelve al usuario una lista enumerada con la ruta del archivo, la sección y el placeholder concreto que está sin resolver, y pide completarlo antes de continuar. Se reanuda recién cuando el usuario confirma que actualizó el intake.
 
 Esto cubre el caso de intakes a medio completar y el caso de plantillas pegadas sin personalizar.
 
+Completada la lectura y el scan de placeholders, el orquestador pasa de inmediato a la Fase de validación de intake de §3 (validación de completitud semántica y derivación del manifiesto), bloqueante y previa a la Fase A.
+
 ---
 
-## §3 Detección de la solución y de la jerarquía de proyectos
+## §3 Fase de validación de intake y derivación de la jerarquía
 
-Una vez leídos el manifiesto y los intake, el orquestador deriva la solución y su jerarquía. El manifiesto manda: si el `PROJECT-README §1` enumera proyectos o tipos que divergen del manifiesto, el orquestador se detiene y reporta la divergencia.
+Esta es la fase previa a la Fase A. Antes de despachar cualquier subagente, el orquestador valida el intake unificado y deriva de él el manifiesto canónico. Procede en este orden:
 
-### §3.1 Validaciones bloqueantes del manifiesto
+1. Validación de completitud. El orquestador lee `rules/_intake_rules.md` y valida el `SOLUTION-INTAKE` contra sus campos bloqueantes (`_intake_rules.md` §2) y sus validaciones de completitud semántica (`_intake_rules.md` §5). Si hay pendientes, emite la batería consolidada de preguntas (formato de `_intake_rules.md` §6) y se detiene hasta que el humano actualiza el intake. No avanza con bloqueantes abiertos. Esta validación es semántica y proactiva; no reemplaza el scan de placeholders de §2 ni la ambigüedad runtime de §9.
+2. Derivación del manifiesto. A partir de `SOLUTION-INTAKE` §13, el orquestador construye el `SOLUTION-MANIFEST-<nombre-solucion-kebab>_v1.0.md` siguiendo `_intake_rules.md` §4 y el formato de `SOLUTION-MANIFEST-template.md`, aplicando las validaciones de §3.1. El usuario no completa el manifiesto a mano.
+3. Confirmación. El orquestador presenta el manifiesto derivado al humano y espera confirmación explícita antes de tratarlo como canónico.
+4. Detección de la jerarquía. Con el manifiesto confirmado, el orquestador deriva los nombres (§3.2), el orden topológico (§3.3) y el bloque informativo (§3.4), y recién entonces entra a la Fase A.
+
+### §3.1 Validaciones bloqueantes de la derivación del manifiesto
+
+Al derivar el manifiesto desde `SOLUTION-INTAKE` §13, el orquestador verifica:
 
 - Cada `project_type` pertenece al conjunto cerrado D8.
 - Hay exactamente un proyecto principal (cero o más de uno detiene la cadena).
 - No hay colisión de `nombre-proyecto-kebab` ni de `nombre-proyecto-codigo`.
-- Cada dependencia referencia un proyecto existente en el manifiesto.
+- Cada dependencia referencia un proyecto existente en §13.
 - El grafo de dependencias es acíclico.
-- El `PROJECT-README §1` refleja la misma enumeración y los mismos tipos que el manifiesto.
+- §13 es recorrible: filas de ejemplo reemplazadas, perfil de convención presente, campos bloqueantes completos.
 
 Valores válidos cerrados (D8), exactamente 8:
 
@@ -103,7 +109,7 @@ Valores válidos cerrados (D8), exactamente 8:
 library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service
 ```
 
-Si alguna validación falla, el orquestador se detiene con error y pide corregir el manifiesto (o el README si la divergencia está ahí), siguiendo el patrón de ambigüedad de §9.
+Si alguna validación falla, el orquestador no deriva el manifiesto, se detiene y pide corregir el `SOLUTION-INTAKE` §13, reportándolo en la batería de validación de intake (`_intake_rules.md` §6).
 
 ### §3.2 Derivación de nombres (regla determinista)
 
@@ -119,7 +125,7 @@ Algoritmo de normalización a kebab, aplicado al nombre de solución y al de cad
 
 `NombreSolucionCodigo` se obtiene en PascalCase del nombre legible de la solución: separar por espacios, capitalizar la inicial de cada palabra, concatenar sin separadores.
 
-`nombre-proyecto-codigo` se compone como `<NombreSolucionCodigo>.<Sufijo>`, salvo proyectos `redistribuible: true`, que arrancan con el prefijo de organización del perfil (`Aplicada` por defecto). El sufijo y el perfil de convención se leen del manifiesto.
+`nombre-proyecto-codigo` se compone como `<NombreSolucionCodigo>.<Sufijo>`, salvo proyectos `redistribuible: true`, que arrancan con el prefijo de organización del perfil (`Aplicada` por defecto). El sufijo y el perfil de convención se toman de `SOLUTION-INTAKE` §13.
 
 Si dos proyectos colisionan en nombre de código o en nombre kebab, el orquestador se detiene y lo reporta como ambigüedad.
 
@@ -195,11 +201,11 @@ A partir del intake, el orquestador deriva flags que condicionan el plan de gene
 | `tiene_ui_final` | proyecto | `project_type` del proyecto | true cuando `project_type` ∈ {web-monolith, web-microservices con frontend, desktop-app, mobile-app-maui} | Selecciona variante UX/UI para la categoría 03 del proyecto. Si false y `project_type` ∈ {library, cli-tool, worker-service, rest-api sin portal}, selecciona variante DX. |
 | `multi_tenant` | proyecto | README §5 P.4 (persistencia) del proyecto | true si el proyecto declara modelo multi-tenant | Activa secciones específicas en 05, 07 y 09 del proyecto. |
 | `tiene_auth` | proyecto | README §5 P.5 del proyecto | true si declara cualquier mecanismo de autenticación distinto a "ninguno" | Habilita CU de autenticación en 02 y ADR de autenticación en 05 del proyecto. |
-| `equipo_n` | solución | PROJECT-BRIEF §2 (acuerdo de equipo) o README de solución | número entero >= 1 con la cantidad de devs | Si > 1: 07 produce sprint plan completo. Si == 1: 07 produce únicamente `mini-plan_v1.0.md` (regla §2.2 de `07_rules_plan_sprint.md`). |
+| `equipo_n` | solución | SOLUTION-INTAKE §2 (stakeholders) o §10 (restricciones del cliente) | número entero >= 1 con la cantidad de devs | Si > 1: 07 produce sprint plan completo. Si == 1: 07 produce únicamente `mini-plan_v1.0.md` (regla §2.2 de `07_rules_plan_sprint.md`). |
 | `tiene_portal_developers` | proyecto | README §5 del proyecto | true si el proyecto declara portal de developers, SDK público o documentación pública orientada a integradores | Activa documentos DX adicionales en 03 y refuerza 10 y 11 del proyecto. |
 | `tiene_extensibilidad` | proyecto | README §5 P.2 y rol del proyecto | true si el proyecto declara puntos de extensión, plugins o handlers externos | Activa `extensibilidad_v1.0.md` en 05 y `guia-testing-extensibilidad` en 08 del proyecto. |
 | `tiene_persistencia` | proyecto | README §5 P.4 del proyecto | true si declara cualquier motor de persistencia distinto a "No aplica" | Activa `modelo-conceptual` en 02 y `modelo-datos-logico` en 05 del proyecto. |
-| `requiere_compliance` | proyecto/solución | PROJECT-BRIEF §10 y README §5 P.5/P.10 | true si se mencionan GDPR, PCI, HIPAA, SOC2, ISO 27001 o normativa local | Refuerza secciones de seguridad en 05, 08 y 09 y obliga ADR de compliance. |
+| `requiere_compliance` | proyecto/solución | SOLUTION-INTAKE §10 (restricciones) y §17 P.5/P.10 del proyecto | true si se mencionan GDPR, PCI, HIPAA, SOC2, ISO 27001 o normativa local | Refuerza secciones de seguridad en 05, 08 y 09 y obliga ADR de compliance. |
 | `tiene_observabilidad_critica` | proyecto | README §5 P.10 del proyecto | true si los NFR declaran SLO de disponibilidad >= 99.9 % o latencia p99 con métrica numérica | Refuerza supply-chain-seguridad y dashboards en 09 y NFR-tests en 08 del proyecto. |
 
 El orquestador publica al usuario el bloque de flags por solución y por proyecto como parte del plan inicial. El usuario puede aceptar, ajustar el valor con justificación o pedir que se completen los intake antes de continuar.
@@ -262,8 +268,8 @@ A continuación se documenta el plan maestro que el orquestador construye. Las c
 
 | Fase | Categoría | Ámbito | Documentos a generar | Subagente (variante por tipo) | Insumos upstream | Insumos de reglas | Path de salida | Audit post-fase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| A | 00_contexto | solución | `vision-producto_v1.0.md`, `alcance-proyecto_v1.0.md`, `roadmap-producto_v1.0.md`, `compatibilidad-plataformas_v1.0.md` (según §2.2), `acuerdo-equipo_v1.0.md` (si `equipo_n` > 2), `README.md` | Product Manager Senior (AG-00) | PROJECT-BRIEF; PROJECT-README §1 a §4 | `00_rules_contexto.md` | `/SDD2.1D/docs/00_contexto/` | Sí |
-| A | 01_necesidades_negocio | solución | `necesidades-negocio_v1.0.md`, `necesidades-de-negocio/NB-XX-<kebab>_v1.0.md` (mínimo 3), `README.md` si > 5 NB | Analista de Negocio Senior (AG-01) | PROJECT-BRIEF; 00_contexto | `01_rules_necesidades_negocio.md` | `/SDD2.1D/docs/01_necesidades_negocio/` | Sí |
+| A | 00_contexto | solución | `vision-producto_v1.0.md`, `alcance-proyecto_v1.0.md`, `roadmap-producto_v1.0.md`, `compatibilidad-plataformas_v1.0.md` (según §2.2), `acuerdo-equipo_v1.0.md` (si `equipo_n` > 2), `README.md` | Product Manager Senior (AG-00) | SOLUTION-INTAKE Parte A (negocio); §13 a §16 (composición) | `00_rules_contexto.md` | `/SDD2.1D/docs/00_contexto/` | Sí |
+| A | 01_necesidades_negocio | solución | `necesidades-negocio_v1.0.md`, `necesidades-de-negocio/NB-XX-<kebab>_v1.0.md` (mínimo 3), `README.md` si > 5 NB | Analista de Negocio Senior (AG-01) | SOLUTION-INTAKE Parte A (negocio); 00_contexto | `01_rules_necesidades_negocio.md` | `/SDD2.1D/docs/01_necesidades_negocio/` | Sí |
 | B | 02_especificacion_funcional | proyecto | `especificacion-funcional_v1.0.md`, `casos-de-uso/CU-XX-<kebab>_v1.0.md`, `reglas-de-negocio/RN-XX-<kebab>_v1.0.md` (si aplica), `modelo-datos/...` (si hay persistencia), `README.md` | Analista Funcional Senior (AG-02) + variante D8 del proyecto | 01/NB-XX, 00; README §5 P.x del proyecto | `02_rules_especificacion_funcional.md` | `/SDD2.1D/docs/proyectos/<kebab>/02_especificacion_funcional/` | Sí |
 | B | 03_ux_ui_dx | proyecto | Variante UX/UI o DX según `tiene_ui_final`, `README.md` | Especialista UX/UI o DX (AG-03) + variante D8 del proyecto | 02 del proyecto, 00 | `03_rules_ux_ui_dx.md` | `/SDD2.1D/docs/proyectos/<kebab>/03_ux_ui_dx/` | Sí |
 | B | 04_prompts_ai | proyecto | Si `usa_llm` del proyecto == true: artefactos de prompts; si false: omitir | Ingeniero de Prompts Senior (AG-04) + variante D8 del proyecto | 01, README §5 del proyecto, 02 del proyecto | `04_rules_prompts_ai.md` | `/SDD2.1D/docs/proyectos/<kebab>/04_prompts_ai/` (solo si gating positivo) | Sí (si se generó) |
@@ -298,12 +304,14 @@ Nada de este procedimiento se improvisa. Si una regla cambia, el plan cambia aut
 
 ## §7 Ejecución por fases
 
-El orquestador genera primero las categorías de nivel solución, luego recorre los proyectos en orden topológico generando sus categorías, y cierra con la consolidación de solución. El orden de ejecución dentro de cada proyecto sigue la cadena D6. Cada fase se cierra con su audit antes de pasar a la siguiente.
+El orquestador valida el intake y deriva el manifiesto, luego genera las categorías de nivel solución, recorre los proyectos en orden topológico generando sus categorías, y cierra con la consolidación de solución. El orden de ejecución dentro de cada proyecto sigue la cadena D6. Cada fase se cierra con su audit antes de pasar a la siguiente.
+
+Fase de validación de intake (una vez, antes de todo). El orquestador ejecuta §3: valida el `SOLUTION-INTAKE` con `_intake_rules.md`, emite la batería consolidada de preguntas y se detiene ante pendientes; deriva el `SOLUTION-MANIFEST` desde §13 y lo presenta para confirmación. Recién con el manifiesto confirmado avanza a la Fase A. Esta fase no genera documentación de `/docs/`.
 
 Fase A — Fundamentos de la solución (una vez).
   1. 00_contexto (solución).
   2. 01_necesidades_negocio (solución).
-  3. Audit independiente de Fase A: verifica que la visión existe, el alcance tiene exclusiones y las NB son INVEST y trazables al BRIEF.
+  3. Audit independiente de Fase A: verifica que la visión existe, el alcance tiene exclusiones y las NB son INVEST y trazables al intake.
 
 Bucle por proyecto, en orden topológico (niveles 0, 1, 2, ...; proyectos del mismo nivel paralelizables). Para cada proyecto se ejecutan las fases B a G con el `project_type` y los flags de ese proyecto:
 
@@ -373,8 +381,7 @@ Sos un {{ESPECIALIDAD_VARIANTE}}, leído literal de la sección §1.2 del archiv
 ## Insumos a leer obligatoriamente
 
 - SOLUTION-MANIFEST: /SDD2.1D/devs/intake/SOLUTION-MANIFEST-{{NOMBRE_SOLUCION_KEBAB}}_v1.0.md
-- PROJECT-BRIEF: /SDD2.1D/devs/intake/PROJECT-BRIEF-{{NOMBRE_SOLUCION_KEBAB}}_v1.0.md
-- PROJECT-README: /SDD2.1D/devs/intake/PROJECT-README-{{NOMBRE_SOLUCION_KEBAB}}_v1.0.md (bloque técnico §5 del proyecto {{NOMBRE_PROYECTO_KEBAB}})
+- SOLUTION-INTAKE: /SDD2.1D/devs/intake/SOLUTION-INTAKE-{{NOMBRE_SOLUCION_KEBAB}}_v1.0.md (Parte A negocio; §13 composición; §17 bloque técnico del proyecto {{NOMBRE_PROYECTO_KEBAB}})
 - Reglas de la categoría: {{PATH_REGLA}}
 - Documentos upstream ya generados: {{LISTA_PATHS_UPSTREAM}}
 
@@ -527,7 +534,7 @@ README raíz (AG-ROOT, regla `_root_rules.md`): cubre la documentación generada
 
 Insumos para AG-ROOT:
 
-- Manifiesto, PROJECT-BRIEF y PROJECT-README como referencia.
+- El manifiesto derivado y el `SOLUTION-INTAKE` como referencia.
 - Las categorías de nivel solución (00, 01), la vista de solución (`_solucion/`) y, por cada proyecto, sus categorías generadas y aprobadas por sus audits.
 - El log del orquestador con qué se generó, qué se omitió por gating y por qué.
 
@@ -561,14 +568,14 @@ El orquestador no escribe código bajo ninguna circunstancia sin recibir la conf
 
 ---
 
-## §13 Reglas de no-modificación de manifiesto e intake
+## §13 Reglas de no-modificación del intake y del manifiesto derivado
 
-El manifiesto y los intake son fuente de verdad de la jerarquía (manifiesto), del negocio (BRIEF) y de la técnica (README). El orquestador no los reescribe durante la generación.
+El `SOLUTION-INTAKE` es la fuente de verdad de la solución (negocio, composición y técnica), y el `SOLUTION-MANIFEST` derivado de su §13 es la fuente canónica de la jerarquía. El orquestador no los reescribe durante la generación.
 
 Reglas:
 
 1. Lectura solo. Toda invocación al manifiesto o a un intake durante la generación es lectura.
-2. Único caso de escritura permitido: cuando el usuario responde a una pregunta abierta del flujo §9 (manejo de ambigüedad) y la respuesta debe consolidarse en el manifiesto o el intake correspondiente.
+2. Único caso de escritura permitido: cuando el usuario responde a una pregunta abierta del flujo §9 (manejo de ambigüedad) o de la batería de validación de §3, y la respuesta debe consolidarse en el `SOLUTION-INTAKE`.
 3. Toda escritura agrega entrada al control de cambios del documento. Formato:
    ```text
    | Versión | Fecha | Cambios | Autor |
@@ -578,9 +585,9 @@ Reglas:
 4. La versión del documento sube de minor cuando se agrega información sin cambiar lo existente; de major solo si el usuario pide reescribir una sección ya aprobada.
 5. La modificación es atómica: una sola sección por entrada de control de cambios.
 6. Las versiones anteriores se archivan en `/SDD2.1D/devs/intake/_legacy/<YYYY-MM-DD>/` antes de sobrescribir.
-7. Si la respuesta agrega o cambia un proyecto, su tipo o una dependencia, la modificación es del manifiesto (fuente única de verdad de la enumeración) y el README §1 se actualiza para reflejarla en la misma operación.
+7. Si la respuesta agrega o cambia un proyecto, su tipo o una dependencia, la modificación se hace en `SOLUTION-INTAKE` §13; el orquestador re-deriva el `SOLUTION-MANIFEST` y vuelve a presentarlo para confirmación en la misma operación.
 
-Cualquier intento de un subagente de modificar el manifiesto o un intake sin pasar por este flujo es un error de orquestación y dispara abort.
+Cualquier intento de un subagente de modificar el `SOLUTION-INTAKE` o el manifiesto derivado sin pasar por este flujo es un error de orquestación y dispara abort.
 
 ---
 
@@ -628,7 +635,7 @@ Términos canónicos del orquestador. Cualquier divergencia con estos términos 
 | Plan-then-confirm | Modo operativo del orquestador: cada fase se planifica, se presenta al usuario, se confirma, se ejecuta, se audita, se detiene. Sin atajos. |
 | `project_type` | Variable bloqueante leída del manifiesto por proyecto, perteneciente al conjunto cerrado D8. Gobierna las variantes de especialidad y la inclusión/exclusión de documentos de ese proyecto. |
 | Principio de delegación de la especialidad | Regla rectora del orquestador: la especialidad de cada subagente vive en §1.2 del archivo de reglas; el orquestador la lee, no la asigna. |
-| Intake | Documentos de entrada de la solución: SOLUTION-MANIFEST (jerarquía), PROJECT-BRIEF (negocio) y PROJECT-README (técnico), en `/SDD2.1D/devs/intake/`. Solo se modifican siguiendo §13. |
+| Intake | Documento de entrada único de la solución: `SOLUTION-INTAKE` (negocio en la Parte A, composición en la Parte B, técnica por proyecto en la Parte C), en `/SDD2.1D/devs/intake/`. El `SOLUTION-MANIFEST` se deriva de su §13 en la fase de validación (§3) y se confirma. Solo se modifican siguiendo §13. |
 | Perfil de convención de nombres | Configuración del manifiesto que fija PascalCase, separador y prefijo de redistribuibles para derivar los nombres de código. |
 | Vista de solución | Artefacto de nivel solución (en `_solucion/`) con el mapa de proyectos, los contratos inter-proyecto y el grafo de dependencias, por encima de la arquitectura de cada proyecto. |
 | Trazabilidad upstream/downstream | Cadena de referencias declaradas en la cabecera de cada documento. Materializa D6. |
@@ -649,6 +656,7 @@ Este master-prompt se versiona como cualquier otro artefacto del template. Cualq
 | 2.0 | 2026-06-09 | Reformulación a solución más jerarquía de proyectos (ST-04). El orquestador deja de asumir un único `project_type` por repositorio: lee el manifiesto de solución (nuevo insumo obligatorio), valida la jerarquía, deriva los nombres de solución y de cada proyecto (incluido el nombre de código), ordena los proyectos topológicamente y recorre las fases por proyecto. §3 detección de la solución y la jerarquía; §4 flags por proyecto; §6 plan por proyecto más categorías de nivel solución; §7 bucle topológico; §8 despacho con contexto de proyecto; §11 vista de solución más README raíz; §14 adaptabilidad por proyecto. Se resuelve el acoplamiento residual al bootstrap: la guía de vocabulario prohibido por D7 se delega a las reglas en lugar de referenciar los audits de `_bootstrap/`. El caso degenerado de un proyecto reproduce el comportamiento de la versión 1.0. | Reformulación SDD 2.1D |
 | 2.1 | 2026-06-09 | Coherencia con ST-07: la Fase H de §7 y la §11 incorporan el despacho de AG-09 para consolidar el pipeline de solución (`_solucion/pipeline-solucion_v1.0.md`) con el orden de build topológico y la matriz de artefactos publicables, junto a la vista de solución de AG-05 y el README raíz de AG-ROOT. Solo aplica a soluciones de más de un proyecto. | Reformulación SDD 2.1D |
 | 2.2 | 2026-06-10 | Audit final consolidado (ST-09): §3.5 explicita el aplanado del layout en el caso degenerado (una solución de un proyecto genera 00 a 11 directo bajo `/SDD2.1D/docs/`, sin el subnivel `proyectos/<kebab>/` ni `_solucion/`), garantizando estructura idéntica al template de tipo único; la fila Fase H de §6, y §7 y §11, nombran los artefactos de consolidación (`vista-solucion_v1.0.md`, `pipeline-solucion_v1.0.md`) y distinguen los tres despachos de cierre (AG-05, AG-09, AG-ROOT). | Reformulación SDD 2.1D |
+| 3.0 | 2026-06-10 | Unificación del intake (ST-03/ST-04). El orquestador deja de leer tres documentos (`SOLUTION-MANIFEST` + `PROJECT-BRIEF` + `PROJECT-README`) y pasa a leer un único `SOLUTION-INTAKE` (cambio de insumos obligatorios, por eso sube major). §0 prerrequisitos y §2 lectura apuntan al intake único; §3 se convierte en la Fase de validación de intake previa a la Fase A: valida el intake con `rules/_intake_rules.md`, emite la batería consolidada de preguntas, deriva el `SOLUTION-MANIFEST` desde §13 del intake y lo presenta para confirmación; §7 incorpora esa fase; §4 (flags), §6 y §8 (insumos), §11, §13 (no-modificación) y §15 (glosario) referencian el intake unificado. El manifiesto deja de completarse a mano: es artefacto derivado y confirmado. El comportamiento de generación y el caso degenerado no cambian. | Reformulación SDD 2.1D (unificación de intake) |
 
 Reglas de versionado:
 

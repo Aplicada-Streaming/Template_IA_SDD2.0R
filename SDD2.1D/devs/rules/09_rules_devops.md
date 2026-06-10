@@ -2,7 +2,7 @@
 
 **Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/09_devops/`
 **Subagente target del orquestador:** Ingeniero DevOps Senior (AG-09)
-**Versión de las reglas:** 1.2
+**Versión de las reglas:** 1.3
 
 ---
 
@@ -441,8 +441,7 @@ Los dos fragmentos son ilustrativos. Cada proyecto adapta el dominio respetando 
 Sos un {{ESPECIALIDAD-VARIANTE-09}} responsable de redactar los artefactos DevOps del proyecto {{NOMBRE_PROYECTO}}.
 
 Insumos:
-- PROJECT-BRIEF: {{path}}
-- PROJECT-README: {{path}}
+- SOLUTION-INTAKE: {{path}}
 - Upstream: 05 (arquitectura y NFR con métricas numéricas), 08 (quality gates, DoD, pirámide y cobertura).
 
 A generar (obligatorio para todos los tipos D8):
@@ -492,3 +491,4 @@ Salida: /SDD2.1D/docs/_solucion/pipeline-solucion_v1.0.md.
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 09. Define los cinco artefactos obligatorios para todo tipo D8 (`pipeline-ci-cd`, `estrategia-versionado`, `entornos-deploy`, `guia-publicacion-<tipo-artefacto>`, `supply-chain-seguridad`) más el README recomendado, parametriza el nombre de la guía de publicación con `<tipo-artefacto>` corrigiendo el antecedente `guia-publicacion-nuget_v1.0.md` del fuente SDD 1.0, fija el modelo de ambientes por tipo D8 distinguiendo canales (library, cli-tool) de ambientes (web-monolith, web-microservices, rest-api, worker-service) y formaliza supply chain (SBOM, firma, SLSA, SCA, SAST/DAST, política de CVE) como artefacto obligatorio. |
 | 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/09_devops/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. El build y la publicación multi-proyecto se reformulan en ST-07. |
 | 1.2 | 2026-06-09 | Reformulación ST-07: build y publicación multi-proyecto. La categoría 09 opera en dos niveles. Nivel proyecto sin cambios. Nivel solución: nuevo artefacto `pipeline-solucion_v1.0.md` en `_solucion/` (§4.9) con orden de construcción derivado del grafo de dependencias del manifiesto, matriz de artefactos publicables por proyecto, coordinación inter-proyecto, versionado de la solución, gate de integración y rollback coordinado. Obligatorio para soluciones de más de un proyecto; omitido en el caso degenerado. | Reformulación SDD 2.1D |
+| 1.3 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). | Migración SDD 2.1D |

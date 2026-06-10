@@ -2,7 +2,7 @@
 
 **Carpeta target:** `/SDD2.1D/docs/00_contexto/`
 **Subagente target del orquestador:** Product Manager Senior (AG-00) en conjunción con Analista de Negocio Senior (AG-01) si el proyecto tiene stakeholders múltiples.
-**Versión de las reglas:** 1.2
+**Versión de las reglas:** 1.3
 
 ---
 
@@ -10,7 +10,7 @@
 
 ### 1.1 Especialidad base
 
-Product Manager Senior, equivalente a AG-00 del catálogo de especialidades. Define el porqué del proyecto, la visión a mediano plazo, el alcance, el roadmap de fases y las plataformas target. Trabaja desde el PROJECT-BRIEF como insumo de negocio y desde el PROJECT-README como insumo de tipo de proyecto. Su responsabilidad principal es completar lo que el cliente todavía no dijo: forzar la priorización MoSCoW, declarar exclusiones explícitas, traducir aspiraciones en objetivos SMART y dejar el contexto listo para que las categorías 01 (NB), 02 (CU), 03 (UX), 05 (arquitectura), 07 (sprint plan) y 11 (examples) puedan trabajar sin volver a preguntarle al cliente.
+Product Manager Senior, equivalente a AG-00 del catálogo de especialidades. Define el porqué del proyecto, la visión a mediano plazo, el alcance, el roadmap de fases y las plataformas target. Trabaja desde el SOLUTION-INTAKE como insumo de negocio (Parte A) y de tipo de proyecto (§13). Su responsabilidad principal es completar lo que el cliente todavía no dijo: forzar la priorización MoSCoW, declarar exclusiones explícitas, traducir aspiraciones en objetivos SMART y dejar el contexto listo para que las categorías 01 (NB), 02 (CU), 03 (UX), 05 (arquitectura), 07 (sprint plan) y 11 (examples) puedan trabajar sin volver a preguntarle al cliente.
 
 ### 1.2 Variantes según tipo de proyecto
 
@@ -25,7 +25,7 @@ Product Manager Senior, equivalente a AG-00 del catálogo de especialidades. Def
 | cli-tool | Product Manager + Developer Advocate | La audiencia es técnica. La visión enfatiza ergonomía de uso, scripting y documentación ejecutable; el roadmap suele ser ligero. |
 | worker-service | Product Manager + Operations Lead | La visión se mide por SLA operativos, throughput y resiliencia. El alcance se define por colas y eventos procesados, no por pantallas. |
 
-Esta categoría se genera a nivel solución, una vez por solución, a partir del PROJECT-BRIEF único. El orquestador selecciona la variante según el `project_type` del proyecto principal declarado en el manifiesto; la compatibilidad de plataformas agrega las plataformas de todos los proyectos de la solución.
+Esta categoría se genera a nivel solución, una vez por solución, a partir del SOLUTION-INTAKE único. El orquestador selecciona la variante según el `project_type` del proyecto principal declarado en el manifiesto; la compatibilidad de plataformas agrega las plataformas de todos los proyectos de la solución.
 
 ### 1.3 Multi-especialidad
 
@@ -34,7 +34,7 @@ Se combina con AG-01 Analista de Negocio Senior cuando se cumple al menos una de
 - Hay más de tres categorías de stakeholders con intereses divergentes.
 - El dominio está regulado (salud, financiero, público) y la visión debe declarar restricciones normativas.
 - El proyecto es B2B con múltiples organizaciones cliente que aportan requisitos.
-- El PROJECT-BRIEF §11 declara riesgos de negocio que requieren mitigación con dueño funcional.
+- El SOLUTION-INTAKE §11 declara riesgos de negocio que requieren mitigación con dueño funcional.
 
 En proyectos pequeños (1 a 2 stakeholders, sin regulación), AG-00 trabaja solo. En proyectos de 1 dev sin cliente externo, AG-00 actúa también como AG-01 y el `acuerdo-equipo` queda omitido.
 
@@ -81,9 +81,9 @@ No se aplica en esta categoría. Los documentos de contexto no usan prefijos del
 
 ### 3.3 Vinculación cross-doc (trazabilidad upstream/downstream)
 
-- Upstream: PROJECT-BRIEF (§1 idea y problema, §3 propuesta de valor, §5 historias de usuario, §9 exclusiones, §10 restricciones del cliente, §11 riesgos), PROJECT-README (§1 tipo de proyecto, §12 plataformas target).
+- Upstream: SOLUTION-INTAKE (§1 idea y problema, §3 propuesta de valor, §5 historias de usuario, §9 exclusiones, §10 restricciones del cliente, §11 riesgos, §13 tipo de proyecto, §17 P.9 plataformas target).
 - Downstream: alimenta 01 (necesidades de negocio), 02 (casos de uso y reglas), 03 (UX/UI/DX), 05 (arquitectura y ADR), 07 (sprint plan), 11 (examples). La categoría 00 es upstream de toda la cadena de trazabilidad D6.
-- Cada documento de esta categoría declara en su cabecera la trazabilidad upstream (qué secciones del BRIEF o README originaron su contenido) y downstream (qué categorías consumen sus decisiones).
+- Cada documento de esta categoría declara en su cabecera la trazabilidad upstream (qué secciones del SOLUTION-INTAKE originaron su contenido) y downstream (qué categorías consumen sus decisiones).
 
 ### 3.4 README de la sección
 
@@ -106,7 +106,7 @@ Todos los documentos de la categoría 00 arrancan con un bloque markdown estánd
 **Estado:** Borrador | Propuesto | Aprobado | Vigente | Superado
 **Fecha:** <YYYY-MM-DD>
 **Autor:** <rol o nombre>
-**Trazabilidad upstream:** PROJECT-BRIEF §<n>, PROJECT-README §<n>
+**Trazabilidad upstream:** SOLUTION-INTAKE §<n>
 **Trazabilidad downstream:** 01_necesidades_negocio, 02_especificacion_funcional, 05_arquitectura_tecnica, ...
 ```
 
@@ -192,7 +192,7 @@ Todos los documentos de la categoría 00 arrancan con un bloque markdown estánd
 
 | Anti-patrón | Problema | Solución |
 | --- | --- | --- |
-| Visión técnica en lugar de visión de negocio | La visión menciona stack, frameworks o patrones; queda inútil para alinear stakeholders no técnicos | Reescribir en lenguaje del cliente, mover el stack al PROJECT-README |
+| Visión técnica en lugar de visión de negocio | La visión menciona stack, frameworks o patrones; queda inútil para alinear stakeholders no técnicos | Reescribir en lenguaje del cliente, mover el stack al SOLUTION-INTAKE (§17 P.1) |
 | Alcance sin exclusiones explícitas | Sin "fuera de alcance" declarado, el scope creep es inevitable | Forzar mínimo 3 exclusiones con justificación |
 | Roadmap sin criterios para reordenar | Fases listadas sin criterios de salida; nunca se sabe si una fase terminó | Cada fase tiene §5 con checklist verificable de transición |
 | Objetivos sin métrica numérica | "Que sea rápido", "que tenga buena UX" no se pueden validar | Cada objetivo en formato SMART con target numérico y plazo |
@@ -207,13 +207,13 @@ Todos los documentos de la categoría 00 arrancan con un bloque markdown estánd
 
 ### 5.1 Comprensión del input upstream
 
-- ¿Qué dice el PROJECT-BRIEF §1 sobre el problema y cuál es la consecuencia si no se construye?
-- ¿Qué dice el PROJECT-BRIEF §3 sobre propuesta de valor y diferenciación frente a alternativas existentes?
-- ¿Qué dice el PROJECT-BRIEF §9 sobre exclusiones declaradas por el cliente?
-- ¿Qué dice el PROJECT-BRIEF §10 sobre restricciones del cliente (presupuesto, fecha, normativa, integración obligatoria)?
-- ¿Qué dice el PROJECT-BRIEF §11 sobre riesgos detectados desde el negocio?
-- ¿El PROJECT-README §1 declara un tipo de proyecto que requiera `compatibilidad-plataformas_v1.0.md`?
-- ¿El PROJECT-README §12 enumera plataformas target que deban reflejarse en compatibilidad?
+- ¿Qué dice el SOLUTION-INTAKE §1 sobre el problema y cuál es la consecuencia si no se construye?
+- ¿Qué dice el SOLUTION-INTAKE §3 sobre propuesta de valor y diferenciación frente a alternativas existentes?
+- ¿Qué dice el SOLUTION-INTAKE §9 sobre exclusiones declaradas por el cliente?
+- ¿Qué dice el SOLUTION-INTAKE §10 sobre restricciones del cliente (presupuesto, fecha, normativa, integración obligatoria)?
+- ¿Qué dice el SOLUTION-INTAKE §11 sobre riesgos detectados desde el negocio?
+- ¿El SOLUTION-INTAKE §13 declara un tipo de proyecto que requiera `compatibilidad-plataformas_v1.0.md`?
+- ¿El SOLUTION-INTAKE §17 P.9 enumera plataformas target que deban reflejarse en compatibilidad?
 
 ### 5.2 Decisiones de scope
 
@@ -247,9 +247,9 @@ Todos los documentos de la categoría 00 arrancan con un bloque markdown estánd
 - [ ] La sección de objetivos SMART tiene al menos 3 objetivos con métrica numérica, target y plazo.
 - [ ] La sección de stakeholders tiene mínimo 1 representante por categoría (propietario, implementador, beneficiario) con rol concreto.
 - [ ] El glosario del dominio tiene mínimo 10 términos en proyectos con equipo de más de 2 personas, o mínimo 5 términos en proyectos individuales.
-- [ ] La compatibilidad-plataformas declara todas las plataformas target listadas en el PROJECT-README §12 cuando aplica por tipo D8.
+- [ ] La compatibilidad-plataformas declara todas las plataformas target listadas en el SOLUTION-INTAKE §17 P.9 cuando aplica por tipo D8.
 - [ ] El acuerdo-equipo declara herramientas, ceremonias, branching strategy y SLA de respuesta cuando aplica.
-- [ ] Cada documento de la carpeta declara su trazabilidad upstream (BRIEF/README con secciones específicas) y downstream (categorías 01, 02, 05, 07, 11 con detalle).
+- [ ] Cada documento de la carpeta declara su trazabilidad upstream (SOLUTION-INTAKE con secciones específicas) y downstream (categorías 01, 02, 05, 07, 11 con detalle).
 - [ ] El nombre de cada archivo respeta el patrón `<kebab>_v1.0.md` con guion bajo antes de la versión.
 - [ ] Ningún documento contiene emojis, negritas decorativas ni referencias hardcoded a stack, frameworks o ejemplos del dominio fuente del bootstrap.
 
@@ -270,7 +270,7 @@ Fragmento representativo de `vision-producto_v1.0.md` para un sistema de turnos 
 **Estado:** Propuesto
 **Fecha:** 2026-04-10
 **Autor:** Product Manager
-**Trazabilidad upstream:** PROJECT-BRIEF §1, §3, §10
+**Trazabilidad upstream:** SOLUTION-INTAKE §1, §3, §10
 **Trazabilidad downstream:** 01_necesidades_negocio, 02_especificacion_funcional, 05_arquitectura_tecnica
 
 ## 1. Problema de negocio
@@ -302,7 +302,7 @@ Fragmento representativo de `alcance-proyecto_v1.0.md` para una librería utilit
 **Estado:** Aprobado
 **Fecha:** 2026-04-12
 **Autor:** Product Manager + Curador de Librería
-**Trazabilidad upstream:** PROJECT-BRIEF §4, §9
+**Trazabilidad upstream:** SOLUTION-INTAKE §4, §9
 **Trazabilidad downstream:** 02_especificacion_funcional, 11_examples
 
 ## 4. Alcance incluido
@@ -337,8 +337,7 @@ Fragmento representativo de `alcance-proyecto_v1.0.md` para una librería utilit
 Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar los documentos de contexto del proyecto {{NOMBRE_PROYECTO}}.
 
 Insumos:
-- PROJECT-BRIEF: {{path-al-brief}}
-- PROJECT-README: {{path-al-readme}}
+- SOLUTION-INTAKE: {{path-al-intake}}
 - Documentos upstream: ninguno (sos el inicio de la cadena de trazabilidad D6).
 
 Documentos a generar (según tipo de proyecto {{TIPO}} y reglas de §2.2):
@@ -350,7 +349,7 @@ Documentos a generar (según tipo de proyecto {{TIPO}} y reglas de §2.2):
 - README.md de la sección 00 (recomendado, sin versión)
 
 Reglas de redacción: §4 de 00_rules_contexto.md.
-Trazabilidad esperada: declarar upstream a PROJECT-BRIEF/PROJECT-README y downstream a 01, 02, 03, 05, 07, 11.
+Trazabilidad esperada: declarar upstream a SOLUTION-INTAKE y downstream a 01, 02, 03, 05, 07, 11.
 Criterios de calidad: §6 de 00_rules_contexto.md (11 ítems verificables).
 Restricciones: idioma rioplatense técnico, UTF-8 LF, sin emojis, sin negritas decorativas, sin referencias a stack en visión y alcance.
 
@@ -366,3 +365,4 @@ Salida: /SDD2.1D/docs/00_contexto/<archivos>_v1.0.md.
 | 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1 |
 | 1.1 | 2026-06-08 | Higiene D7 (hallazgo H-02 de la matriz de coherencia ST-01): el criterio de aceptación de §6 deja de nombrar el dominio fuente ("Motor DSL") y pasa a referirse a "ejemplos del dominio fuente del bootstrap". |
 | 1.2 | 2026-06-09 | Validación ST-06: aclaración de que la categoría 00 se genera a nivel solución desde el PROJECT-BRIEF único y usa la variante §1.2 del proyecto principal del manifiesto. |
+| 1.3 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |

@@ -1,10 +1,10 @@
-# Diseño y desarrollo asistido por IA (2.0)
+# Diseño y desarrollo asistido por IA (2.1)
 
 
 
 
 
-[Guía de usuario](SDD2.1D/guides/guia-usuario-sdd2.0_v1.0.md)
+[Guía de usuario](SDD2.1D/guides/guia-usuario-sdd2.1_v1.0.md)
 
 [Marco teórico](SDD2.1D/devs/guides/marco-teorico-sdd_v1.0.md)
 

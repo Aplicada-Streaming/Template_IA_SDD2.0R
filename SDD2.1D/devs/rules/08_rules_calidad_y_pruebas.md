@@ -2,7 +2,7 @@
 
 **Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/08_calidad_y_pruebas/`
 **Subagente target del orquestador:** Ingeniero QA / SDET Senior (AG-08)
-**Versión de las reglas:** 1.1
+**Versión de las reglas:** 1.2
 
 ---
 
@@ -416,8 +416,7 @@ Los dos fragmentos son ilustrativos. Cada proyecto adapta el dominio respetando 
 Sos un {{ESPECIALIDAD-VARIANTE-08}} responsable de redactar los artefactos de calidad y pruebas del proyecto {{NOMBRE_PROYECTO}}.
 
 Insumos:
-- PROJECT-BRIEF: {{path}}
-- PROJECT-README: {{path}}
+- SOLUTION-INTAKE: {{path}}
 - Upstream: 02 (CU con criterios Given-When-Then, RN), 05 (arquitectura y NFR con métricas numéricas), 06 (DoR, US), 07 (sprint goals).
 
 A generar (obligatorio para todos los tipos D8):
@@ -451,3 +450,4 @@ Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/08_calidad_y_pruebas/<
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 08. Define los siete artefactos obligatorios para todo tipo D8 y el opcional `guia-testing-extensibilidad`, fija la pirámide objetivo por tipo D8, establece la matriz de cobertura con tres tablas obligatorias, formaliza la DoD como documento canónico no redefinible por sprint y corrige el antecedente del fuente SDD 1.0 eliminando el sufijo de dominio en los nombres de archivo en favor del patrón uniforme `_v<X.Y>.md`. |
 | 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/08_calidad_y_pruebas/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. |
+| 1.2 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |

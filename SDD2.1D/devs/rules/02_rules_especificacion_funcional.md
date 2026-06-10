@@ -1,8 +1,8 @@
 # Reglas constructivas — 02 Especificación funcional
 
-**Carpeta target:** `/SDD2.1D/docs/02_especificacion_funcional/`
+**Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/02_especificacion_funcional/`
 **Subagente target del orquestador:** Analista Funcional / Ingeniero de Requisitos (AG-02)
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -415,7 +415,7 @@ Política de versionado: §3.5; una sola versión vigente; anteriores a `_legacy
 
 Restricciones: no introducir stacks concretos, productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /SDD2.1D/docs/02_especificacion_funcional/<estructura>.
+Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/02_especificacion_funcional/<estructura>.
 ```
 
 ---
@@ -425,3 +425,4 @@ Salida: /SDD2.1D/docs/02_especificacion_funcional/<estructura>.
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1. |
+| 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/02_especificacion_funcional/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. |

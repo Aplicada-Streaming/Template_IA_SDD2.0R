@@ -2,7 +2,7 @@
 
 **Carpeta target:** `/SDD2.1D/docs/01_necesidades_negocio/`
 **Subagente target del orquestador:** Analista de Negocio Senior (AG-01)
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -25,7 +25,7 @@ Analista de Negocio Senior, equivalente al AG-01 del catálogo de especialidades
 | cli-tool | Analista de Negocio + Developer Experience Analyst | Las NB se redactan desde la mirada del desarrollador que invoca la herramienta en su pipeline. |
 | worker-service | Analista de Negocio + Operations Analyst | Las NB se centran en throughput, latencia funcional y resiliencia operativa del proceso de fondo. |
 
-El orquestador lee esta tabla y, según el campo `Tipo de proyecto` declarado en PROJECT-README durante el intake, selecciona la variante correspondiente y la combina con la especialidad base.
+El orquestador lee esta tabla y selecciona la variante según el `project_type` del proyecto principal de la solución (leído del manifiesto), porque esta categoría se genera una vez a nivel solución a partir del PROJECT-BRIEF único.
 
 ### 1.3 Multi-especialidad
 
@@ -380,3 +380,4 @@ Salida: /SDD2.1D/docs/01_necesidades_negocio/<archivos>.
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1 |
+| 1.1 | 2026-06-09 | Validación ST-06: la categoría 01 se genera a nivel solución; la frase de cierre de §1.2 usa la variante del proyecto principal del manifiesto. Tablas §1.2 sin reescritura. |

@@ -1,8 +1,8 @@
 # Reglas constructivas — 10 Developer guide
 
-**Carpeta target:** `/SDD2.1D/docs/10_developer_guide/`
+**Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/10_developer_guide/`
 **Subagente target del orquestador:** Technical Writer / Developer Advocate Senior (AG-10)
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -37,7 +37,7 @@ Combina dos facetas profesionales. La cara Technical Writer redacta conceptos, r
 | mobile-app-maui | Technical Writer (opcional) | Equipo interno y operadores. Categoría opcional, sólo si la app expone un SDK o un canal de extensión. |
 | worker-service | Technical Writer (opcional) | Equipo interno de operación. Categoría opcional; cuando aplica, se reduce a runbooks y a la guía de los mensajes consumidos y emitidos. |
 
-El orquestador lee esta tabla y, según el campo `Tipo de proyecto` declarado en PROJECT-README durante el intake, decide tres cosas: si la categoría 10 se genera, qué variante de especialidad se activa y qué subconjunto de artefactos se materializa. Cuando la categoría es opcional y el equipo decide omitirla, la decisión se documenta en una ADR con la justificación.
+El orquestador lee esta tabla y, según el `project_type` del proyecto en curso (leído del manifiesto), decide tres cosas: si la categoría 10 se genera, qué variante de especialidad se activa y qué subconjunto de artefactos se materializa. Cuando la categoría es opcional y el equipo decide omitirla, la decisión se documenta en una ADR con la justificación.
 
 ### 1.3 Multi-especialidad
 
@@ -417,3 +417,4 @@ Criterios de calidad: §6 de 10_rules_developer_guide.md. Aplicar el test del de
 | Versión | Fecha | Cambio | Autor |
 | --- | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial. Define la categoría 10 developer guide, sus artefactos obligatorios y opcionales por tipo D8, su estructura por cuadrante Diátaxis, el TTFS objetivo y los anti-patrones. Corrige los dos déficits del fuente SDD 1.0: impone sufijo `_v<X.Y>.md` uniforme en todos los artefactos de esta carpeta y parametriza el nombre de la guía de integración como `guia-integracion-<sistema-objetivo>_v<X.Y>.md` para evitar atar la plantilla a un stack comercial concreto. | AG-10 Technical Writer / Developer Advocate Senior |
+| 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/10_developer_guide/`; la frase de selección de variante y la carpeta target referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. | Reformulación SDD 2.1D |

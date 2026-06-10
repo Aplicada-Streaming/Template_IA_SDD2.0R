@@ -1,9 +1,9 @@
 # Marco Teórico SDD 2.1
 
 **Documento:** marco-teorico-sdd_v1.0.md
-**Versión:** 1.0
+**Versión:** 1.1
 **Estado:** Aprobado
-**Fecha:** 2026-05-17
+**Fecha:** 2026-06-10
 **Autor:** Equipo Template SDD 2.1 — UTN
 **Audiencia:** estudiantes universitarios (UTN), docentes, profesionales que adopten el template
 **Idioma:** español rioplatense neutro técnico
@@ -17,6 +17,7 @@
 - [§1 Introducción y encuadre](#1-introducción-y-encuadre)
 - [§2 Fundamentos del enfoque SDD](#2-fundamentos-del-enfoque-sdd)
 - [§3 Metodología del template SDD 2.1](#3-metodología-del-template-sdd-21)
+  - [§3.10 El modelo de solución más jerarquía de proyectos](#310-el-modelo-de-solución-más-jerarquía-de-proyectos)
 - [§4 Especialidades del template](#4-especialidades-del-template)
 - [§5 Metodología ágil aplicada](#5-metodología-ágil-aplicada)
 - [§6 Técnicas de descomposición y planificación](#6-técnicas-de-descomposición-y-planificación)
@@ -99,29 +100,37 @@ e:/repos/...../SDD2.1D/
 │   ├── rules/               Reglas de nomenclatura, decisiones D1..D8
 │   └── _bootstrap/          Auditoría del fuente SDD 1.0, ADR de origen
 │
-└── docs/                    Plano operativo del proyecto generado
-    ├── 00_contexto/         AG-00  Product Manager
-    ├── 01_necesidades_negocio/        AG-01  Analista de Negocio
-    ├── 02_especificacion_funcional/   AG-02  Analista Funcional
-    ├── 03_ux-ui/            AG-03  Especialista DX/UX
-    ├── 04_prompts_ai/       AG-04  Ingeniero de Prompts
-    ├── 05_arquitectura_tecnica/       AG-05  Arquitecto de Software
-    ├── 06_backlog-tecnico/  AG-06  Scrum Master (backlog)
-    ├── 07_plan-sprint/      AG-07  Scrum Master (planificación)
-    ├── 08_calidad_y_pruebas/          AG-08  QA / SDET
-    ├── 09_devops/           AG-09  DevOps Engineer
-    ├── 10_developer_guide/  AG-10  Technical Writer
-    ├── 11_examples/         AG-11  Developer Advocate
+└── docs/                    Plano operativo de la solución generada
+    ├── 00_contexto/         AG-00  Product Manager        (nivel solución)
+    ├── 01_necesidades_negocio/        AG-01  Analista de Negocio  (nivel solución)
+    ├── _solucion/           Consolidación de solución: vista de solución
+    │                        (mapa de proyectos, contratos inter-proyecto,
+    │                        grafo de dependencias) y pipeline de solución
+    │                        (orden de build topológico, artefactos publicables)
+    ├── proyectos/           Una carpeta por proyecto (kebab-case)
+    │   └── <nombre-proyecto>/
+    │       ├── 02_especificacion_funcional/   AG-02  Analista Funcional
+    │       ├── 03_ux-ui/            AG-03  Especialista DX/UX
+    │       ├── 04_prompts_ai/       AG-04  Ingeniero de Prompts
+    │       ├── 05_arquitectura_tecnica/       AG-05  Arquitecto de Software
+    │       ├── 06_backlog-tecnico/  AG-06  Scrum Master (backlog)
+    │       ├── 07_plan-sprint/      AG-07  Scrum Master (planificación)
+    │       ├── 08_calidad_y_pruebas/          AG-08  QA / SDET
+    │       ├── 09_devops/           AG-09  DevOps Engineer
+    │       ├── 10_developer_guide/  AG-10  Technical Writer
+    │       └── 11_examples/         AG-11  Developer Advocate
     └── README.md            AG-ROOT  Arquitecto de Soluciones
 ```
 
-La separación `/devs/` versus `/docs/` proviene del aprendizaje del fuente SDD 1.0: mezclar material metodológico con documentación operativa del producto contamina ambos. El marco teórico es estable y cambia rara vez; la documentación del proyecto cambia cada sprint. Mantenerlos en árboles separados permite versionarlos de manera independiente.
+Las categorías 00 y 01 viven a nivel solución (el negocio es uno por solución); las categorías 02 a 11 viven por proyecto (la técnica se especializa según el tipo D8 de cada proyecto); `_solucion/` consolida la mirada de conjunto. En el caso degenerado de una solución con un único proyecto, el layout se aplana y `docs/` reproduce exactamente la estructura plana clásica (00 a 11 directamente bajo `docs/`, sin nivel `proyectos/`), garantizando la no ruptura con el modelo de tipo único. La fundamentación de este modelo solución más jerarquía de proyectos se desarrolla en §3.10.
+
+La separación `/devs/` versus `/docs/` proviene del aprendizaje del fuente SDD 1.0: mezclar material metodológico con documentación operativa del producto contamina ambos. El marco teórico es estable y cambia rara vez; la documentación de la solución cambia cada sprint. Mantenerlos en árboles separados permite versionarlos de manera independiente.
 
 ## 1.6 Origen del template
 
 Este template se construyó a partir de la auditoría del fuente SDD 1.0 aplicado al caso de estudio histórico Motor DSL en la cátedra de Aplicada del cuatrimestre 2026. El audit Fase 0 (ver `SDD2.1D/devs/_bootstrap/audit-sdd1.md`) inventarió 161 archivos markdown, identificó 14 patrones repetibles, 14 inconsistencias y un mapa de cobertura por capítulo. Sobre ese análisis se generalizó el material domain-specific para producir el template stack-agnóstico que SDD 2.1 propone.
 
-Las menciones al caso original se conservan exclusivamente como referencia formal del origen, no como contenido canónico del template. El template SDD 2.1 cubre ocho tipos de proyecto distintos (decisión D8): library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service.
+Las menciones al caso original se conservan exclusivamente como referencia formal del origen, no como contenido canónico del template. El template SDD 2.1 cubre ocho tipos de proyecto distintos (decisión D8): library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service. Estos ocho valores son un conjunto cerrado que no cambia; lo que el modelo reformulado introdujo (ver §3.10) es que el tipo D8 se asigna por proyecto y una solución agrupa una jerarquía de N proyectos tipados, en lugar de asumir un único tipo por repositorio.
 
 ---
 
@@ -264,8 +273,8 @@ Cuando el BRIEF y el README inicial están maduros, se consolidan en un document
 - Nombre tentativo del proyecto en kebab-case.
 - Problema que el sistema resuelve, en una frase.
 - Usuarios objetivo (primario, secundario, terciario si aplica).
-- Tipo de proyecto según la decisión D8 (library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service).
-- Restricciones técnicas conocidas (stack, integraciones, plataformas).
+- Composición de la solución: lista de proyectos que la integran y, por cada proyecto, su tipo según la decisión D8 (library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service). En una solución de un único proyecto, esta lista tiene un solo elemento y equivale a declarar un único tipo D8.
+- Restricciones técnicas conocidas (stack, integraciones, plataformas) por proyecto.
 - Criterios de éxito tempranos (qué tiene que pasar para que el proyecto se considere exitoso en tres meses).
 - Lista de cosas que están explícitamente fuera de alcance (es tan importante saber qué no se hace como saber qué se hace).
 
@@ -275,10 +284,10 @@ El consolidado se guarda como `intake-source.md` o se mantiene en el chat como m
 
 El template provee dos plantillas que el humano completa manualmente a partir del consolidado:
 
-- `intake-vision.template.v1.0.md`: captura visión del producto, alcance, stakeholders, criterios de éxito, exclusiones. Es el insumo de AG-00 (Product Manager).
-- `intake-tipo-proyecto.template.v1.0.md`: captura el tipo de proyecto D8, el stack tentativo, las decisiones D1–D8 que el proyecto adopta, las secciones del SDD que aplican y las que no.
+- `intake-vision.template.v1.0.md`: captura visión del producto, alcance, stakeholders, criterios de éxito, exclusiones. Es el insumo de AG-00 (Product Manager). Se carga una vez por solución, porque el negocio es uno (intake a nivel solución, ver §3.10.5).
+- `intake-tipo-proyecto.template.v1.0.md`: captura la composición de la solución como una lista de proyectos y, por cada proyecto, su tipo D8, el stack tentativo, las decisiones D1–D8 que ese proyecto adopta y las secciones del SDD que aplican y las que no. En una solución de un único proyecto, la lista tiene un solo elemento y la plantilla se comporta igual que en el modelo de tipo único.
 
-Por qué dos plantillas y no una sola: visión y tipo de proyecto se mueven en velocidades distintas. La visión es estable (no cambia salvo pivot mayor). El tipo de proyecto puede ajustarse si el equipo descubre que la elección inicial era inadecuada. Mantenerlos separados permite versionarlos de manera independiente.
+Por qué dos plantillas y no una sola: visión y composición técnica se mueven en velocidades distintas. La visión de negocio es estable (no cambia salvo pivot mayor) y única por solución. La composición técnica (qué proyectos hay, su tipo D8 y sus dependencias) puede ajustarse si el equipo descubre que la elección inicial era inadecuada, e incluso crecer al agregar proyectos. Mantenerlas separadas permite versionarlas de manera independiente. La composición declarada en esta plantilla es la que alimenta el SOLUTION-MANIFEST como fuente única de verdad (ver §3.10.3).
 
 ## 3.5 Paso 4 — Bootstrap local en Claude Code
 
@@ -296,15 +305,15 @@ El humano verifica que los intakes están bien cargados (no hay placeholders sin
 
 El humano ejecuta en Claude Code el prompt orquestador maestro. Este prompt:
 
-1. Lee los intakes y las reglas.
-2. Identifica las secciones de `docs/` que aplican al tipo de proyecto.
-3. Despacha subagentes especializados (uno por sección) en paralelo o en serie según la dependencia.
-4. Cada subagente genera la documentación de su sección respetando las plantillas y la nomenclatura.
-5. El orquestador consolida los resultados, valida coherencia cruzada y reporta inconsistencias.
+1. Lee los intakes, el SOLUTION-MANIFEST y las reglas.
+2. Genera las categorías de nivel solución (00 y 01) una vez, y determina el orden topológico de los proyectos a partir del grafo de dependencias del manifiesto.
+3. Para cada proyecto, en orden topológico (primero las dependencias, después los dependientes), identifica las secciones 02 a 11 que aplican según su tipo D8 y aplica la variante §1.2 de cada regla correspondiente a ese D8.
+4. Despacha subagentes especializados (uno por sección) en paralelo o en serie según la dependencia, y cada subagente genera la documentación de su sección respetando las plantillas y la nomenclatura.
+5. El orquestador consolida los resultados en `_solucion/` (vista de solución y pipeline de solución), valida coherencia cruzada intra e inter-proyecto y reporta inconsistencias.
 
-El producto del paso 5 es el árbol `/SDD2.1D/docs/` poblado con las secciones que aplican al proyecto, listo para revisión humana.
+El producto del paso 5 es el árbol `/SDD2.1D/docs/` poblado con las categorías de solución, las carpetas `proyectos/<kebab>/` de cada proyecto y la consolidación `_solucion/`, listo para revisión humana. En el caso degenerado de un único proyecto, el árbol se aplana y el resultado es indistinguible del modelo de tipo único.
 
-**Paralelización vs serialización.** Las secciones que dependen del resultado de otras se ejecutan en serie. El orden canónico es: AG-00 → AG-01 → AG-02 → AG-03 → AG-04 → AG-05 → AG-06 → AG-07 → AG-08 → AG-09 → AG-10 → AG-11. Las secciones que no dependen entre sí (por ejemplo AG-08 y AG-10) pueden ejecutarse en paralelo si el agente lo soporta.
+**Paralelización vs serialización.** Las secciones que dependen del resultado de otras se ejecutan en serie. Dentro de cada proyecto, el orden canónico de especialidades es: AG-02 → AG-03 → AG-04 → AG-05 → AG-06 → AG-07 → AG-08 → AG-09 → AG-10 → AG-11, precedido por AG-00 y AG-01 a nivel solución; las secciones que no dependen entre sí (por ejemplo AG-08 y AG-10) pueden ejecutarse en paralelo si el agente lo soporta. Entre proyectos, el orden lo dicta el grafo de dependencias: un proyecto se genera después de aquellos de los que depende, de modo que sus contratos ya estén disponibles.
 
 ## 3.7 Paso 6 — Confirmación y handoff a codificación
 
@@ -388,6 +397,69 @@ SDD 2.1 hereda el patrón general del fuente SDD 1.0 (la cadena AG-00 → AG-11,
 | Auditoría inicial | Inexistente | Obligatoria (Fase 0) |
 | Marco teórico | Disperso en `/references/` | Consolidado en `/devs/guides/` |
 
+## 3.10 El modelo de solución más jerarquía de proyectos
+
+El modelo original del template asumía un proyecto único por repositorio: un solo tipo D8, un árbol de documentación plano, una sola cadena de generación. Ese modelo es correcto pero limitado: la mayoría de los sistemas reales no son una pieza monolítica de un solo tipo, sino un conjunto coordinado de piezas de tipos distintos (por ejemplo, una librería compartida, un servicio REST que la consume y una herramienta de línea de comandos que opera contra ese servicio). El modelo reformulado de SDD 2.1 generaliza el template a este caso sin romper el caso simple.
+
+### 3.10.1 Qué es una solución y qué es un proyecto
+
+Una solución agrupa una jerarquía de N proyectos, con N mayor o igual a uno. Cada proyecto lleva exactamente uno de los ocho valores cerrados de la decisión D8 (library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service). La solución no tiene un D8 propio: su tipo es compuesto, derivado de la combinación de los tipos de sus proyectos.
+
+La distinción es deliberada y responde a una asimetría real:
+
+- El negocio es uno por solución. Hay una visión de producto, un conjunto de necesidades de negocio, un público objetivo. Por eso las categorías 00 (contexto) y 01 (necesidades de negocio) se especifican a nivel solución.
+- La técnica es por proyecto. Cada proyecto resuelve una parte del sistema con un estilo, un contrato y un ciclo de vida propios. Por eso las categorías 02 a 11 (especificación funcional, UX/UI, prompts, arquitectura, backlog, sprints, calidad, devops, guía de desarrollador, ejemplos) se especifican por proyecto.
+
+### 3.10.2 El proyecto como unidad de especialización
+
+En el modelo reformulado, el proyecto es la unidad de especialización del template. Las reglas del template tienen una variante por tipo D8 (la variante que cada capítulo de reglas documenta en su §1.2). El orquestador aplica esa variante por proyecto, según el D8 que el proyecto declara. Así, en una misma solución, el proyecto de tipo library recibe el tratamiento de librería (API pública mínima, SemVer estricto, distribución por feed de paquetes) y el proyecto de tipo rest-api recibe el suyo (OpenAPI primero, versionado de API, despliegue a runtime), sin que uno contamine al otro.
+
+Esto preserva intacto el catálogo de las 13 especialidades (ver §4) y la cadena de trazabilidad (ver §4.4): lo único que cambia es el punto de aplicación. Las variantes D8 dejan de aplicarse al repositorio entero y pasan a aplicarse a cada proyecto.
+
+### 3.10.3 El manifiesto como fuente única de verdad
+
+La composición de la solución se declara en un único artefacto: el SOLUTION-MANIFEST. El manifiesto enumera los proyectos de la solución y, para cada uno, su tipo D8, su rol dentro de la solución, sus dependencias hacia otros proyectos y sus nombres de código. El manifiesto es la fuente única de verdad sobre qué proyectos existen y cómo se relacionan.
+
+Centralizar esta información en un manifiesto, en lugar de dispersarla por los árboles de cada proyecto, tiene tres consecuencias prácticas:
+
+1. La composición se puede leer, auditar y versionar en un solo lugar. Agregar un proyecto, cambiar su tipo o reescribir una dependencia es un cambio localizado y trazable.
+2. El orquestador deriva del manifiesto el plan de generación completo sin tener que inferir relaciones leyendo cada carpeta.
+3. La coherencia inter-proyecto (contratos, dependencias) se valida contra una declaración explícita, no contra suposiciones.
+
+### 3.10.4 El grafo de dependencias y el orden topológico
+
+Las dependencias declaradas entre proyectos forman un grafo. Ese grafo debe ser acíclico (un DAG): un proyecto no puede depender, directa o transitivamente, de sí mismo. La aciclicidad no es un capricho formal; es la condición que hace posible un orden de generación y de build bien definido.
+
+A partir del DAG se obtiene un orden topológico: primero se generan y se construyen las dependencias, después los dependientes. Si el proyecto rest-api depende de la library, la library se especifica y se construye antes. Este orden garantiza que cuando un proyecto se genera, los contratos de los proyectos de los que depende ya están disponibles, y que el pipeline de solución produce los artefactos en una secuencia en la que cada paso encuentra resueltas sus entradas.
+
+### 3.10.5 Intake a nivel solución
+
+El intake del modelo reformulado (Opción B) opera a nivel solución, coherente con la asimetría negocio/técnica:
+
+- Un PROJECT-BRIEF de negocio por solución, que captura la visión y el problema una sola vez (el negocio es uno).
+- Un PROJECT-README técnico de solución que contiene un bloque técnico por proyecto (la técnica es por proyecto).
+- El SOLUTION-MANIFEST descrito arriba.
+
+De este modo, lo que es único (el negocio) se carga una vez y lo que se especializa (la técnica de cada proyecto) se carga por proyecto, evitando duplicación del negocio y mezcla de tecnologías heterogéneas en un único bloque.
+
+### 3.10.6 Niveles de la generación y consolidación de solución
+
+La generación trabaja en dos niveles coherentes con la estructura de `docs/` descrita en §1.5:
+
+- Nivel solución: categorías 00 y 01 se generan una vez por solución.
+- Nivel proyecto: categorías 02 a 11 se generan por proyecto, en el orden topológico que dicta el grafo de dependencias.
+- Consolidación de solución: la carpeta `_solucion/` reúne una vista de solución (el mapa de proyectos, los contratos inter-proyecto y el grafo de dependencias) y un pipeline de solución (el orden de build topológico y los artefactos publicables por proyecto).
+
+### 3.10.7 El caso degenerado como garantía de no ruptura
+
+Una solución de un solo proyecto reproduce exactamente el comportamiento del template de tipo único: el layout se aplana (las categorías 00 a 11 quedan directamente bajo `docs/`, sin nivel `proyectos/`), no hay grafo no trivial que ordenar y no hay contratos inter-proyecto que consolidar. Este caso degenerado es la garantía de no ruptura: quien venía usando el template con un proyecto único no percibe cambio alguno, y quien necesita componer varios proyectos extiende el mismo modelo sin reaprenderlo.
+
+Conviene subrayar qué no cambió. El conjunto D8 sigue teniendo exactamente ocho valores; no se agregó ni se quitó ningún tipo. Lo que cambió es la cardinalidad (de un tipo por repositorio a N proyectos tipados por solución) y la topología (la composición y la dependencia entre proyectos), no el conjunto de tipos.
+
+### 3.10.8 La composición como decisión arquitectónica de nivel solución
+
+Decidir qué proyectos integran la solución y qué dependencias hay entre ellos es, en sí misma, una decisión arquitectónica, pero de un nivel superior al estilo interno de cada proyecto. El estilo de cada proyecto (ver §7) resuelve cómo se organiza ese proyecto por dentro; la composición de la solución resuelve qué piezas hay y cómo se conectan. Ambas decisiones se documentan como ADR, pero pertenecen a planos distintos: la composición es un ADR de nivel solución, el estilo interno es un ADR de nivel proyecto.
+
 ---
 
 # §4 Especialidades del template
@@ -400,6 +472,8 @@ El template asigna una especialidad por carpeta de `/docs/` siguiendo una premis
 2. **Trazabilidad RACI.** Para cada documento existe un responsable (R) y un aprobador (A) explícitos. Esto evita el clásico "alguien debería actualizar esto" que termina sin actualizar.
 
 Trece especialidades no implican trece personas. En equipos pequeños una persona cubre varios roles. Lo que el template fija es el perfil profesional necesario para cumplir el rol, no la dotación de personal.
+
+Las 13 especialidades siguen siendo válidas sin cambios en el modelo de solución más jerarquía de proyectos (§3.10). Lo que se precisa es el alcance de cada una: AG-00 (Product Manager) y AG-01 (Analista de Negocio) operan a nivel solución, porque el negocio es uno por solución; las especialidades AG-02 a AG-11 operan por proyecto, porque la técnica se especializa según el tipo D8 de cada proyecto. Las variantes por tipo D8 que cada especialidad documenta más abajo se aplican, por lo tanto, por proyecto: en una solución con varios proyectos de tipos distintos, una misma especialidad puede producir artefactos con foco distinto en cada proyecto.
 
 ## 4.2 Catálogo de las 13 especialidades
 
@@ -556,6 +630,8 @@ AG-00 (Vision)
 ```
 
 Esta cadena es la materialización de la trazabilidad vertical que define el enfoque SDD. Cada artefacto downstream traza explícitamente a su upstream mediante referencias por ID (CU traza a NB, US traza a CU, BT traza a US, Test traza a CU, etc.). Sin esa trazabilidad la documentación se vuelve archipiélago de islas inconexas.
+
+En el modelo de solución más jerarquía de proyectos (§3.10), la cadena conserva su forma pero cierra en dos niveles complementarios. A nivel solución, la visión y las necesidades de negocio (AG-00 y AG-01) son únicas y trazan al valor de negocio de la solución completa. A nivel proyecto, la cadena de especificación funcional a ejemplos (AG-02 a AG-11) se materializa por proyecto, y los casos de uso de cada proyecto trazan hacia arriba a las necesidades de negocio compartidas a nivel solución. La consolidación en `_solucion/` cierra además la trazabilidad horizontal entre proyectos: los contratos inter-proyecto y el grafo de dependencias documentan cómo lo que un proyecto produce satisface lo que otro consume. En el caso degenerado de un único proyecto, ambos niveles colapsan en uno y la cadena se lee tal como en el modelo de tipo único.
 
 ---
 
@@ -762,7 +838,7 @@ Todo el equipo trabaja simultáneamente en una sola estación, alternando quién
 
 ## 7.1 La decisión D8 — Ocho tipos de proyecto
 
-El template SDD 2.1 soporta ocho tipos de proyecto. La decisión D8 (definida en el intake) selecciona uno, y el resto del template se calibra en consecuencia.
+El template SDD 2.1 soporta ocho tipos de proyecto. La decisión D8 (definida en el intake) selecciona uno por proyecto, y el resto del template se calibra en consecuencia para ese proyecto. En el modelo de solución más jerarquía de proyectos (§3.10), una solución agrupa N proyectos y cada uno declara su propio valor D8; la solución no tiene un D8 propio, su tipo es compuesto. El conjunto de tipos sigue siendo cerrado y de exactamente ocho valores: lo que cambió es que la decisión se toma por proyecto, no por repositorio.
 
 | ID D8 | Tipo de proyecto | Descripción corta |
 |---|---|---|
@@ -976,6 +1052,8 @@ src/
 
 ## 7.4 Tabla de cobertura D8 → estilo dominante
 
+La tabla mantiene los ocho tipos D8 del conjunto cerrado. En el modelo de solución más jerarquía de proyectos se lee por proyecto: cada proyecto de la solución toma la fila correspondiente a su propio tipo D8.
+
 | D8 | Estilo dominante por defecto | Patrón alternativo |
 |---|---|---|
 | library | Capas + API pública mínima | Plugin-based si soporta extensiones |
@@ -995,6 +1073,10 @@ Independientemente del tipo D8, hay patrones que aplican universalmente:
 - **CQRS** (Young, 2010): separación de lecturas y escrituras. Aplicable en rest-api, microservicios y monolitos modulares con dominio rico.
 - **Event-driven**: comunicación por eventos en lugar de llamadas directas. Aplicable en microservicios y worker-service.
 - **Repository pattern**: abstracción del acceso a datos. Aplicable en cualquier proyecto con persistencia.
+
+## 7.6 La composición de la solución como decisión arquitectónica
+
+Las tablas y los estilos de este capítulo describen el estilo interno de cada proyecto: cómo se organiza por dentro según su tipo D8. En el modelo de solución más jerarquía de proyectos (§3.10) hay una decisión arquitectónica adicional, de un nivel superior: qué proyectos integran la solución y qué dependencias hay entre ellos. Esa composición (qué piezas y cómo se conectan) es una decisión de nivel solución, por encima del estilo interno de cada proyecto, y se documenta como ADR de nivel solución. El grafo de dependencias resultante debe ser acíclico, lo que habilita un orden topológico de generación y de build (primero las dependencias, después los dependientes). Decidir, por ejemplo, extraer una library compartida que un rest-api y un cli-tool consumen, o introducir un worker-service para descargar procesamiento asíncrono, son decisiones de composición que anteceden y enmarcan al estilo interno de cada proyecto.
 
 ---
 
@@ -1587,10 +1669,12 @@ Términos canónicos del template SDD 2.1. Cada uno con definición operativa en
 | **ISO 29148** | Norma ISO de ingeniería de requisitos de software y sistemas. |
 | **Manifest-driven** | Patrón donde cada componente expone un manifest declarativo que un sistema consumidor lee para configurar UI o comportamiento. |
 | **MoSCoW** | Técnica de priorización: Must Have, Should Have, Could Have, Won't Have v1. |
+| **Orden topológico** | Ordenamiento de los proyectos de una solución derivado del grafo acíclico de dependencias: primero las dependencias, después los dependientes. Define la secuencia de generación y de build. |
 | **MVP** | Minimum Viable Product. Versión mínima del producto con la que se valida una hipótesis de valor. |
 | **NB-XX** | Identificador de Necesidad de Negocio. Problema concreto que el producto resuelve, con criterios de éxito medibles. |
 | **OpenAPI** | Estándar de especificación de APIs REST en formato YAML o JSON, parseable por herramientas. |
 | **PKCE** | Proof Key for Code Exchange. Extensión de OAuth2 que protege el flujo Authorization Code contra interceptación. |
+| **Proyecto** | Unidad de especialización del template. Lleva exactamente uno de los ocho valores D8. Las variantes por tipo D8 y las categorías 02 a 11 se aplican por proyecto. |
 | **Pull Request (PR)** | Solicitud de merge de una rama a otra; mecanismo de revisión de código y aplicación de quality gates. |
 | **RACI** | Matriz Responsible / Accountable / Consulted / Informed. Define quién hace qué para cada actividad. |
 | **RCL (Razor Class Library)** | Proyecto .NET que empaqueta componentes Blazor para reutilización entre aplicaciones. |
@@ -1599,6 +1683,8 @@ Términos canónicos del template SDD 2.1. Cada uno con definición operativa en
 | **SBOM** | Software Bill of Materials. Lista trazable de todos los componentes que conforman un artefacto de software. |
 | **SDD (Specification-Driven Development)** | Enfoque que pone a la especificación como artefacto central del ciclo de desarrollo. |
 | **SemVer** | Semantic Versioning 2.0.0. Estándar de versionado MAJOR.MINOR.PATCH para librerías y APIs. |
+| **SOLUTION-MANIFEST** | Fuente única de verdad de una solución. Enumera sus proyectos y, por cada uno, su tipo D8, rol, dependencias y nombres de código. Su grafo de dependencias es acíclico (DAG). |
+| **Solución** | Agrupación de una jerarquía de N proyectos (N≥1). No tiene un D8 propio: su tipo es compuesto. El negocio (categorías 00 y 01) se especifica a nivel solución. |
 | **Sprint** | Iteración de tiempo fijo (típicamente 1 a 4 semanas) donde el equipo entrega un incremento del producto. |
 | **Sprint 0** | Iteración previa al primer sprint productivo, dedicada a producir los artefactos sin los cuales el Sprint 1 no puede arrancar. |
 | **SLSA** | Supply-chain Levels for Software Artifacts. Marco de niveles L1..L4 de madurez de cadena de suministro. |
@@ -1741,6 +1827,7 @@ W3C. (2024). *ARIA — Accessible Rich Internet Applications*. https://www.w3.or
 | Versión | Fecha | Descripción |
 |---|---|---|
 | 1.0 | 2026-05-17 | Versión inicial — 14 capítulos, 50+ términos en glosario, 40+ referencias APA 7, 8 tipos D8 cubiertos. |
+| 1.1 | 2026-06-10 | Actualización al modelo de solución más jerarquía de proyectos: fundamentación del modelo (solución, proyecto como unidad de especialización, manifiesto como fuente única de verdad, orden topológico, caso degenerado como garantía de no ruptura), estructura del template con niveles solución/proyecto y _solucion/, y aclaración de que las variantes D8 y la trazabilidad se aplican por proyecto. Conjunto D8 sin cambios (8 valores). |
 
 ---
 

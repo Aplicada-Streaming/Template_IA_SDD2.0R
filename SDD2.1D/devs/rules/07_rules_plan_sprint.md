@@ -1,8 +1,8 @@
 # Reglas constructivas — 07 Plan de sprint
 
-**Carpeta target:** `/SDD2.1D/docs/07_plan-sprint/`
+**Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/07_plan-sprint/`
 **Subagente target del orquestador:** Scrum Master / Gestión Ágil de Proyectos senior (AG-07)
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -31,7 +31,7 @@ Scrum Master / Gestión Ágil de Proyectos senior, equivalente al AG-07 del cat�
 | cli-tool | Scrum Master simplificado | Equipos pequeños y ceremonias condensadas; planning y retro fusionados o reducidos. |
 | worker-service | Scrum Master + Operations Lead | Sprints que combinan features con tareas de mantenimiento operativo (queues, reintentos, dead-letter); seguimiento de incidentes recurrentes. |
 
-El orquestador lee esta tabla y, según el campo `Tipo de proyecto` declarado en PROJECT-README durante el intake, selecciona la variante correspondiente y la combina con la especialidad base.
+El orquestador lee esta tabla y, según el `project_type` del proyecto en curso (leído del manifiesto de solución), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada proyecto de la solución.
 
 ### 1.3 Multi-especialidad
 
@@ -393,7 +393,7 @@ Estimación: en story points; declarar la unidad en §1.
 
 Restricciones: no introducir stacks concretos, productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /SDD2.1D/docs/07_plan-sprint/<estructura>.
+Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/07_plan-sprint/<estructura>.
 ```
 
 ---
@@ -403,3 +403,4 @@ Salida: /SDD2.1D/docs/07_plan-sprint/<estructura>.
 | Versión | Fecha | Descripción |
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 07. Corrige el patrón heredado con doble separador (`plan-iteracion_sprint-XX_v1.0.md`) y fija el patrón único `plan-iteracion-sprint-XX_v<X.Y>.md`. Define nueve secciones obligatorias del plan de sprint, las plantillas reusables de review y retrospectiva, el tracking de velocidad con promedio móvil de 3 sprints, las variantes por tipo D8 y los criterios de aceptación. Habilita el modo simplificado (`mini-plan_v1.0.md`) para proyectos de un solo dev. |
+| 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/07_plan-sprint/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. |

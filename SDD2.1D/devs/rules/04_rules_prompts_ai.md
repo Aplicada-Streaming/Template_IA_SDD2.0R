@@ -1,8 +1,8 @@
 # Reglas constructivas — 04 Prompts AI
 
-**Carpeta target:** `/SDD2.1D/docs/04_prompts_ai/`
+**Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/04_prompts_ai/`
 **Subagente target del orquestador:** Ingeniero de Prompts / AI Specialist (AG-04)
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -426,7 +426,7 @@ Política de versionado: §3.5; una sola versión vigente; anteriores a `_legacy
 
 Restricciones: no introducir stacks concretos, productos comerciales del dominio fuente ni protocolos específicos de impresión. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /SDD2.1D/docs/04_prompts_ai/<estructura>.
+Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/04_prompts_ai/<estructura>.
 ```
 
 ---
@@ -436,3 +436,4 @@ Salida: /SDD2.1D/docs/04_prompts_ai/<estructura>.
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1. Categoría opcional con gating explícito por PROJECT-README. |
+| 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/04_prompts_ai/` (cuando `usa_llm` del proyecto es true); la ruta de salida del prompt-snippet referencia el proyecto en curso del manifiesto. Tablas §1.2 sin reescritura. |

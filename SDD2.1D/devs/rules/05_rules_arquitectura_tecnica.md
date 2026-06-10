@@ -3,7 +3,7 @@
 **Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/05_arquitectura_tecnica/`
 **Carpeta target (nivel solución):** `/SDD2.1D/docs/_solucion/`
 **Subagente target del orquestador:** Arquitecto de Software Senior (AG-05)
-**Versión de las reglas:** 1.1
+**Versión de las reglas:** 1.2
 
 ---
 
@@ -445,8 +445,7 @@ Los dos fragmentos son ilustrativos. Cada proyecto adapta el dominio respetando 
 Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar la arquitectura técnica del proyecto {{NOMBRE_PROYECTO}}.
 
 Insumos:
-- PROJECT-BRIEF: {{path}}
-- PROJECT-README: {{path}}
+- SOLUTION-INTAKE: {{path}}
 - Upstream: 00 (visión, restricciones), 01 (NB-XX), 02 (CU, RN, modelo conceptual, RC), 04 (contratos de prompts si aplica).
 
 A generar (según tipo {{TIPO}} de D8):
@@ -499,3 +498,4 @@ Salida: /SDD2.1D/docs/_solucion/<estructura>.
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 05. Establece la convención obligatoria de ADRs individuales bajo `adrs/` como corrección del antecedente Motor DSL, define las cuatro vistas mínimas del documento maestro, las diez secciones obligatorias del ADR, las variantes por tipo D8 y los criterios de aceptación. |
 | 1.1 | 2026-06-09 | Reformulación a solución más jerarquía (ST-05). La categoría 05 opera en dos niveles: por proyecto (bajo `proyectos/<kebab>/05_arquitectura_tecnica/`, con la variante §1.2 del D8 del proyecto, sin cambios respecto del template de tipo único) y de solución (bajo `_solucion/`). Se introduce la vista de solución `vista-solucion_v1.0.md` con sus ocho secciones (§4.8): mapa de proyectos, grafo de dependencias, contratos inter-proyecto, decisiones de nivel solución, cross-cutting compartido, riesgos de integración y trazabilidad. Se agregan `contratos-inter-proyecto_v1.0.md` y `_solucion/adrs/`. La vista de solución es obligatoria para soluciones de más de un proyecto y se omite en el caso degenerado de un proyecto. | Reformulación SDD 2.1D |
+| 1.2 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). | Migración SDD 2.1D |

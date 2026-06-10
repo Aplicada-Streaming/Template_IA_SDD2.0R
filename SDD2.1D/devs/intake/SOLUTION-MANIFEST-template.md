@@ -1,17 +1,18 @@
 # SOLUTION-MANIFEST-template
 
-Plantilla metodológica SDD 2.1 para producir el documento `SOLUTION-MANIFEST-<nombre-solucion-kebab>_v1.0.md` durante la fase de intake. El manifiesto declara la jerarquía de proyectos de una solución: enumera los proyectos, su tipo D8, su rol, sus dependencias y sus nombres de código. Es el primer insumo que lee el orquestador, antes de cualquier otro intake, y es la fuente única de verdad de la enumeración de proyectos. El `PROJECT-README` refleja esta enumeración pero no la reabre; ante divergencia, manda el manifiesto.
+Referencia de formato del artefacto `SOLUTION-MANIFEST-<nombre-solucion-kebab>_v1.0.md`. El manifiesto declara la jerarquía de proyectos de una solución: enumera los proyectos, su tipo D8, su rol, sus dependencias y sus nombres de código. Es la fuente única de verdad de la enumeración de proyectos para el resto del orquestador.
 
-## Guía de uso de esta plantilla
+A partir de SDD 2.1D con intake unificado, el manifiesto NO lo completa el usuario a mano: es un artefacto derivado. El usuario completa un único documento, `SOLUTION-INTAKE-<nombre-solucion-kebab>_v1.0.md`, y de su §13 (Proyectos de la solución) el orquestador construye este manifiesto durante la Fase de validación de intake, siguiendo las reglas de derivación de `rules/_intake_rules.md` §4, y lo presenta para confirmación humana. Este archivo describe el formato del artefacto generado; no es una plantilla a llenar.
 
-1. Copiar este archivo como `SOLUTION-MANIFEST-<nombre-solucion-kebab>_v1.0.md` en `/SDD2.1D/devs/intake/`.
-2. Completar el bloque de solución con los valores reales.
-3. Enumerar todos los proyectos en la tabla de proyectos, uno por fila, declarando para cada uno su valor D8 (uno de los 8 cerrados), su rol, su bandera `redistribuible` y sus dependencias hacia otros proyectos de la misma solución.
-4. Verificar que el grafo de dependencias es acíclico y que no hay colisiones de nombre.
-5. Borrar los bloques `Ejemplo aplicado` y `Caso degenerado` una vez completado, dejando solo el contenido productivo de la solución.
-6. Validar el checklist final antes de pasar el manifiesto al orquestador.
+## Guía de uso de esta referencia
 
-Una solución de un solo proyecto es válida y es el caso degenerado: reproduce el comportamiento del template de tipo único. El manifiesto, en ese caso, tiene una sola fila de proyecto.
+1. El orquestador genera `SOLUTION-MANIFEST-<nombre-solucion-kebab>_v1.0.md` en `/SDD2.1D/devs/intake/` a partir de `SOLUTION-INTAKE` §13, con la convención de nombres declarada en el perfil del intake.
+2. Compone el bloque de solución y la tabla de proyectos según el esquema de §1 y §2 de esta referencia.
+3. Aplica las validaciones de §4 (tipos D8, proyecto principal único, sin colisión de nombres, dependencias resueltas, grafo acíclico). Si alguna falla, no deriva el manifiesto y lo reporta en la batería de validación de intake.
+4. Presenta el manifiesto derivado al humano y espera confirmación explícita antes de tratarlo como canónico.
+5. Toda regeneración posterior sigue el flujo de no-modificación de `master-prompt.md` §13.
+
+Una solución de un solo proyecto es válida y es el caso degenerado: el manifiesto derivado tiene una sola fila y el orquestador aplana el layout, reproduciendo el comportamiento del template de tipo único.
 
 ---
 
@@ -25,8 +26,7 @@ Bloque obligatorio al inicio del documento. Reproducir y completar los placehold
 | `nombre-solucion-kebab` | [slug derivado del nombre, kebab-case lowercase] |
 | `NombreSolucionCodigo` | [forma PascalCase del nombre de la solución] |
 | Proyecto principal | [`nombre-proyecto-kebab` del proyecto cabeza] |
-| Intake de negocio | `PROJECT-BRIEF-<nombre-solucion-kebab>_v1.0.md` |
-| Intake técnico | `PROJECT-README-<nombre-solucion-kebab>_v1.0.md` |
+| Intake (origen) | `SOLUTION-INTAKE-<nombre-solucion-kebab>_v1.0.md` (de su §13 se deriva este manifiesto) |
 | Documento | `SOLUTION-MANIFEST-<nombre-solucion-kebab>_v1.0.md` |
 | Versión | 1.0 |
 | Fecha | [YYYY-MM-DD] |
@@ -106,7 +106,7 @@ El orquestador detiene la cadena y reporta si alguna de estas condiciones no se 
 - Dos proyectos colisionan en `nombre-proyecto-kebab` o en `nombre-proyecto-codigo`.
 - Una dependencia apunta a un proyecto que no existe en la tabla.
 - El grafo de dependencias contiene un ciclo.
-- El `PROJECT-README` declara una lista de proyectos o un `project_type` que diverge de este manifiesto.
+- El `SOLUTION-INTAKE` §13 (origen del manifiesto) no puede recorrerse para derivar la tabla: filas de ejemplo sin reemplazar, perfil de convención ausente o campos bloqueantes vacíos.
 
 ---
 
@@ -120,8 +120,7 @@ Bloque de solución:
 | `nombre-solucion-kebab` | `gestion-de-turnos` |
 | `NombreSolucionCodigo` | `GestionDeTurnos` |
 | Proyecto principal | `gestion-de-turnos-api` |
-| Intake de negocio | `PROJECT-BRIEF-gestion-de-turnos_v1.0.md` |
-| Intake técnico | `PROJECT-README-gestion-de-turnos_v1.0.md` |
+| Intake (origen) | `SOLUTION-INTAKE-gestion-de-turnos_v1.0.md` |
 
 Perfil de convención: PascalCase; separador `.`; prefijo de redistribuibles `Aplicada`.
 
@@ -164,8 +163,7 @@ Bloque de solución:
 | `nombre-solucion-kebab` | `parser-csv` |
 | `NombreSolucionCodigo` | `ParserCsv` |
 | Proyecto principal | `parser-csv` |
-| Intake de negocio | `PROJECT-BRIEF-parser-csv_v1.0.md` |
-| Intake técnico | `PROJECT-README-parser-csv_v1.0.md` |
+| Intake (origen) | `SOLUTION-INTAKE-parser-csv_v1.0.md` |
 
 Tabla de proyectos:
 
@@ -177,9 +175,9 @@ El orquestador recorre un solo proyecto; el resultado equivale a la ejecución a
 
 ---
 
-## §7 Checklist de completitud del manifiesto
+## §7 Checklist de validación del manifiesto derivado
 
-Verificar antes de pasar el manifiesto al orquestador. Todos los ítems deben estar tildados.
+El orquestador verifica estos ítems al derivar el manifiesto desde `SOLUTION-INTAKE` §13, antes de presentarlo para confirmación. Todos deben cumplirse; si alguno falla, no deriva el manifiesto y lo reporta en la batería de validación de intake.
 
 - [ ] El bloque de solución tiene nombre, `nombre-solucion-kebab`, `NombreSolucionCodigo`, proyecto principal y referencias de intake completos.
 - [ ] El perfil de convención de nombres está declarado (forma PascalCase, separador, prefijo de redistribuibles).
@@ -199,3 +197,4 @@ Verificar antes de pasar el manifiesto al orquestador. Todos los ítems deben es
 | Versión | Fecha | Cambios | Autor |
 |---|---|---|---|
 | 1.0 | [YYYY-MM-DD] | Manifiesto inicial de la solución | [Autor] |
+| 2.0 | 2026-06-10 | Reconversión a referencia de formato del artefacto derivado (unificación de intake). El manifiesto deja de completarse a mano: el orquestador lo deriva de `SOLUTION-INTAKE` §13 según `rules/_intake_rules.md` §4 y lo presenta para confirmación. Se actualizan el intro, la guía de uso y el checklist; el esquema (bloque de solución, tabla de proyectos, validaciones) se conserva como formato de referencia. | Reformulación SDD 2.1D |

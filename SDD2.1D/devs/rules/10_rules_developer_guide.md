@@ -2,7 +2,7 @@
 
 **Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/10_developer_guide/`
 **Subagente target del orquestador:** Technical Writer / Developer Advocate Senior (AG-10)
-**Versión de las reglas:** 1.1
+**Versión de las reglas:** 1.2
 
 ---
 
@@ -388,8 +388,7 @@ Los fragmentos son ilustrativos. Cada proyecto adapta el dominio respetando la e
 Sos un {{ESPECIALIDAD-VARIANTE-10}} responsable de redactar los artefactos de developer guide del proyecto {{NOMBRE_PROYECTO}}.
 
 Insumos:
-- PROJECT-BRIEF: {{path}}
-- PROJECT-README: {{path}}
+- SOLUTION-INTAKE: {{path}}
 - Upstream: 02 (CU, modelo de datos lógico), 05 (arquitectura, contratos, NFR, puntos de extensión), 08 (estrategia de testing, casos de prueba referenciales).
 
 A generar (según el tipo D8 declarado en el intake):
@@ -418,3 +417,4 @@ Criterios de calidad: §6 de 10_rules_developer_guide.md. Aplicar el test del de
 | --- | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial. Define la categoría 10 developer guide, sus artefactos obligatorios y opcionales por tipo D8, su estructura por cuadrante Diátaxis, el TTFS objetivo y los anti-patrones. Corrige los dos déficits del fuente SDD 1.0: impone sufijo `_v<X.Y>.md` uniforme en todos los artefactos de esta carpeta y parametriza el nombre de la guía de integración como `guia-integracion-<sistema-objetivo>_v<X.Y>.md` para evitar atar la plantilla a un stack comercial concreto. | AG-10 Technical Writer / Developer Advocate Senior |
 | 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/10_developer_guide/`; la frase de selección de variante y la carpeta target referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. | Reformulación SDD 2.1D |
+| 1.2 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). | Migración SDD 2.1D |

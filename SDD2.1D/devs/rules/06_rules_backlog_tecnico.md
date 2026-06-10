@@ -2,7 +2,7 @@
 
 **Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/06_backlog-tecnico/`
 **Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-06)
-**Versión de las reglas:** 1.1
+**Versión de las reglas:** 1.2
 
 ---
 
@@ -406,8 +406,7 @@ Los dos fragmentos son ilustrativos. Cada proyecto adapta el dominio respetando 
 Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar el backlog técnico del proyecto {{NOMBRE_PROYECTO}}.
 
 Insumos:
-- PROJECT-BRIEF: {{path}}
-- PROJECT-README: {{path}}
+- SOLUTION-INTAKE: {{path}}
 - Upstream: 01 (NB-XX), 02 (CU, RN, modelo conceptual), 05 (arquitectura de solución, ADRs, modelo lógico, contratos).
 
 A generar (según tipo {{TIPO}} de D8):
@@ -439,3 +438,4 @@ Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/06_backlog-tecnico/<es
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 06. Establece la convención obligatoria de dos dígitos uniformes en US, BT y EP como corrección del antecedente Motor DSL (mezcla `US-01` y `BT-001`), define las cinco secciones del product-backlog, las tres del backlog-tecnico, las siete de cada US individual y las siete de cada BT individual, las variantes por tipo D8, los umbrales de archivos individuales (20 US y 30 BT) y los criterios de aceptación. |
 | 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/06_backlog-tecnico/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. |
+| 1.2 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |

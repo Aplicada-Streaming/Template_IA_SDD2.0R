@@ -2,13 +2,13 @@
 
 **Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/04_prompts_ai/`
 **Subagente target del orquestador:** Ingeniero de Prompts / AI Specialist (AG-04)
-**Versión de las reglas:** 1.1
+**Versión de las reglas:** 1.2
 
 ---
 
 ## 0. Posición en la cadena SDD 2.1
 
-La categoría 04 produce los artefactos que rigen toda interacción del sistema con modelos de lenguaje (LLMs) y demás componentes de IA generativa. Es una categoría **opcional** y **gated** por declaración explícita del proyecto. Recibe insumos de 01 (necesidades de negocio que declaran feature LLM) y del PROJECT-README (§15 decisiones pre-ADR, §13 NFR). Alimenta a 02 (CU que delegan parte del flujo en LLM), a 05 (arquitectura del pipeline AI), a 08 (tests de comportamiento del prompt y umbrales) y a 09 (rate limits, costos por entorno). Esta categoría no es transversal: si el proyecto no consume LLMs, no se genera.
+La categoría 04 produce los artefactos que rigen toda interacción del sistema con modelos de lenguaje (LLMs) y demás componentes de IA generativa. Es una categoría **opcional** y **gated** por declaración explícita del proyecto. Recibe insumos de 01 (necesidades de negocio que declaran feature LLM) y del SOLUTION-INTAKE (§17 P.11 decisiones pre-ADR, §17 P.10 NFR). Alimenta a 02 (CU que delegan parte del flujo en LLM), a 05 (arquitectura del pipeline AI), a 08 (tests de comportamiento del prompt y umbrales) y a 09 (rate limits, costos por entorno). Esta categoría no es transversal: si el proyecto no consume LLMs, no se genera.
 
 ---
 
@@ -50,8 +50,8 @@ El AG-04 mantiene titularidad del prompt, del dataset de evaluación y de la pol
 
 Esta categoría se genera **solo** si el proyecto declara explícitamente que usa LLMs. La declaración vive en dos lugares del intake:
 
-- PROJECT-README §15 (decisiones pre-ADR): bandera `usa_llm: true|false`.
-- PROJECT-README §13 (NFR): NFR explícita de funcionalidad asistida por IA o de procesamiento de lenguaje natural.
+- SOLUTION-INTAKE §17 P.11 (decisiones pre-ADR): bandera `usa_llm: true|false`.
+- SOLUTION-INTAKE §17 P.10 (NFR): NFR explícita de funcionalidad asistida por IA o de procesamiento de lenguaje natural.
 
 El orquestador lee este flag al inicio del bootstrap. Si `usa_llm = false` (o ambos campos están ausentes), **omite por completo la generación de la carpeta `/SDD2.1D/docs/04_prompts_ai/`**, deja constancia en el log del orquestador y no produce ningún artefacto de 04. Si el flag pasa de `false` a `true` en una iteración posterior, la categoría se activa de forma retroactiva en esa iteración y se reabren los criterios de aceptación del §6.
 
@@ -254,7 +254,7 @@ Tabla de trazabilidad del prompt:
 
 ### 5.1 Upstream
 
-- ¿El proyecto declara `usa_llm = true` en el PROJECT-README §15 o una NFR de IA en §13? Sin esa declaración, no se genera la categoría.
+- ¿El proyecto declara `usa_llm = true` en el SOLUTION-INTAKE §17 P.11 o una NFR de IA en §17 P.10? Sin esa declaración, no se genera la categoría.
 - ¿Qué CU del proyecto delegan en LLM? ¿Hay CU que mencionan IA sin declarar prompt asociado?
 - ¿Qué NB upstream motivan cada prompt?
 
@@ -296,7 +296,7 @@ Tabla de trazabilidad del prompt:
 
 ## 6. Criterios de aceptación
 
-- [ ] La categoría se activa solamente si PROJECT-README declara explícitamente que el sistema usa LLMs; caso contrario la carpeta no existe.
+- [ ] La categoría se activa solamente si SOLUTION-INTAKE declara explícitamente que el sistema usa LLMs; caso contrario la carpeta no existe.
 - [ ] Existe `politica-uso-ai_v1.0.md` antes de cualquier `prompt-<tarea>` productivo.
 - [ ] Cada `prompt-<tarea>` declara contrato de entrada y contrato de salida (con JSON Schema si la salida es JSON).
 - [ ] Cada `prompt-<tarea>` tiene mínimo dos few-shot; tres si la tarea es generación abierta.
@@ -404,11 +404,10 @@ Proveedor primario: {{proveedor-1}}. Alternativa documentada: {{proveedor-2}}. P
 Sos un {{ESPECIALIDAD-VARIANTE}} responsable de la categoría 04 (prompts AI) del proyecto {{NOMBRE_PROYECTO}}.
 
 Precondición de gating:
-- Antes de generar cualquier artefacto, verificá que PROJECT-README declare explícitamente `usa_llm = true` en §15 o una NFR de IA en §13. Si no está declarado, NO generes la carpeta /SDD2.1D/docs/04_prompts_ai/ y dejá constancia en el log.
+- Antes de generar cualquier artefacto, verificá que SOLUTION-INTAKE declare explícitamente `usa_llm = true` en §17 P.11 o una NFR de IA en §17 P.10. Si no está declarado, NO generes la carpeta /SDD2.1D/docs/04_prompts_ai/ y dejá constancia en el log.
 
 Insumos:
-- PROJECT-BRIEF: {{path}}
-- PROJECT-README: {{path}} (especialmente §13 NFR y §15 pre-ADR)
+- SOLUTION-INTAKE: {{path}} (especialmente §17 P.10 NFR y §17 P.11 pre-ADR)
 - Upstream: 01 (NB que motivan IA), 02 (CU que delegan en LLM si ya existe).
 
 A generar (si la categoría está activa):
@@ -437,3 +436,4 @@ Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/04_prompts_ai/<estruct
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1. Categoría opcional con gating explícito por PROJECT-README. |
 | 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/04_prompts_ai/` (cuando `usa_llm` del proyecto es true); la ruta de salida del prompt-snippet referencia el proyecto en curso del manifiesto. Tablas §1.2 sin reescritura. |
+| 1.2 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |

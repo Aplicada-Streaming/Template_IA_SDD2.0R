@@ -2,7 +2,7 @@
 
 **Carpeta target:** `/SDD2.1D/docs/01_necesidades_negocio/`
 **Subagente target del orquestador:** Analista de Negocio Senior (AG-01)
-**Versión de las reglas:** 1.1
+**Versión de las reglas:** 1.2
 
 ---
 
@@ -10,7 +10,7 @@
 
 ### 1.1 Especialidad base
 
-Analista de Negocio Senior, equivalente al AG-01 del catálogo de especialidades. Su rol es traducir los dolores y oportunidades capturados en PROJECT-BRIEF y en la visión del producto (categoría 00) en necesidades de negocio (NB) estructuradas, medibles y trazables hacia los casos de uso (CU) que las implementarán. El AG-01 trabaja a partir del intake y consolida cada NB en un archivo independiente bajo `/SDD2.1D/docs/01_necesidades_negocio/necesidades-de-negocio/`, además de mantener un índice maestro en la raíz de la categoría. Su responsabilidad no es definir flujos funcionales (eso es del AG-02) ni decisiones técnicas (AG-05), sino articular qué problema concreto del negocio se resuelve, para quién, con qué métrica de éxito y con qué prioridad relativa.
+Analista de Negocio Senior, equivalente al AG-01 del catálogo de especialidades. Su rol es traducir los dolores y oportunidades capturados en SOLUTION-INTAKE y en la visión del producto (categoría 00) en necesidades de negocio (NB) estructuradas, medibles y trazables hacia los casos de uso (CU) que las implementarán. El AG-01 trabaja a partir del intake y consolida cada NB en un archivo independiente bajo `/SDD2.1D/docs/01_necesidades_negocio/necesidades-de-negocio/`, además de mantener un índice maestro en la raíz de la categoría. Su responsabilidad no es definir flujos funcionales (eso es del AG-02) ni decisiones técnicas (AG-05), sino articular qué problema concreto del negocio se resuelve, para quién, con qué métrica de éxito y con qué prioridad relativa.
 
 ### 1.2 Variantes según tipo de proyecto
 
@@ -25,7 +25,7 @@ Analista de Negocio Senior, equivalente al AG-01 del catálogo de especialidades
 | cli-tool | Analista de Negocio + Developer Experience Analyst | Las NB se redactan desde la mirada del desarrollador que invoca la herramienta en su pipeline. |
 | worker-service | Analista de Negocio + Operations Analyst | Las NB se centran en throughput, latencia funcional y resiliencia operativa del proceso de fondo. |
 
-El orquestador lee esta tabla y selecciona la variante según el `project_type` del proyecto principal de la solución (leído del manifiesto), porque esta categoría se genera una vez a nivel solución a partir del PROJECT-BRIEF único.
+El orquestador lee esta tabla y selecciona la variante según el `project_type` del proyecto principal de la solución (leído del manifiesto), porque esta categoría se genera una vez a nivel solución a partir del SOLUTION-INTAKE único.
 
 ### 1.3 Multi-especialidad
 
@@ -86,18 +86,17 @@ Ejemplo inválido a evitar: `NB-03-Trazabilidad-Pedidos.v1.0.md` (mayúsculas en
 
 Upstream:
 
-- PROJECT-BRIEF: §1 (Idea y problema), §3 (Propuesta de valor), §4 (Alcance funcional con MoSCoW provisorio), §8 (Métricas de éxito).
-- PROJECT-README: campos de tipo D8 y stack para condicionar variantes.
+- SOLUTION-INTAKE: §1 (Idea y problema), §3 (Propuesta de valor), §4 (Alcance funcional con MoSCoW provisorio), §8 (Métricas de éxito), §13 (tipo D8) y §17 P.1 (stack) para condicionar variantes.
 - 00_contexto: `vision-producto_v1.0.md` y `alcance-proyecto_v1.0.md` consolidan el marco previo.
 
 Downstream:
 
 - 02_especificacion_funcional: cada NB declara las CU previstas que la implementarán.
-- 04_prompts_ai: si el proyecto declara IA o LLMs en PROJECT-README, las NB que motivan prompts se enlazan a sus artefactos en esa categoría.
+- 04_prompts_ai: si el proyecto declara IA o LLMs en SOLUTION-INTAKE, las NB que motivan prompts se enlazan a sus artefactos en esa categoría.
 - 06_backlog-tecnico, 07_plan-sprint: la priorización MoSCoW de cada NB ordena el backlog y los sprints.
 - 08_calidad_y_pruebas: cada criterio de éxito de §5 de la NB es input directo para los criterios de aceptación de la categoría 08.
 
-La cadena de trazabilidad obligatoria por D6 es: PROJECT-BRIEF → 00_contexto → NB → CU → US → BT → Sprint → Test → Pipeline.
+La cadena de trazabilidad obligatoria por D6 es: SOLUTION-INTAKE → 00_contexto → NB → CU → US → BT → Sprint → Test → Pipeline.
 
 ### 3.4 README de la sección
 
@@ -129,7 +128,7 @@ Cada archivo `NB-XX-<kebab>_v1.0.md` arranca con el siguiente bloque, completand
 | Estado | Borrador / Propuesto / Aprobado / Vigente / Superado / Archivado |
 | Fecha | YYYY-MM-DD |
 | Autor | {{rol-y-nombre}} |
-| Trazabilidad upstream | PROJECT-BRIEF §1, §4; vision-producto_v1.0.md |
+| Trazabilidad upstream | SOLUTION-INTAKE §1, §4; vision-producto_v1.0.md |
 | Trazabilidad downstream | CU-XX, CU-YY (previstas en 02_especificacion_funcional) |
 ```
 
@@ -211,11 +210,11 @@ Tabla D (solo para el índice maestro): Resumen de NB.
 
 ### 5.1 Comprensión del input upstream
 
-- ¿Qué dolor concreto describe PROJECT-BRIEF §1 y cómo se mapea a una o más NB?
-- ¿Qué capacidades de PROJECT-BRIEF §4 marcadas como Must Have requieren una NB explícita y cuáles son técnicas o derivadas?
-- ¿Qué métricas de éxito de PROJECT-BRIEF §8 se traducen en criterios de éxito de una NB específica?
-- ¿La visión de producto de la categoría 00 introduce dolores nuevos no capturados en el brief?
-- ¿Hay riesgos de PROJECT-BRIEF §11 que motivan NB defensivas (por ejemplo, NB de auditabilidad)?
+- ¿Qué dolor concreto describe SOLUTION-INTAKE §1 y cómo se mapea a una o más NB?
+- ¿Qué capacidades de SOLUTION-INTAKE §4 marcadas como Must Have requieren una NB explícita y cuáles son técnicas o derivadas?
+- ¿Qué métricas de éxito de SOLUTION-INTAKE §8 se traducen en criterios de éxito de una NB específica?
+- ¿La visión de producto de la categoría 00 introduce dolores nuevos no capturados en el intake?
+- ¿Hay riesgos de SOLUTION-INTAKE §11 que motivan NB defensivas (por ejemplo, NB de auditabilidad)?
 
 ### 5.2 Decisiones de scope
 
@@ -250,7 +249,7 @@ Tabla D (solo para el índice maestro): Resumen de NB.
 - [ ] Cada NB contiene las 10 secciones obligatorias §1 a §10 en el orden definido en §4.2 de estas reglas.
 - [ ] Cada NB tiene al menos 4 criterios de éxito SMART en §5, todos con métrica numérica, target y plazo.
 - [ ] Cada NB declara su prioridad MoSCoW en §9 con justificación de una línea.
-- [ ] Cada NB tiene trazabilidad upstream explícita a PROJECT-BRIEF y/o a documentos de 00_contexto.
+- [ ] Cada NB tiene trazabilidad upstream explícita a SOLUTION-INTAKE y/o a documentos de 00_contexto.
 - [ ] Cada NB declara en §7 las CU previstas que la implementarán, con estado `a generar`, `en redacción` o `aprobada`.
 - [ ] Cada NB tiene al menos 3 stakeholders nominales en §6, cubriendo las categorías propietario, implementador y beneficiario.
 - [ ] Ningún filename usa `.v` antes de la versión ni mayúsculas en el kebab; todos respetan el regex `^NB-\d{2}-[a-z0-9-]+_v\d+\.\d+\.md$`.
@@ -277,7 +276,7 @@ Tabla D (solo para el índice maestro): Resumen de NB.
 | Estado | Aprobado |
 | Fecha | 2026-04-10 |
 | Autor | Analista de Negocio, Centro de Salud Norte |
-| Trazabilidad upstream | PROJECT-BRIEF §1, §4; vision-producto_v1.0.md |
+| Trazabilidad upstream | SOLUTION-INTAKE §1, §4; vision-producto_v1.0.md |
 | Trazabilidad downstream | CU-01, CU-02 (previstas) |
 
 ## 1. Descripción de la necesidad
@@ -305,7 +304,7 @@ a una segunda llamada porque la recepcionista no tiene la agenda del médico.
 ## 9. Prioridad MoSCoW
 
 Must Have. Sin esta NB, el sistema no resuelve el problema central declarado
-en PROJECT-BRIEF §1 y no hay MVP defendible.
+en SOLUTION-INTAKE §1 y no hay MVP defendible.
 ```
 
 ### 7.2 Ejemplo B: NB-01 de una librería de parsing CSV (library)
@@ -321,7 +320,7 @@ en PROJECT-BRIEF §1 y no hay MVP defendible.
 | Estado | Aprobado |
 | Fecha | 2026-04-22 |
 | Autor | Curador de API, equipo de plataforma |
-| Trazabilidad upstream | PROJECT-BRIEF §3, §4 |
+| Trazabilidad upstream | SOLUTION-INTAKE §3, §4 |
 | Trazabilidad downstream | CU-04, CU-05 (previstas) |
 
 ## 1. Descripción de la necesidad
@@ -355,8 +354,7 @@ Ambos ejemplos respetan filename en lowercase, separador de versión con guion b
 Sos un {{ESPECIALIDAD-VARIANTE}} responsable de redactar las necesidades de negocio del proyecto {{NOMBRE_PROYECTO}}.
 
 Insumos:
-- PROJECT-BRIEF: {{path-al-brief}}
-- PROJECT-README: {{path-al-readme-de-intake}}
+- SOLUTION-INTAKE: {{path-al-intake}}
 - Documentos upstream ya generados: vision-producto_v1.0.md, alcance-proyecto_v1.0.md (categoría 00).
 
 Documentos a generar:
@@ -381,3 +379,4 @@ Salida: /SDD2.1D/docs/01_necesidades_negocio/<archivos>.
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1 |
 | 1.1 | 2026-06-09 | Validación ST-06: la categoría 01 se genera a nivel solución; la frase de cierre de §1.2 usa la variante del proyecto principal del manifiesto. Tablas §1.2 sin reescritura. |
+| 1.2 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |

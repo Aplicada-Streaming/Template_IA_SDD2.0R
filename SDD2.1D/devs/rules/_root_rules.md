@@ -3,7 +3,7 @@
 **Carpeta target:** `/SDD2.1D/docs/`
 **Archivo target:** `/SDD2.1D/docs/README.md`
 **Subagente target del orquestador:** Arquitecto de Soluciones Senior (AG-ROOT)
-**Versión de las reglas:** 1.2
+**Versión de las reglas:** 1.3
 
 ---
 
@@ -85,7 +85,7 @@ Todos los nombres respetan kebab-case estricto en minúsculas (D3) y sufijo de v
 
 ### 3.3 Vinculación cross-doc (trazabilidad upstream/downstream)
 
-- Upstream: el README raíz consume `SOLUTION-MANIFEST`, `PROJECT-BRIEF` y `PROJECT-README` producidos en la fase de intake. De allí extrae el nombre de la solución, la propuesta de valor, la enumeración de proyectos con su tipo D8 y dependencias, y los stacks declarados.
+- Upstream: el README raíz consume `SOLUTION-MANIFEST` y `SOLUTION-INTAKE` producidos en la fase de intake. De allí extrae el nombre de la solución, la propuesta de valor, la enumeración de proyectos con su tipo D8 y dependencias, y los stacks declarados.
 - Downstream: el README raíz enlaza a las categorías de nivel solución (`00_contexto`, `01_necesidades_negocio`), a la vista y el pipeline de solución en `_solucion/`, y a la documentación de cada proyecto bajo `proyectos/<nombre-proyecto-kebab>/`. No enlaza directamente a artefactos internos; eso lo hace el README de cada sección o de cada proyecto.
 
 ### 3.4 README de la sección
@@ -98,7 +98,7 @@ No aplica. Este archivo es el README de la raíz de `/SDD2.1D/docs/`. Los README
 
 ### 4.1 Cabecera obligatoria
 
-La cabecera del `README.md` generado debe seguir este bloque, completando los valores entre llaves dobles a partir de PROJECT-README:
+La cabecera del `README.md` generado debe seguir este bloque, completando los valores entre llaves dobles a partir de SOLUTION-INTAKE:
 
 ```markdown
 # {{nombre-solucion}}
@@ -347,8 +347,7 @@ Sos un {{ESPECIALIDAD-VARIANTE}} (Arquitecto de Soluciones Senior más la varian
 
 Insumos:
 - SOLUTION-MANIFEST: {{path}} (enumeración de proyectos, tipo D8, rol, dependencias, nombres de código).
-- PROJECT-BRIEF: {{path}}
-- PROJECT-README: {{path}}
+- SOLUTION-INTAKE: {{path}}
 - Documentos upstream ya generados: las categorías de solución (00, 01), la vista y el pipeline de solución (`_solucion/`) y la documentación de cada proyecto (`proyectos/<kebab>/`).
 
 Reglas de redacción: §4 de _root_rules.md.
@@ -368,3 +367,4 @@ Salida: /SDD2.1D/docs/README.md (sin versión en el nombre, con versión 1.0 en 
 | 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1 |
 | 1.1 | 2026-06-09 | Validación ST-06: el README raíz se genera a nivel solución; §1.2 usa la variante del proyecto principal del manifiesto. El README presenta la solución y la tabla de proyectos (la reformulación de contenido se completa en ST-08). |
 | 1.2 | 2026-06-09 | Reformulación ST-08: el README raíz se reformula a documento de solución. La cabecera (§4.1) declara la solución, su composición y el proyecto principal en lugar de un único tipo D8. Se agrega la sección obligatoria "Proyectos de la solución" (§4.2) con la tabla de proyectos (D8, rol, dependencias, redistribuible). El mapa de documentación (§4.4) refleja las categorías de solución (00, 01), `_solucion/` y la carpeta de cada proyecto. Se actualizan §1.1, §3.3, anti-patrones, criterios de aceptación, preguntas guía, ejemplos (uno multi-proyecto y el caso degenerado) y el prompt-snippet. |
+| 1.3 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |

@@ -6,7 +6,7 @@
 
 [Guía de usuario](SDD2.1D/guides/guia-usuario-sdd2.1_v1.0.md)
 
-[Marco teórico](SDD2.1D/devs/guides/marco-teorico-sdd_v1.0.md)
+[Marco teórico](SDD2.1D/devs/guides/marco-teorico-sdd2.1_v1.0.md)
 
 [Resumen](https://docs.google.com/document/d/1S0LlnTQbsV-5zxHtKwbxpTZaQrtgKu5q/preview)
 

@@ -48,11 +48,11 @@ El usuario completa ahora un único documento de intake en lugar de dos plantill
 
 ---
 
-## §4 Observaciones P3 (fuera de alcance, registradas)
+## §4 Observaciones P3 — resueltas (2026-06-10, pase posterior al cierre)
 
-- OT-A — Tensión `SDD2.1D` (mayúsculas) vs D3 (kebab-lowercase). Preexistente. No se resuelve en esta reformulación (§3 del prompt lo indica). Registrada.
-- OT-B — `marco-teorico-sdd_v1.0.md` no lleva marcador de versión en el nombre. La reformulación anterior decidió no renombrarlo (un nombre sin versión no "mezcla versiones"). Se mantiene esa decisión; queda como posible armonización futura con `guia-usuario-sdd2.1`.
-- OT-C — Título del `README.md` raíz: se normalizó "(2.0)" a "(2.1)" por DK-05. Si ese "(2.0)" denotaba la versión del repositorio o del curso (el repo se llama `Template_IA_SDD2.0R`) y no la versión de la metodología SDD, conviene revertirlo. Pendiente de confirmación del propietario.
+- OT-A — Tensión `SDD2.1D` (mayúsculas) vs D3 (kebab-lowercase). RESUELTA por documentación (decisión humana). Se agregó en `marco-teorico` §3.9 la aclaración de que D3 gobierna los nombres de artefactos generados, y que los identificadores de variante de la metodología (`SDD1.0`, `SDD2.1D`, `SDD2.1M`, `SDD2.1R`) y los prefijos de organización quedan fuera de su alcance. No se renombra la carpeta (rompería cientos de referencias, la consistencia con las carpetas hermanas y la decisión del equipo).
+- OT-B — `marco-teorico-sdd_v1.0.md` sin marcador de versión. RESUELTA. Se renombró a `marco-teorico-sdd2.1_v1.0.md` (`git mv`) por simetría con `guia-usuario-sdd2.1`, actualizando metadato, auto-referencias, el enlace del README raíz y el árbol de la guía. El marco teórico subió a v1.3.
+- OT-C — Título del `README.md` raíz. CONFIRMADA por el humano: el rótulo se mantiene en "(2.1)" (refiere a la versión de la metodología SDD). Sin cambio.
 
 ---
 
@@ -67,3 +67,4 @@ APROBADO. La reformulación de unificación de intake está completa y coherente
 | Versión | Fecha | Cambios | Autor |
 |---|---|---|---|
 | 1.0 | 2026-06-10 | Audit consolidado de la reformulación de unificación de intake (ST-01 a ST-09). Veredicto APROBADO sin P0. Tres observaciones P3 registradas fuera de alcance. | Auditor independiente + AG-ROOT |
+| 1.1 | 2026-06-10 | Pase de resolución de los tres P3 (§4): OT-A resuelta por documentación del alcance de D3 en `marco-teorico` §3.9; OT-B resuelta renombrando `marco-teorico` a `marco-teorico-sdd2.1_v1.0.md` (v1.3); OT-C confirmada (título del README en "(2.1)"). | AG-ROOT |

@@ -1,7 +1,7 @@
 # Marco Teórico SDD 2.1
 
-**Documento:** marco-teorico-sdd_v1.0.md
-**Versión:** 1.2
+**Documento:** marco-teorico-sdd2.1_v1.0.md
+**Versión:** 1.3
 **Estado:** Aprobado
 **Fecha:** 2026-06-10
 **Autor:** Equipo Template SDD 2.1 — UTN
@@ -302,7 +302,7 @@ El humano clona o crea el repositorio del proyecto, copia el árbol `/SDD2.1D/de
 - Las reglas de nomenclatura (`devs/rules/`), incluida la regla meta `rules/_intake_rules.md` que dirige la validación de intake.
 - Las plantillas de artefactos.
 - Los prompts del orquestador y de los subagentes (`devs/orchestrator/`).
-- Este marco teórico (`devs/guides/marco-teorico-sdd_v1.0.md`).
+- Este marco teórico (`devs/guides/marco-teorico-sdd2.1_v1.0.md`).
 
 El humano verifica que el intake está bien cargado (no hay placeholders sin completar) y que las decisiones D1–D8 están explícitas. El SOLUTION-MANIFEST no se completa en este paso: es un artefacto derivado que el orquestador construye en la Fase de validación de intake (ver §3.6) a partir del §13 del intake.
 
@@ -429,6 +429,8 @@ SDD 2.1 hereda el patrón general del fuente SDD 1.0 (la cadena AG-00 → AG-11,
 | ADR | Consolidado en un archivo | Un archivo por decisión (`ADR-XX-...`) |
 | Auditoría inicial | Inexistente | Obligatoria (Fase 0) |
 | Marco teórico | Disperso en `/references/` | Consolidado en `/devs/guides/` |
+
+Aclaración sobre el alcance de D3 (casing kebab-lowercase). La regla de casing estricto kebab-lowercase gobierna los nombres de los artefactos generados: documentos versionados y carpetas de categoría y de proyecto bajo `/docs/` y `/src/`. No alcanza a los identificadores de variante de la metodología, que son tokens de marca, no artefactos generados: las carpetas raíz `SDD1.0`, `SDD2.1D`, `SDD2.1M` y `SDD2.1R` usan ese esquema de identificación a propósito, y su mayúscula no es una violación de D3. Lo mismo aplica a los prefijos de organización como `Aplicada` en los nombres de código. La validación automatizada de nomenclatura se aplica al plano de artefactos, no a estos identificadores de marca.
 
 ## 3.10 El modelo de solución más jerarquía de proyectos
 
@@ -1483,7 +1485,7 @@ Todo prompt destinado a generar artefactos comienza con una lista explícita de 
 Antes de escribir nada, leé en orden:
 1. devs/intake/SOLUTION-INTAKE-<nombre-solucion-kebab>_v1.0.md
 2. devs/rules/decisiones-D1-D8.md
-3. devs/guides/marco-teorico-sdd_v1.0.md (sección §4 si el rol que asumis es AG-XX)
+3. devs/guides/marco-teorico-sdd2.1_v1.0.md (sección §4 si el rol que asumis es AG-XX)
 
 Respondeme solo con:
 - Los puntos clave que entendiste del contexto
@@ -1865,6 +1867,7 @@ W3C. (2024). *ARIA — Accessible Rich Internet Applications*. https://www.w3.or
 | 1.0 | 2026-05-17 | Versión inicial — 14 capítulos, 50+ términos en glosario, 40+ referencias APA 7, 8 tipos D8 cubiertos. |
 | 1.1 | 2026-06-10 | Actualización al modelo de solución más jerarquía de proyectos: fundamentación del modelo (solución, proyecto como unidad de especialización, manifiesto como fuente única de verdad, orden topológico, caso degenerado como garantía de no ruptura), estructura del template con niveles solución/proyecto y _solucion/, y aclaración de que las variantes D8 y la trazabilidad se aplican por proyecto. Conjunto D8 sin cambios (8 valores). |
 | 1.2 | 2026-06-10 | Actualización al intake unificado: un único documento `SOLUTION-INTAKE` reemplaza a `PROJECT-BRIEF` y `PROJECT-README`; el `SOLUTION-MANIFEST` pasa a artefacto derivado del §13 del intake; se incorpora la fundamentación de la Fase de validación de intake (validación de completitud semántica, batería de preguntas, derivación y confirmación del manifiesto). Conjunto D8 sin cambios. |
+| 1.3 | 2026-06-10 | Higiene (resolución de P3): el archivo se renombra a `marco-teorico-sdd2.1_v1.0.md` para alinear el marcador de variante con `guia-usuario-sdd2.1` (se actualizan metadato y auto-referencias). Se agrega en §3.9 la aclaración del alcance de D3: el casing kebab-lowercase gobierna los artefactos generados; los identificadores de variante de la metodología (`SDD1.0`, `SDD2.1D`, `SDD2.1M`, `SDD2.1R`) y los prefijos de organización quedan fuera de su alcance. | Reformulación SDD 2.1D |
 
 ---
 

@@ -1,9 +1,9 @@
 # PROJECT BRIEF — Plantilla de intake de negocio
 
 ```yaml
-Nombre del Proyecto: [Nombre comercial o interno del proyecto, kebab-case sugerido]
+Nombre de la solución: [Nombre comercial o interno de la solución, kebab-case sugerido]
 Cliente / Stakeholder principal: [Nombre de la persona, área u organización que lo impulsa]
-Documento: PROJECT-BRIEF-<nombre-kebab>_v1.0.md
+Documento: PROJECT-BRIEF-<nombre-solucion-kebab>_v1.0.md
 Versión: 1.0
 Fecha: [YYYY-MM-DD]
 Autor del brief: [Nombre y rol de quien redacta el brief]
@@ -13,6 +13,12 @@ Estado: Borrador
 > Este documento captura **lo que el cliente quiere** en lenguaje de negocio.
 > NO incluye decisiones técnicas (stack, arquitectura, deployment, etc.).
 > Para eso ver el documento PROJECT-README.
+>
+> El brief es de nivel solución: hay uno por solución, no uno por proyecto. El negocio
+> del cliente es uno solo, aunque la solución se construya como una jerarquía de varios
+> proyectos. La descomposición en proyectos y su tipado D8 viven en el SOLUTION-MANIFEST
+> y en el PROJECT-README, no acá. Para una solución de un solo proyecto, el nombre de la
+> solución y el del proyecto coinciden.
 
 ---
 
@@ -340,7 +346,7 @@ _Cada sección trae cuatro bloques: una instrucción sobre qué responder, un se
 
 _El brief se considera listo para ser usado como input del flujo SDD (Visión → NB → CU) solo cuando todos los ítems están tildados. Cada ítem debe poder ser verificado objetivamente por una persona que lea el documento._
 
-- [ ] El bloque de cabecera tiene nombre de proyecto, cliente, fecha, autor y estado completos.
+- [ ] El bloque de cabecera tiene nombre de solución, cliente, fecha, autor y estado completos.
 - [ ] §1 describe un problema concreto en lenguaje del cliente, no una solución técnica.
 - [ ] §1 responde explícitamente qué pasa si NO se construye el sistema.
 - [ ] §2 contiene al menos un stakeholder por categoría (propietario, implementador, beneficiario), con rol explícito.
@@ -367,6 +373,7 @@ _El brief se considera listo para ser usado como input del flujo SDD (Visión �
 | Versión | Fecha | Cambios | Autor |
 |---|---|---|---|
 | 1.0 | [YYYY-MM-DD] | Plantilla inicial generada durante bootstrap SDD 2.1 | Bootstrap SDD 2.1 |
+| 1.1 | 2026-06-09 | Reformulación a nivel solución (ST-03): la cabecera declara "Nombre de la solución" y el documento se identifica como `PROJECT-BRIEF-<nombre-solucion-kebab>_v1.0.md`; nota de que el brief es uno por solución. El cuerpo de negocio (§1 a §13) no cambia. | Reformulación SDD 2.1D |
 
 ---
 

@@ -1,8 +1,8 @@
 # Reglas constructivas — 11 Examples
 
-**Carpeta target:** `/SDD2.1D/docs/11_examples/`
+**Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/11_examples/`
 **Subagente target del orquestador:** Developer Advocate / Sample Engineer Senior (AG-11)
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -39,7 +39,7 @@ El rol combina Sample Engineering (construcción de proyectos de referencia prog
 | cli-tool | Sample Engineer | Recetas multi-OS (Windows, Linux, macOS) con scripts batch/bash equivalentes y casos de uso reales por subcomando. |
 | worker-service | Sample Engineer | docker-compose con broker (RabbitMQ, Kafka o equivalente) y productor de prueba que dispara mensajes representativos al worker. |
 
-El orquestador lee esta tabla y, según el campo `Tipo de proyecto` declarado en PROJECT-README durante el intake, selecciona la variante correspondiente y la combina con la especialidad base.
+El orquestador lee esta tabla y, según el `project_type` del proyecto en curso (leído del manifiesto de solución), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada proyecto de la solución.
 
 ### 1.3 Multi-especialidad
 
@@ -67,7 +67,7 @@ El AG-11 mantiene titularidad de los artefactos. Las demás especialidades aport
 | `ejemplo-03-avanzado_v<X.Y>.md` o `ejemplo-03-<kebab-progresion>_v<X.Y>.md` | library, cli-tool, mobile-app-maui, rest-api | desktop-app, web-microservices | — | Markdown explicativo del sample de nivel avanzado o de integración. |
 | `imagenes/` (carpeta) | Cuando los markdown referencian screenshots o assets visuales | — | Samples sin UI | Carpeta de assets versionados (PNG, SVG). Sin assets binarios pesados; preferir vectoriales. |
 
-Cada markdown explicativo se acompaña de un proyecto ejecutable en `/samples/<carpeta-correspondiente>/` del repositorio. La categoría 11 documenta el sample; la materialización en código vive en `/samples` y se gobierna desde §5.X del PROJECT-README.
+Cada markdown explicativo se acompaña de un proyecto ejecutable en `/samples/<carpeta-correspondiente>/` del repositorio. La categoría 11 documenta el sample; la materialización en código vive en `/samples` y se gobierna desde §4.1 del PROJECT-README (materialización de `/samples`).
 
 ### 2.2 Cantidad mínima de samples por tipo
 
@@ -457,7 +457,7 @@ Insumos:
 - PROJECT-README: {{path}} (sección §1 tipo D8, §5 estructura de repo, §14 estrategia de samples)
 - Upstream: 02 (CU que cada sample ilustra), 05 (arquitectura y puntos de extensión), 10 (developer guide).
 
-A generar (según tipo D8 declarado en PROJECT-README):
+A generar (según el `project_type` del proyecto, leído del manifiesto):
 - README.md con tabla maestra de samples.
 - ejemplo-XX-<kebab-progresion>_v1.0.md por cada sample (mínimo según §2.2 de 11_rules_examples.md).
 - Carpeta /samples/XX-<kebab-progresion>/ con código ejecutable, README propio, tests de verificación.
@@ -472,7 +472,7 @@ Criterios de calidad: §6 de 11_rules_examples.md.
 
 Restricciones: no introducir productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis ni negritas decorativas.
 
-Salida: /SDD2.1D/docs/11_examples/<estructura> + /samples/<estructura> en el repo del proyecto.
+Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/11_examples/<estructura> + /samples/<estructura> en el repo de la solución.
 ```
 
 ---
@@ -482,3 +482,4 @@ Salida: /SDD2.1D/docs/11_examples/<estructura> + /samples/<estructura> en el rep
 | Versión | Fecha | Descripción |
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 11. Define el README de la sección y los markdown explicativos por sample con sufijo uniforme `_v<X.Y>.md`, fija la matriz tipo D8 vs estructura de `/samples`, establece cantidades mínimas de samples por tipo, formaliza las nueve secciones obligatorias del markdown explicativo y corrige dos antecedentes del fuente SDD 1.0: la nomenclatura por dominio (`multa`, `multaapp-nuget`) se reemplaza por progresión de complejidad o capacidad, y la ausencia de sufijo de versión se reemplaza por `_v<X.Y>.md` obligatorio en todos los archivos versionables. |
+| 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/11_examples/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto), y la referencia a la materialización de `/samples` apunta a §4.1 del PROJECT-README. Tablas §1.2 sin reescritura. |

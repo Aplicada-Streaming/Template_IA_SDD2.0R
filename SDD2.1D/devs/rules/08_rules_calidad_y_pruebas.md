@@ -1,8 +1,8 @@
 # Reglas constructivas — 08 Calidad y pruebas
 
-**Carpeta target:** `/SDD2.1D/docs/08_calidad_y_pruebas/`
+**Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/08_calidad_y_pruebas/`
 **Subagente target del orquestador:** Ingeniero QA / SDET Senior (AG-08)
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -37,7 +37,7 @@ Combina dos facetas que históricamente estaban separadas. La cara QA define qu�
 | cli-tool | QA + CLI Testing | bats o framework equivalente, snapshot del output de stdout y stderr, validación de exit codes, tests por subcomando y por combinación de flags. |
 | worker-service | QA + Event Testing | Consumer tests por tipo de mensaje, validación de idempotencia, simulación de replay y de mensajes envenenados, tests de dead-letter y de orden cuando aplica. |
 
-El orquestador lee esta tabla y, según el campo `Tipo de proyecto` declarado en PROJECT-README durante el intake, selecciona la variante correspondiente y la combina con la especialidad base.
+El orquestador lee esta tabla y, según el `project_type` del proyecto en curso (leído del manifiesto de solución), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada proyecto de la solución.
 
 ### 1.3 Multi-especialidad
 
@@ -440,7 +440,7 @@ Criterios de calidad: §6 de 08_rules_calidad_y_pruebas.md.
 
 Restricciones: no introducir productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis ni negritas decorativas.
 
-Salida: /SDD2.1D/docs/08_calidad_y_pruebas/<estructura>.
+Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/08_calidad_y_pruebas/<estructura>.
 ```
 
 ---
@@ -450,3 +450,4 @@ Salida: /SDD2.1D/docs/08_calidad_y_pruebas/<estructura>.
 | Versión | Fecha | Descripción |
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 08. Define los siete artefactos obligatorios para todo tipo D8 y el opcional `guia-testing-extensibilidad`, fija la pirámide objetivo por tipo D8, establece la matriz de cobertura con tres tablas obligatorias, formaliza la DoD como documento canónico no redefinible por sprint y corrige el antecedente del fuente SDD 1.0 eliminando el sufijo de dominio en los nombres de archivo en favor del patrón uniforme `_v<X.Y>.md`. |
+| 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/08_calidad_y_pruebas/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. |

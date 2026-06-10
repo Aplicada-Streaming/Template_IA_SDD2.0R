@@ -1,10 +1,10 @@
 # Guía de usuario del template SDD 2.1
 
 ```yaml
-Documento: guia-usuario-sdd2.0_v1.0.md
-Versión: 1.0
-Fecha: 2026-05-17
-Audiencia: profesionales y estudiantes que usan el template para un proyecto real
+Documento: guia-usuario-sdd2.1_v1.0.md
+Versión: 1.1
+Fecha: 2026-06-10
+Audiencia: profesionales y estudiantes que usan el template para una solución real
 Idioma: español rioplatense neutro técnico
 Estado: vigente
 ```
@@ -24,13 +24,21 @@ A diferencia de plantillas ad-hoc o de un README inflado, SDD 2.1 se apoya en tr
 
 - Una cadena de trazabilidad cerrada (Visión → Necesidad de Negocio → Caso de Uso → Regla de Negocio → ADR → User Story → Backlog Técnico → Sprint → Test → Pipeline), todos los eslabones formales y verificables.
 - Un conjunto de 12 categorías documentales numeradas (`00_contexto/` a `11_examples/`) más un README raíz, cada una con su propio archivo de reglas constructivas que codifica especialidad, documentos a producir, criterios de aceptación y prompts ejemplares.
-- Un master-prompt orquestador que se ejecuta una sola vez por proyecto en Claude Code y va despachando subagentes especializados con audits independientes entre fases.
+- Un master-prompt orquestador que se ejecuta una sola vez por solución en Claude Code y va despachando subagentes especializados con audits independientes entre fases.
+
+### Solución y proyecto: el modelo de trabajo
+
+SDD 2.1 distingue dos niveles. Una solución agrupa una jerarquía de N proyectos (con N mayor o igual a 1). Cada proyecto lleva exactamente uno de los 8 tipos cerrados D8 (`library`, `web-monolith`, `web-microservices`, `desktop-app`, `mobile-app-maui`, `rest-api`, `cli-tool`, `worker-service`); el tipo se elige por proyecto, no por la solución. La solución en sí no tiene un D8 propio: es el contenedor que enumera sus proyectos, sus roles, sus dependencias y sus nombres de código.
+
+El intake describe la solución completa en un único lugar: un manifiesto de solución que enumera los proyectos y su grafo de dependencias acíclico, un brief de negocio a nivel solución y un README técnico de solución con un bloque repetible por proyecto. El orquestador lee el manifiesto, valida la jerarquía, ordena los proyectos en orden topológico y genera la documentación proyecto por proyecto, respetando que ninguno arranca antes que sus dependencias.
+
+Una solución de un solo proyecto es perfectamente válida: es el caso degenerado y reproduce exactamente el comportamiento del template de tipo único anterior. En ese caso el orquestador aplana el layout y genera las categorías `00` a `11` directamente bajo `/SDD2.1D/docs/`, sin el subnivel `proyectos/<kebab>/` ni la carpeta `_solucion/`. Esa equivalencia es la garantía de no ruptura: si tu trabajo es un proyecto único, no cambia nada respecto de la versión anterior.
 
 La audiencia primaria son desarrolladores, analistas, líderes técnicos y estudiantes avanzados que quieren producir documentación de calidad profesional sin pelearse con plantillas frías. El template asume que vas a usar Claude.ai web para conversar con el cliente y consolidar la idea, y Claude Code para ejecutar el orquestador y materializar la documentación en el repositorio.
 
 Si el lector necesita la fundamentación teórica (por qué se eligió plan-then-confirm, por qué el principio de delegación de la especialidad, qué nodos cubre la cadena D6, qué invariantes globales D1 a D8 se aplican), eso se documenta en el marco teórico del template. Esta guía es operativa.
 
-Un proyecto típico que usa SDD 2.1 termina con una carpeta `/SDD2.1D/docs/` poblada por categoría, un informe de audit por cada fase, un README raíz consolidado y un Sprint 1 listo para arrancar codificación. El handoff a codificación es explícito: el orquestador no escribe código sin confirmación humana.
+Una solución típica que usa SDD 2.1 termina con una carpeta `/SDD2.1D/docs/` poblada por categoría (a nivel solución y por proyecto), un informe de audit por cada fase, un README raíz consolidado y un Sprint 1 listo para arrancar codificación. El handoff a codificación es explícito: el orquestador no escribe código sin confirmación humana.
 
 ---
 
@@ -78,7 +86,7 @@ SDD 2.1 no es universal. Está pensado para proyectos donde el esfuerzo de docum
 - 1 persona (solo dev / freelance): conviene una versión liviana. Saltearse el `acuerdo-equipo` y el sprint plan completo (se usa `mini-plan_v1.0.md`). Igual generar visión, alcance, NB, CU, ADR mínimas y backlog.
 - 2 a 5 personas (equipo chico): caso canónico del template, todo el flujo aplica.
 - 6 a 15 personas (equipo mediano): caso canónico también. Se recomienda fuerte ejecutar la fase H final (audit consolidado) con un revisor externo al equipo.
-- Más de 15 personas (equipo grande): el template aplica como base, pero la coordinación entre múltiples bounded contexts puede requerir varios proyectos SDD federados (uno por contexto) en lugar de uno monolítico.
+- Más de 15 personas (equipo grande): el template aplica como base. La coordinación entre múltiples bounded contexts se modela como una solución multi-proyecto (un proyecto por contexto dentro del mismo manifiesto) en lugar de un único proyecto monolítico.
 
 ### 3.2 Perfilado por complejidad
 
@@ -88,16 +96,18 @@ SDD 2.1 no es universal. Está pensado para proyectos donde el esfuerzo de docum
 
 ### 3.3 Perfilado por tipo de proyecto (D8)
 
-El template soporta 8 tipos cerrados (D8) de proyectos. La elección del tipo gobierna qué documentos se generan en cada categoría y qué especialidad se invoca en cada subagente. Los 8 tipos confirmados son:
+El template soporta 8 tipos cerrados (D8). El tipo se elige por proyecto, no por repositorio ni por solución: cada proyecto de la jerarquía declara exactamente uno de los 8 valores, y una solución puede combinar varios tipos distintos (por ejemplo, un `rest-api` principal que depende de dos `library`). La elección del tipo de cada proyecto gobierna qué documentos se generan en cada categoría para ese proyecto y qué especialidad se invoca en cada subagente. Los 8 tipos confirmados son:
 
-- D1 `library`: librería reutilizable, distribuida via package manager del ecosistema.
-- D2 `web-monolith`: aplicación web monolítica con frontend y backend acoplados.
-- D3 `web-microservices`: arquitectura distribuida con varios servicios independientes.
-- D4 `desktop-app`: aplicación de escritorio para Windows, Linux o macOS.
-- D5 `mobile-app-maui`: aplicación móvil multiplataforma.
-- D6 `rest-api`: servicio HTTP que expone una API REST consumida por otros sistemas.
-- D7 `cli-tool`: herramienta de línea de comandos.
-- D8 `worker-service`: servicio de procesamiento asincrónico orientado a eventos o colas.
+1. `library`: librería reutilizable, distribuida via package manager del ecosistema.
+2. `web-monolith`: aplicación web monolítica con frontend y backend acoplados.
+3. `web-microservices`: arquitectura distribuida con varios servicios independientes.
+4. `desktop-app`: aplicación de escritorio para Windows, Linux o macOS.
+5. `mobile-app-maui`: aplicación móvil multiplataforma.
+6. `rest-api`: servicio HTTP que expone una API REST consumida por otros sistemas.
+7. `cli-tool`: herramienta de línea de comandos.
+8. `worker-service`: servicio de procesamiento asincrónico orientado a eventos o colas.
+
+El conjunto D8 sigue teniendo exactamente 8 valores. Lo que cambió respecto del modelo anterior es la cardinalidad: antes había un solo tipo por proyecto único; ahora hay N proyectos por solución, cada uno con su tipo. El conjunto cerrado no se amplía ni se reduce.
 
 ### 3.4 Perfilado por plazo
 
@@ -116,8 +126,8 @@ El template soporta 8 tipos cerrados (D8) de proyectos. La elección del tipo go
 | 2-5 | Compleja | Normal | rest-api, web-microservices | Template completo + ADR por bounded context |
 | 2-5 | Compleja | Largo | cualquiera | Template completo + audit externo |
 | 6-15 | Normal | Normal | web-monolith, rest-api | Template completo, audits cada fase |
-| 6-15 | Compleja | Largo | web-microservices | Template completo + federación de proyectos SDD por contexto |
-| >15 | Compleja | Largo | web-microservices | Varios proyectos SDD federados, uno por bounded context |
+| 6-15 | Compleja | Largo | web-microservices | Template completo + solución multi-proyecto, un proyecto por contexto |
+| >15 | Compleja | Largo | web-microservices | Solución multi-proyecto, un proyecto por bounded context |
 | cualquiera | Trivial | Urgente | cualquiera | No usar template |
 | cualquiera | Normal | Urgente | cualquiera | Template recortado: 00, 02, 06, 07 con `mini-plan` |
 
@@ -134,7 +144,7 @@ En esos casos, el costo de armar la documentación inicial supera el beneficio. 
 
 ## §4 Recorrido paso a paso de la metodología
 
-El flujo completo del usuario tiene 6 pasos. La narración asume que ya cumpliste los prerequisitos de §2 y que decidiste que el template aplica a tu proyecto según §3.
+El flujo completo del usuario tiene 6 pasos. La narración asume que ya cumpliste los prerequisitos de §2 y que decidiste que el template aplica a tu solución según §3.
 
 ### 4.1 Paso 1 — Chat informal en Claude.ai web
 
@@ -209,42 +219,53 @@ Guardá ese documento aparte. Lo vamos a usar como input del paso siguiente.
 
 ### 4.3 Paso 3 — Volcado a las plantillas intake
 
-Acá entran en juego las dos plantillas oficiales del template: `PROJECT-BRIEF-template.md` y `PROJECT-README-template.md`. Las dos viven en `/SDD2.1D/devs/intake/` del template fuente.
+Acá entran en juego las tres plantillas oficiales del template, todas a nivel solución y todas en `/SDD2.1D/devs/intake/` del template fuente:
 
-El BRIEF es el intake de negocio: 13 secciones que capturan lo que el cliente quiere en lenguaje de negocio, sin decisiones técnicas. El README es el intake técnico: 17 secciones que capturan cómo se va a construir el sistema, incluido el campo crítico `Tipo de proyecto` con los 8 valores D8.
+- `SOLUTION-MANIFEST-template.md`: el manifiesto de solución. Enumera los proyectos de la jerarquía, su tipo D8, su rol, su bandera `redistribuible`, sus dependencias, sus nombres de código y el perfil de convención de nombres. Es la fuente única de verdad de la enumeración de proyectos y el primer documento que lee el orquestador. Su grafo de dependencias debe ser acíclico (DAG).
+- `PROJECT-BRIEF-template.md`: el intake de negocio, uno por solución. Captura lo que el cliente quiere en lenguaje de negocio, sin decisiones técnicas.
+- `PROJECT-README-template.md`: el intake técnico, un README de solución. Su §1 lleva la tabla de proyectos (tipo por proyecto, espejo del manifiesto) y su §5 repite, por cada proyecto, un bloque técnico P.1 a P.12 (stack, arquitectura, persistencia, testing, versionado, pipeline, compatibilidad, NFR, pre-ADR, trade-offs).
 
-Subí ambas plantillas al chat de Claude.ai como archivos adjuntos. Después le decís:
+El tipo D8 se declara por proyecto en el manifiesto, no por la solución: la solución no tiene un D8 propio.
+
+Subí las tres plantillas al chat de Claude.ai como archivos adjuntos. Después le decís:
 
 ```text
-Te paso dos plantillas oficiales del template SDD 2.1:
-PROJECT-BRIEF-template.md y PROJECT-README-template.md.
+Te paso tres plantillas oficiales del template SDD 2.1:
+SOLUTION-MANIFEST-template.md, PROJECT-BRIEF-template.md y
+PROJECT-README-template.md.
 
 Quiero que tomes la información del documento consolidado que generamos
-antes y llenes las dos plantillas. Reglas:
+antes y llenes las tres plantillas. Reglas:
 
 1. No inventes datos que no estén en el documento consolidado.
-2. Si falta información para algún campo, marcalo como PENDIENTE y
+2. Empezá por el manifiesto: enumerá todos los proyectos de la solución,
+   con su tipo D8 (uno de los 8 cerrados por proyecto), su rol, su
+   bandera redistribuible y sus dependencias. Verificá que el grafo de
+   dependencias sea acíclico y que haya exactamente un proyecto principal.
+3. El PROJECT-README §1 debe reflejar exactamente la tabla de proyectos
+   del manifiesto. El §5 repite el bloque técnico P.1 a P.12 por proyecto.
+4. Si falta información para algún campo, marcalo como PENDIENTE y
    listá al final las preguntas concretas que necesitás que yo le
    responda antes de seguir.
-3. Mantené las instrucciones de cada sección de la plantilla solo si
-   son útiles. Borrá los bloques "Ejemplo genérico" y "Lo que NO va
-   en esta sección" del output final.
-4. Respetá el checklist de §13 del BRIEF y §17 del README al final
-   de cada documento.
-5. Para el campo "Tipo de proyecto" del PROJECT-README, elegí
-   exactamente uno de los 8 valores cerrados de D8 con justificación.
+5. Borrá los bloques "Ejemplo genérico", "Ejemplo aplicado",
+   "Caso degenerado" y "Lo que NO va en esta sección" del output final.
+6. Respetá el checklist final de cada plantilla.
+
+Si la solución tiene un solo proyecto, el manifiesto tiene una sola fila
+(caso degenerado) y el resto del flujo no cambia.
 ```
 
-Claude genera los dos documentos. Los va a sacar con muchas secciones tildadas y, casi seguro, con algunos PENDIENTES que requieren ida y vuelta con el cliente real o con tu propio criterio.
+Claude genera los tres documentos. Los va a sacar con muchas secciones tildadas y, casi seguro, con algunos PENDIENTES que requieren ida y vuelta con el cliente real o con tu propio criterio.
 
-Hacé la ronda de preguntas pendientes (las podés llevar al cliente si las hay), volvés a Claude con las respuestas y le pedís que regenere los intake con esas nuevas respuestas incorporadas. Repetí hasta que el checklist final de ambos documentos esté íntegramente tildado.
+Hacé la ronda de preguntas pendientes (las podés llevar al cliente si las hay), volvés a Claude con las respuestas y le pedís que regenere los intake con esas nuevas respuestas incorporadas. Repetí hasta que el checklist final de los tres documentos esté íntegramente tildado y el README §1 coincida con el manifiesto.
 
-Output del paso: dos archivos markdown personalizados al proyecto, listos para bajar a local. Los nombres definitivos siguen el patrón:
+Output del paso: tres archivos markdown personalizados a la solución, listos para bajar a local. Los nombres definitivos siguen el patrón:
 
-- `PROJECT-BRIEF-<nombre-kebab>_v1.0.md`
-- `PROJECT-README-<nombre-kebab>_v1.0.md`
+- `SOLUTION-MANIFEST-<nombre-solucion-kebab>_v1.0.md`
+- `PROJECT-BRIEF-<nombre-solucion-kebab>_v1.0.md`
+- `PROJECT-README-<nombre-solucion-kebab>_v1.0.md`
 
-Donde `<nombre-kebab>` es el nombre del proyecto en kebab-case (minúsculas, sin acentos, guion medio como separador). Ejemplo: para "Sistema de Turnos Médicos", el slug es `sistema-turnos-medicos`.
+Donde `<nombre-solucion-kebab>` es el nombre de la solución en kebab-case (minúsculas, sin acentos, guion medio como separador). Ejemplo: para "Gestión de Turnos", el slug es `gestion-de-turnos`. Los nombres de cada proyecto siguen el mismo criterio kebab-case (por ejemplo `gestion-de-turnos-api`).
 
 ### 4.4 Paso 4 — Bootstrap local con el template
 
@@ -264,19 +285,21 @@ Si ya tenés un repositorio Git para tu proyecto y querés sumar el template com
 cp -r ruta/al/template/SDD2.1D ./SDD2.1D
 ```
 
-Una vez bajado, reemplazá los archivos de la carpeta `intake/` con los tuyos:
+Una vez bajado, reemplazá los archivos de la carpeta `intake/` con los tuyos (los tres documentos de solución):
 
 ```bash
 # Asumiendo que guardaste tus intakes llenos en una carpeta intermedia:
-cp BRIEF-lleno.md SDD2.1D/devs/intake/PROJECT-BRIEF-sistema-turnos-medicos_v1.0.md
-cp README-lleno.md SDD2.1D/devs/intake/PROJECT-README-sistema-turnos-medicos_v1.0.md
+cp MANIFEST-lleno.md SDD2.1D/devs/intake/SOLUTION-MANIFEST-gestion-de-turnos_v1.0.md
+cp BRIEF-lleno.md SDD2.1D/devs/intake/PROJECT-BRIEF-gestion-de-turnos_v1.0.md
+cp README-lleno.md SDD2.1D/devs/intake/PROJECT-README-gestion-de-turnos_v1.0.md
 ```
 
 En PowerShell el equivalente es:
 
 ```powershell
-Copy-Item BRIEF-lleno.md SDD2.1D\devs\intake\PROJECT-BRIEF-sistema-turnos-medicos_v1.0.md
-Copy-Item README-lleno.md SDD2.1D\devs\intake\PROJECT-README-sistema-turnos-medicos_v1.0.md
+Copy-Item MANIFEST-lleno.md SDD2.1D\devs\intake\SOLUTION-MANIFEST-gestion-de-turnos_v1.0.md
+Copy-Item BRIEF-lleno.md SDD2.1D\devs\intake\PROJECT-BRIEF-gestion-de-turnos_v1.0.md
+Copy-Item README-lleno.md SDD2.1D\devs\intake\PROJECT-README-gestion-de-turnos_v1.0.md
 ```
 
 Hacé un commit del estado inicial:
@@ -294,11 +317,11 @@ ls SDD2.1D/devs/orchestrator/
 ls SDD2.1D/devs/rules/
 ```
 
-Debería listar el master-prompt en `orchestrator/`, los archivos de reglas `00_rules_*.md` a `11_rules_*.md` y `_root_rules.md` en `rules/`, y tus dos intakes personalizados en `intake/`.
+Debería listar el master-prompt en `orchestrator/`, los archivos de reglas `00_rules_*.md` a `11_rules_*.md` y `_root_rules.md` en `rules/`, y tus tres intakes personalizados en `intake/` (manifiesto, brief y README de solución).
 
 ### 4.5 Paso 5 — Ejecutar el master-prompt en Claude Code
 
-Acá empieza la parte más interesante: el orquestador toma tus intakes y genera la documentación completa del proyecto en `/SDD2.1D/docs/`.
+Acá empieza la parte más interesante: el orquestador lee el manifiesto de solución, valida la jerarquía y genera la documentación completa en `/SDD2.1D/docs/`, proyecto por proyecto, en orden topológico.
 
 Abrí una terminal en la raíz de tu proyecto y lanzá Claude Code:
 
@@ -312,24 +335,26 @@ Una vez dentro de la sesión interactiva de Claude Code, copiá literalmente el 
 ```text
 Leé /SDD2.1D/devs/orchestrator/master-prompt.md y arrancá la ejecución
 del orquestador SDD 2.1 sobre este repositorio. Mis intakes ya están
-en /SDD2.1D/devs/intake/. El proyecto se llama [nombre del proyecto].
+en /SDD2.1D/devs/intake/. La solución se llama [nombre de la solución].
 ```
 
 Claude Code va a:
 
-1. Leer los dos intakes y validarlos contra los checklists §13 (BRIEF) y §17 (README).
-2. Si encuentra placeholders sin completar (`PENDIENTE`, `[Nombre]`, etc.), se detiene y te pide completarlos.
-3. Detectar `project_type` del README §1.
-4. Derivar los flags de gating (usa_llm, tiene_ui_final, multi_tenant, etc.).
-5. Recolectar invariantes del proyecto (idioma, encoding, fecha, etc.).
-6. Presentar el plan de generación por categoría (la tabla de §6 del master-prompt aplicada a tu proyecto).
-7. Esperar tu confirmación explícita antes de despachar el primer subagente.
+1. Leer el `SOLUTION-MANIFEST` (la enumeración de proyectos) y luego el `PROJECT-BRIEF` y el `PROJECT-README` de solución.
+2. Validar el manifiesto: que cada `project_type` sea uno de los 8 valores D8, que haya exactamente un proyecto principal, que no haya colisión de nombres, que cada dependencia apunte a un proyecto existente, que el grafo sea acíclico, y que el README §1 coincida con el manifiesto.
+3. Si encuentra placeholders sin completar (`PENDIENTE`, `[Nombre]`, etc.) o una validación falla, se detiene y te pide corregir.
+4. Derivar `nombre-solucion-kebab`, `NombreSolucionCodigo` (PascalCase) y, por proyecto, el `nombre-proyecto-kebab` y el `nombre-proyecto-codigo` según el perfil de convención de nombres.
+5. Ordenar los proyectos en orden topológico (primero los sin dependencias) y derivar, por proyecto, los flags de gating (usa_llm, tiene_ui_final, multi_tenant, etc.).
+6. Recolectar invariantes de la solución (idioma, encoding, fecha, etc.).
+7. Presentar el plan de generación: el orden de proyectos y, por proyecto, las categorías a producir.
+8. Esperar tu confirmación explícita antes de despachar el primer subagente.
 
 Cuando veas el plan, revisalo con calma. Verificá:
 
-- Que el `project_type` detectado es correcto.
-- Que la lista de documentos a generar por categoría tiene sentido.
-- Que los flags están bien (si dice `usa_llm: false` y tu proyecto sí usa LLM, hay un problema en el intake).
+- Que la enumeración de proyectos, sus tipos D8 y el proyecto principal son los correctos.
+- Que el orden topológico respeta las dependencias declaradas.
+- Que la lista de documentos a generar por proyecto y categoría tiene sentido.
+- Que los flags por proyecto están bien (si dice `usa_llm: false` en un proyecto que sí usa LLM, hay un problema en el intake).
 
 Si todo está bien, respondés:
 
@@ -346,16 +371,18 @@ el sistema sí usa un LLM para clasificar tickets entrantes.
 
 Y el orquestador ajusta antes de arrancar.
 
-A partir de ahí, el orquestador despacha subagentes fase por fase:
+A partir de ahí, el orquestador despacha subagentes fase por fase. La Fase A es a nivel solución y se corre una sola vez; las Fases B a G se repiten por proyecto en orden topológico (un proyecto no arranca antes que sus dependencias); la Fase H consolida la solución:
 
-- Fase A: 00_contexto + 01_necesidades_negocio + audit A.
-- Fase B: 02_especificacion_funcional + 03_ux_ui_dx + 04_prompts_ai (si aplica) + audit B.
-- Fase C: 05_arquitectura_tecnica + audit C.
-- Fase D: 06_backlog-tecnico + 07_plan-sprint + audit D.
-- Fase E: 08_calidad_y_pruebas + audit E.
-- Fase F: 09_devops + 10_developer_guide (si aplica) + audit F.
-- Fase G: 11_examples (si aplica) + audit G.
-- Fase H: README raíz + audit final consolidado.
+- Fase A (nivel solución, una vez): 00_contexto + 01_necesidades_negocio + audit A.
+- Fase B (por proyecto): 02_especificacion_funcional + 03_ux_ui_dx + 04_prompts_ai (si aplica) + audit B.
+- Fase C (por proyecto): 05_arquitectura_tecnica + audit C.
+- Fase D (por proyecto): 06_backlog-tecnico + 07_plan-sprint + audit D.
+- Fase E (por proyecto): 08_calidad_y_pruebas + audit E.
+- Fase F (por proyecto): 09_devops + 10_developer_guide (si aplica) + audit F.
+- Fase G (por proyecto): 11_examples (si aplica) + audit G.
+- Fase H (consolidación de solución): vista de solución + pipeline de solución + README raíz + audit final consolidado. La vista de solución y el pipeline de solución solo se generan si hay más de un proyecto.
+
+Si la solución es de un solo proyecto (caso degenerado), el orquestador aplana el layout: genera las categorías `00` a `11` directo bajo `/SDD2.1D/docs/` más el README raíz, sin el subnivel `proyectos/<kebab>/` ni la carpeta `_solucion/`, y la Fase H omite la vista y el pipeline de solución. El resultado es idéntico al template de tipo único.
 
 Entre cada fase, el orquestador se detiene, presenta el informe del audit (`/SDD2.1D/docs/_audit/<fase>-<categoria>_v1.0.md`) y espera tu confirmación para continuar.
 
@@ -373,8 +400,8 @@ Antes de autorizar el handoff a codificación, hacé una revisión humana en est
 
 - Trazabilidad: abrí 3 o 4 user stories al azar y verificá que la cadena US → CU → NB → Visión cierra de punta a punta.
 - Ambigüedades pendientes: revisá la lista de decisiones pendientes. Cerralas antes del Sprint 1 o documentalas como riesgos asumidos.
-- Completitud: pasá por las 12 carpetas y abrí el README de cada una. Si alguno está vacío o trivial, falló algo en la generación.
-- Coherencia: leé la visión, leé los CU del Sprint 1, leé el ADR-001. ¿Cuentan la misma historia?
+- Completitud: pasá por las 12 categorías de cada proyecto (bajo `proyectos/<kebab>/` en una solución multi-proyecto, o directo bajo `docs/` en el caso degenerado) y abrí el README de cada una. Si alguno está vacío o trivial, falló algo en la generación. En una solución multi-proyecto, revisá además la vista de solución y el pipeline de solución en `_solucion/`.
+- Coherencia: leé la visión, leé los CU del Sprint 1, leé el ADR-001 del proyecto que estés revisando. ¿Cuentan la misma historia?
 
 Si encontrás algo que arreglar, podés:
 
@@ -395,11 +422,11 @@ A partir de ahí, ya salís del scope de SDD 2.1 (que es documentación) y entr�
 
 ## §5 Ejemplos aplicados
 
-Tres mini-casos sintéticos que muestran el flujo completo end-to-end. Cada caso ilustra un `project_type` distinto y muestra los cuatro sub-bloques: resumen del chat de Claude.ai, fragmentos clave del intake, output del orquestador, y muestras de los documentos generados.
+Cuatro mini-casos sintéticos que muestran el flujo completo end-to-end. Los tres primeros son soluciones de un proyecto (caso degenerado): ilustran un `project_type` distinto cada uno y muestran los cuatro sub-bloques (resumen del chat de Claude.ai, fragmentos clave del intake, output del orquestador, y muestras de los documentos generados). El cuarto es una solución multi-proyecto que combina varios tipos D8 en una sola jerarquía y muestra el manifiesto, el grafo de dependencias y el orden topológico de generación.
 
-### 5.1 Caso "API REST de gestión de turnos médicos" (rest-api)
+### 5.1 Caso "API REST de gestión de turnos médicos" (rest-api, solución de un proyecto)
 
-Contexto: un consultorio mediano (12 médicos, 3 administrativos, 600 turnos por semana) quiere reemplazar su sistema actual de turnos por teléfono con una API REST consumida por un portal web y una app móvil de pacientes.
+Contexto: un consultorio mediano (12 médicos, 3 administrativos, 600 turnos por semana) quiere reemplazar su sistema actual de turnos por teléfono con una API REST consumida por un portal web y una app móvil de pacientes. Es una solución de un solo proyecto: el manifiesto tiene una única fila (caso degenerado) y el orquestador aplana el layout, generando `00` a `11` directo bajo `/SDD2.1D/docs/`.
 
 #### Chat resumido en Claude.ai
 
@@ -526,9 +553,9 @@ Negativas: más boilerplate inicial, curva de aprendizaje para el junior
 del equipo.
 ```
 
-### 5.2 Caso "Librería utilitaria para parsing de archivos CSV" (library)
+### 5.2 Caso "Librería utilitaria para parsing de archivos CSV" (library, solución de un proyecto)
 
-Contexto: el equipo de plataforma de una empresa tecnológica necesita una librería interna para parsear archivos CSV con varias particularidades (delimitadores distintos, encoding detectable, manejo de filas con error sin frenar la lectura completa). Hoy cada proyecto resuelve el problema con scripts ad-hoc y eso genera mucho retrabajo.
+Contexto: el equipo de plataforma de una empresa tecnológica necesita una librería interna para parsear archivos CSV con varias particularidades (delimitadores distintos, encoding detectable, manejo de filas con error sin frenar la lectura completa). Hoy cada proyecto resuelve el problema con scripts ad-hoc y eso genera mucho retrabajo. También es una solución de un proyecto (caso degenerado): el manifiesto tiene una sola fila de tipo `library`.
 
 #### Chat resumido en Claude.ai
 
@@ -626,9 +653,9 @@ Cada sample es autocontenido. Para ejecutarlo, abrir la carpeta,
 seguir el README local y correr el comando de la sección "Ejecutar".
 ```
 
-### 5.3 Caso "App móvil de inventario de almacén" (mobile-app-maui)
+### 5.3 Caso "App móvil de inventario de almacén" (mobile-app-maui, solución de un proyecto)
 
-Contexto: una empresa logística con 4 depósitos y 30 empleados de campo quiere reemplazar el método actual (planillas en papel y planilla de cálculo) por una app móvil multiplataforma de inventario que soporte escaneo de código de barras, sincronización con un sistema central y modo offline.
+Contexto: una empresa logística con 4 depósitos y 30 empleados de campo quiere reemplazar el método actual (planillas en papel y planilla de cálculo) por una app móvil multiplataforma de inventario que soporte escaneo de código de barras, sincronización con un sistema central y modo offline. Es la tercera solución de un proyecto (caso degenerado), esta vez de tipo `mobile-app-maui`.
 
 #### Chat resumido en Claude.ai
 
@@ -727,6 +754,92 @@ Métrica de freno automático: tasa de crashes > 1% en los primeros
 1000 usuarios.
 ```
 
+### 5.4 Caso "Solución de gestión de turnos con cuatro proyectos" (solución multi-proyecto)
+
+Contexto: el mismo dominio de turnos médicos del caso 5.1, pero esta vez el equipo no entrega una sola API: arma una solución con cuatro proyectos que se construyen y publican como una jerarquía. La solución se llama "Gestión de Turnos" (`gestion-de-turnos`, `NombreSolucionCodigo` = `GestionDeTurnos`). Este caso muestra qué cambia respecto del degenerado: el manifiesto tiene cuatro filas, hay dependencias entre proyectos, el orquestador genera en orden topológico y aparecen los artefactos de nivel solución.
+
+Los cuatro proyectos:
+
+- `gestion-de-turnos-api` (`rest-api`, proyecto principal): la API pública de turnos.
+- `gestion-de-turnos-domain` (`library`): el dominio y las reglas de negocio compartidas.
+- `gestion-de-turnos-notificaciones` (`worker-service`): el envío asincrónico de recordatorios.
+- `aplicada-validaciones` (`library`, redistribuible): un paquete reusable de validaciones, independiente de la solución que lo consume.
+
+#### Fragmento del SOLUTION-MANIFEST
+
+Bloque de solución (extracto):
+
+| Campo | Valor |
+|---|---|
+| Nombre de solución | Gestión de Turnos |
+| `nombre-solucion-kebab` | `gestion-de-turnos` |
+| `NombreSolucionCodigo` | `GestionDeTurnos` |
+| Proyecto principal | `gestion-de-turnos-api` |
+
+Perfil de convención: PascalCase; separador `.`; prefijo de redistribuibles `Aplicada`.
+
+Tabla de proyectos:
+
+| `nombre-proyecto-kebab` | `nombre-proyecto-codigo` | `project_type` | Rol | `redistribuible` | Dependencias |
+|---|---|---|---|---|---|
+| `gestion-de-turnos-api` | `GestionDeTurnos.WebApi` | `rest-api` | API pública de turnos (principal) | false | `gestion-de-turnos-domain`, `aplicada-validaciones` |
+| `gestion-de-turnos-domain` | `GestionDeTurnos.Domain` | `library` | Dominio y reglas de negocio compartidas | false | `aplicada-validaciones` |
+| `gestion-de-turnos-notificaciones` | `GestionDeTurnos.Worker` | `worker-service` | Envío asincrónico de recordatorios | false | `gestion-de-turnos-domain` |
+| `aplicada-validaciones` | `Aplicada.Validaciones` | `library` | Paquete reusable de validaciones | true | — |
+
+Los nombres de código siguen la convención `<NombreSolucionCodigo>.<Sufijo>` (por ejemplo `GestionDeTurnos.WebApi`), salvo el paquete redistribuible, que arranca con el prefijo de organización `Aplicada` (`Aplicada.Validaciones`) para tener un espacio de nombres estable e independiente de la solución que lo consume.
+
+#### Grafo de dependencias y orden topológico
+
+El manifiesto declara: `api` depende de `domain` y de `aplicada-validaciones`; `domain` depende de `aplicada-validaciones`; `notificaciones` depende de `domain`. El grafo es acíclico, condición que el orquestador valida antes de arrancar.
+
+```text
+aplicada-validaciones  ->  gestion-de-turnos-domain  ->  gestion-de-turnos-api
+                       \                              \-> gestion-de-turnos-notificaciones
+                        \-> gestion-de-turnos-api
+```
+
+De ese grafo el orquestador deriva el orden topológico de generación y de build. Ningún proyecto arranca antes que sus dependencias; los del mismo nivel pueden generarse en paralelo:
+
+```text
+nivel 0: aplicada-validaciones
+nivel 1: gestion-de-turnos-domain
+nivel 2: gestion-de-turnos-api, gestion-de-turnos-notificaciones   (paralelizables)
+```
+
+#### Output del orquestador
+
+El orquestador lee el manifiesto, valida (tipos D8 válidos, un único proyecto principal, sin colisión de nombres, dependencias resueltas, grafo acíclico, README §1 coincidente con el manifiesto), deriva los nombres de código y planifica:
+
+```text
+solucion: gestion-de-turnos
+NombreSolucionCodigo: GestionDeTurnos
+proyecto-principal: gestion-de-turnos-api
+proyectos: 4 (orden topologico: aplicada-validaciones, gestion-de-turnos-domain,
+              gestion-de-turnos-api, gestion-de-turnos-notificaciones)
+```
+
+Ejecuta la Fase A una sola vez a nivel solución (00_contexto, 01_necesidades_negocio), luego recorre las Fases B a G por proyecto en el orden topológico, y cierra con la Fase H de consolidación: como hay más de un proyecto, genera la vista de solución (`_solucion/vista-solucion_v1.0.md`, con el mapa de proyectos, los contratos inter-proyecto y el grafo de dependencias), el pipeline de solución (`_solucion/pipeline-solucion_v1.0.md`, con el orden de build topológico y la matriz de artefactos publicables por proyecto) y el README raíz.
+
+#### Layout generado (extracto)
+
+```text
+/SDD2.1D/docs/
+├── 00_contexto/                         # nivel solución
+├── 01_necesidades_negocio/              # nivel solución
+├── _solucion/
+│   ├── vista-solucion_v1.0.md
+│   └── pipeline-solucion_v1.0.md
+├── proyectos/
+│   ├── aplicada-validaciones/02..11/
+│   ├── gestion-de-turnos-domain/02..11/
+│   ├── gestion-de-turnos-api/02..11/
+│   └── gestion-de-turnos-notificaciones/02..11/
+└── README.md                            # README raíz de solución
+```
+
+Comparado con el caso 5.1 (degenerado), las diferencias visibles son: el subnivel `proyectos/<kebab>/`, la carpeta `_solucion/` con sus dos artefactos, y que `00`/`01` quedan a nivel solución en vez de mezclados con el resto de las categorías.
+
 ---
 
 ## §6 Resolución de problemas frecuentes
@@ -744,9 +857,9 @@ Pasos:
 3. Si la respuesta requiere consultar al cliente, anotala como pendiente, hacé la consulta, y respondé cuando tengas la información.
 4. Si decidís que la información no es bloqueante, podés pedir al orquestador que asuma un valor por defecto justificado, pero queda como decisión documentada en el log.
 
-### F-02 — Generó un documento que no aplica a mi tipo de proyecto, ¿cómo lo saco?
+### F-02 — Generó un documento que no aplica al tipo de un proyecto, ¿cómo lo saco?
 
-Revisá primero el `project_type` declarado en PROJECT-README §1. Si está mal, corregilo, el orquestador retrocede a la fase A y regenera lo afectado. Si está bien, abrí el archivo de reglas correspondiente (`XX_rules_<categoria>.md`), verificá §2.1 y §2.2 (tabla maestra de documentos y reglas por tipo). Si el documento estaba marcado como "Omitir" para tu tipo y aun así se generó, es un bug del subagente. Pedile al orquestador que regenere esa categoría con instrucciones explícitas.
+Revisá primero el `project_type` del proyecto en el `SOLUTION-MANIFEST` (la tabla de proyectos); el README §1 debe coincidir. Si el tipo está mal, corregilo en el manifiesto (y en el README §1), y el orquestador regenera lo afectado de ese proyecto. Si está bien, abrí el archivo de reglas correspondiente (`XX_rules_<categoria>.md`), verificá §2.1 y §2.2 (tabla maestra de documentos y reglas por tipo). Si el documento estaba marcado como "Omitir" para ese tipo y aun así se generó, es un bug del subagente. Pedile al orquestador que regenere esa categoría para ese proyecto con instrucciones explícitas.
 
 Si simplemente decidiste que no querés ese documento aunque la regla lo recomiende, eliminalo a mano y registrá un ADR en `/SDD2.1D/docs/05_arquitectura_tecnica/` documentando la omisión.
 
@@ -834,21 +947,11 @@ estructura de §4.2 de /SDD2.1D/devs/rules/02_rules_especificacion_funcional.md.
 El documento actual omite la sección de criterios Given/When/Then.
 ```
 
-### F-11 — ¿Puedo correr varios proyectos SDD 2.1 en el mismo repositorio?
+### F-11 — Tengo varios proyectos relacionados (API, dominio, worker), ¿cómo los manejo?
 
-Sí, en carpetas separadas. Por ejemplo, para una arquitectura de microservicios podés tener:
+Esa es justamente la jerarquía de proyectos que modela una solución. No necesitás N carpetas `SDD2.1D` separadas: declarás los proyectos como filas del `SOLUTION-MANIFEST`, con sus dependencias, y el orquestador genera la documentación de todos en una sola ejecución, proyecto por proyecto en orden topológico, bajo `proyectos/<kebab>/`. Ver F-16 para cómo se declaran.
 
-```text
-mi-mono-repo/
-├── servicio-a/
-│   └── SDD2.1D/
-├── servicio-b/
-│   └── SDD2.1D/
-└── servicio-c/
-    └── SDD2.1D/
-```
-
-Cada subcarpeta es un proyecto SDD 2.1 independiente con sus propios intakes y su propia documentación generada. El orquestador se ejecuta una vez por cada subproyecto.
+Solo conviene separar en soluciones SDD distintas cuando se trata de productos verdaderamente independientes, con clientes, roadmaps y ciclos de vida desacoplados, que no comparten un brief de negocio ni un grafo de dependencias. En ese caso sí, cada solución tiene su propia carpeta `SDD2.1D` y su propio trío de intakes.
 
 ### F-12 — La generación de una fase tarda mucho, ¿es normal?
 
@@ -876,6 +979,18 @@ El cliente típicamente no lee toda la documentación, pero sí lee el README ra
 1. Si son cambios de fondo (cambio de alcance, exclusión nueva), aplicá §13: actualizá el intake correspondiente.
 2. Si son cambios de forma (claridad, ortografía, ejemplos), aplicalos directamente al documento generado, sin tocar el intake.
 3. Después de cambios, regenerá el README raíz para asegurar que los enlaces y referencias siguen coherentes.
+
+### F-16 — ¿Cómo declaro varios proyectos en una solución?
+
+En el `SOLUTION-MANIFEST`. La §2 del manifiesto tiene una tabla de proyectos donde cada fila es un proyecto: su `nombre-proyecto-kebab`, su `nombre-proyecto-codigo`, su `project_type` (uno de los 8 D8), su rol, su bandera `redistribuible` y sus dependencias hacia otros proyectos de la misma solución. Declarás un único proyecto principal y armás el grafo de dependencias listando, en la columna Dependencias, los proyectos de los que depende cada uno. El grafo tiene que ser acíclico. El orquestador valida todo eso (tipos válidos, un solo principal, sin colisiones de nombre, dependencias resueltas, grafo acíclico) y, si pasa, ordena los proyectos en orden topológico y genera la documentación de cada uno. El `PROJECT-README` §1 tiene que reflejar exactamente esta tabla; ante divergencia, manda el manifiesto.
+
+### F-17 — ¿Qué pasa si mi solución es un solo proyecto?
+
+Es el caso degenerado y es totalmente válido: el manifiesto tiene una sola fila. El orquestador aplana el layout y genera las categorías `00` a `11` directo bajo `/SDD2.1D/docs/` más el README raíz, sin el subnivel `proyectos/<kebab>/` ni la carpeta `_solucion/`, y la Fase H omite la vista y el pipeline de solución. El resultado es idéntico al del template de tipo único anterior: si venías trabajando con un proyecto único, no cambia nada para vos. Esta equivalencia es la garantía de no ruptura del modelo.
+
+### F-18 — ¿Cómo se nombran los proyectos en /src?
+
+Por convención `<NombreSolucionCodigo>.<Sufijo>`, donde `<NombreSolucionCodigo>` es la forma PascalCase del nombre de la solución y `<Sufijo>` identifica el rol del proyecto. Ejemplos: `GestionDeTurnos.WebApi`, `GestionDeTurnos.Domain`, `GestionDeTurnos.Worker`. La excepción son los paquetes redistribuibles (`redistribuible: true`): en lugar de la raíz de la solución, arrancan con el prefijo de organización del perfil (`Aplicada` por defecto), para tener un espacio de nombres estable e independiente de la solución que los consume. Por ejemplo, un paquete de validaciones reusable se llama `Aplicada.Validaciones`, no `GestionDeTurnos.Validaciones`. Esta convención aplica solo al plano de código en `/src`; el plano de documentación sigue en kebab-case sin cambios (por ejemplo `gestion-de-turnos-api`).
 
 ---
 
@@ -940,7 +1055,7 @@ Pasos:
 | BRIEF §4 Alcance funcional | 00, 01, 02, 06, 07, 11 |
 | BRIEF §8 Métricas de éxito | 00, 13 (NFR) |
 | BRIEF §10 Restricciones | 00, 09 |
-| README §1 Tipo de proyecto | TODAS (es bloqueante) |
+| MANIFEST §2 / README §1 Tipo de un proyecto | TODAS las del proyecto afectado (es bloqueante) |
 | README §3 Estilo arquitectónico | 05 |
 | README §7 Persistencia | 02 (modelo conceptual), 05 (modelo lógico), 07 |
 | README §9 Testing | 08 |
@@ -980,10 +1095,11 @@ Tres recorridos según tu perfil al acercarte al template.
 Si nunca usaste SDD ni un template parecido, este es el orden de lectura recomendado:
 
 1. Esta guía completa (§1 a §10). Tiempo estimado: 1 hora.
-2. La plantilla `PROJECT-BRIEF-template.md`. Leela completa, fijate en los ejemplos genéricos. Tiempo estimado: 30 minutos.
-3. La plantilla `PROJECT-README-template.md`. Leela completa, especialmente la tabla de los 8 tipos D8 en §1. Tiempo estimado: 30 minutos.
-4. Tres archivos de reglas a elección: `00_rules_contexto.md`, `02_rules_especificacion_funcional.md` y `05_rules_arquitectura_tecnica.md`. Tiempo estimado: 1 hora.
-5. El master-prompt completo, §1 a §16. Tiempo estimado: 45 minutos.
+2. La plantilla `SOLUTION-MANIFEST-template.md`. Leela completa, mirá el ejemplo aplicado multi-proyecto y el caso degenerado. Es la que define la jerarquía de proyectos. Tiempo estimado: 30 minutos.
+3. La plantilla `PROJECT-BRIEF-template.md`. Leela completa, fijate en los ejemplos genéricos. Tiempo estimado: 30 minutos.
+4. La plantilla `PROJECT-README-template.md`. Leela completa, especialmente la tabla de proyectos de §1 (espejo del manifiesto, con el tipo D8 por proyecto) y el bloque técnico repetible por proyecto de §5. Tiempo estimado: 30 minutos.
+5. Tres archivos de reglas a elección: `00_rules_contexto.md`, `02_rules_especificacion_funcional.md` y `05_rules_arquitectura_tecnica.md`. Tiempo estimado: 1 hora.
+6. El master-prompt completo. Tiempo estimado: 45 minutos.
 
 Ejercicios sugeridos:
 
@@ -995,7 +1111,7 @@ Total estimado de onboarding: una jornada y media de trabajo enfocado, sin conta
 
 ### 9.2 Para equipos con experiencia previa SDD
 
-Si ya trabajaron con la versión 1.0 del template (la del Motor DSL, referenciada al final de §1 de esta guía como antecedente histórico), las novedades de la 2.0 son:
+Si ya trabajaron con la versión 1.0 del template (la del Motor DSL, referenciada al final de §1 de esta guía como antecedente histórico), las novedades de la 2.1 son:
 
 - Plan-then-confirm explícito: ya no se ejecuta el orquestador de corrido, hay puntos de detención obligatorios.
 - Principio de delegación de la especialidad: las reglas tienen prioridad sobre el master-prompt.
@@ -1047,19 +1163,28 @@ Total: 100%.
 
 ### 10.1 Glosario rápido
 
-Quince términos esenciales para usar el template. Para el glosario exhaustivo del marco teórico, ver el documento correspondiente.
+Términos esenciales para usar el template. Para el glosario exhaustivo del marco teórico, ver el documento correspondiente.
 
 | Término | Definición breve |
 |---|---|
-| Intake | Documentos de entrada del proyecto: PROJECT-BRIEF (negocio) y PROJECT-README (técnico). Son fuente de verdad. |
-| BRIEF | Plantilla intake de negocio, 13 secciones. Captura lo que el cliente quiere en lenguaje de negocio. |
-| README (intake) | Plantilla intake técnica, 17 secciones. Captura cómo se construye el sistema. No confundir con el README raíz de salida. |
+| Solución | Contenedor de nivel superior que agrupa una jerarquía de N proyectos (N mayor o igual a 1). No tiene un D8 propio: lo declaran sus proyectos. |
+| Proyecto | Unidad de la jerarquía de una solución. Lleva exactamente uno de los 8 tipos D8. Sobre cada proyecto se generan las categorías 02 a 11. |
+| Manifiesto de solución | Documento `SOLUTION-MANIFEST-<solucion-kebab>_v1.0.md`. Fuente única de verdad de la enumeración de proyectos, su D8, rol, dependencias, nombres de código y perfil de nombres. Su grafo es acíclico (DAG). |
+| Proyecto principal | El proyecto cabeza de la solución. El manifiesto declara exactamente uno; es una validación bloqueante. |
+| Orden topológico | Orden de generación y build derivado del grafo de dependencias: primero los proyectos sin dependencias, luego los que dependen de proyectos ya resueltos. Ninguno arranca antes que sus dependencias. |
+| Caso degenerado | Solución de un solo proyecto. El orquestador aplana el layout (00..11 directo bajo `docs/`, sin `proyectos/<kebab>/` ni `_solucion/`). Equivale al template de tipo único anterior. |
+| Vista de solución | Artefacto de nivel solución (`_solucion/vista-solucion_v1.0.md`), solo si hay más de un proyecto. Contiene el mapa de proyectos, los contratos inter-proyecto y el grafo de dependencias. |
+| Pipeline de solución | Artefacto de nivel solución (`_solucion/pipeline-solucion_v1.0.md`), solo si hay más de un proyecto. Contiene el orden de build topológico y la matriz de artefactos publicables por proyecto. |
+| Intake | Documentos de entrada de la solución: SOLUTION-MANIFEST, PROJECT-BRIEF (negocio) y PROJECT-README (técnico). Son fuente de verdad. |
+| BRIEF | Plantilla intake de negocio, una por solución. Captura lo que el cliente quiere en lenguaje de negocio. |
+| README (intake) | Plantilla intake técnica, un README de solución: §1 con la tabla de proyectos (espejo del manifiesto) y §5 con un bloque técnico repetible por proyecto. No confundir con el README raíz de salida. |
 | Master-prompt | Archivo único `/SDD2.1D/devs/orchestrator/master-prompt.md` que ejecuta el orquestador. Es la instrucción que se pega en Claude Code. |
-| Orquestador | Agente principal que coordina la generación de la documentación. Lee los intakes, planifica, despacha subagentes, audita. |
+| Orquestador | Agente principal que coordina la generación de la documentación. Lee el manifiesto y los intakes, valida la jerarquía, deriva nombres, ordena los proyectos en orden topológico, planifica, despacha subagentes y audita. |
 | Subagente | Agente especializado que produce los documentos de una categoría. Su especialidad vive en §1 del archivo de reglas correspondiente. |
 | Audit independiente | Revisión cierre de fase por un subagente auditor sin contexto previo. Veredicto bloqueante: APROBADO, APROBADO CON OBSERVACIONES o RECHAZADO. |
 | Plan-then-confirm | Modo operativo: cada fase se planifica, se confirma con el usuario, se ejecuta, se audita, se detiene. |
-| D8 | Conjunto cerrado de 8 tipos de proyecto: library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service. Confirmados. |
+| D8 | Conjunto cerrado de 8 tipos de proyecto: library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service. Se elige uno por proyecto. El conjunto no cambia: siguen siendo 8. |
+| Convención de nombres de código | Regla de nombres en `/src`: `<NombreSolucionCodigo>.<Sufijo>` (por ejemplo `GestionDeTurnos.WebApi`). Excepción para redistribuibles: arrancan con el prefijo de organización `Aplicada` (por ejemplo `Aplicada.Validaciones`). El plano de documentación sigue en kebab-case. |
 | Flag de gating | Variable derivada del intake que condiciona qué documentos se generan. Ejemplos: usa_llm, tiene_persistencia, equipo_n. |
 | Cadena D6 | Cadena de trazabilidad: Visión → NB → CU → RN → ADR → US → BT → Sprint → Test → Pipeline. |
 | Invariante | Decisión que no se renegocia durante la generación. Hay invariantes globales (D1 a D8) y propias del proyecto. |
@@ -1069,17 +1194,19 @@ Quince términos esenciales para usar el template. Para el glosario exhaustivo d
 
 ### 10.2 Mapa visual de la estructura de carpetas
 
-Árbol esperado de un proyecto que aplica el template SDD 2.1:
+Árbol esperado de una solución multi-proyecto que aplica el template SDD 2.1. Para el caso degenerado (un solo proyecto), ver la nota al final.
 
 ```text
 mi-proyecto/
 ├── SDD2.1D/
 │   ├── devs/
 │   │   ├── intake/
+│   │   │   ├── SOLUTION-MANIFEST-template.md
 │   │   │   ├── PROJECT-BRIEF-template.md
 │   │   │   ├── PROJECT-README-template.md
-│   │   │   ├── PROJECT-BRIEF-<nombre-kebab>_v1.0.md      # Tu intake de negocio
-│   │   │   └── PROJECT-README-<nombre-kebab>_v1.0.md     # Tu intake técnico
+│   │   │   ├── SOLUTION-MANIFEST-<solucion-kebab>_v1.0.md  # Tu manifiesto de solución
+│   │   │   ├── PROJECT-BRIEF-<solucion-kebab>_v1.0.md      # Tu intake de negocio
+│   │   │   └── PROJECT-README-<solucion-kebab>_v1.0.md     # Tu intake técnico
 │   │   ├── orchestrator/
 │   │   │   └── master-prompt.md                          # Único prompt a pegar
 │   │   ├── rules/
@@ -1098,92 +1225,99 @@ mi-proyecto/
 │   │   │   └── 11_rules_examples.md
 │   │   └── _bootstrap/                                   # Material de bootstrapping
 │   ├── guides/
-│   │   ├── guia-usuario-sdd2.0_v1.0.md                   # Este documento
-│   │   └── marco-teorico-sdd2.0_v1.0.md                  # Marco teórico (separado)
+│   │   ├── guia-usuario-sdd2.1_v1.0.md                   # Este documento
+│   │   └── marco-teorico-sdd_v1.0.md                     # Marco teórico (separado)
 │   └── docs/                                             # Generado por el orquestador
 │       ├── _audit/                                       # Informes de audit por fase
 │       │   ├── faseA-00_contexto_v1.0.md
 │       │   ├── faseA-01_necesidades_negocio_v1.0.md
 │       │   ├── faseB-02_especificacion_funcional_v1.0.md
 │       │   └── ...
-│       ├── 00_contexto/
+│       ├── 00_contexto/                                  # Nivel solución (Fase A, una vez)
 │       │   ├── README.md
 │       │   ├── vision-producto_v1.0.md
 │       │   ├── alcance-proyecto_v1.0.md
 │       │   ├── roadmap-producto_v1.0.md
 │       │   ├── compatibilidad-plataformas_v1.0.md
 │       │   └── acuerdo-equipo_v1.0.md
-│       ├── 01_necesidades_negocio/
+│       ├── 01_necesidades_negocio/                       # Nivel solución (Fase A, una vez)
 │       │   ├── README.md
 │       │   ├── necesidades-negocio_v1.0.md
 │       │   └── necesidades-de-negocio/
 │       │       ├── NB-01-<kebab>_v1.0.md
 │       │       ├── NB-02-<kebab>_v1.0.md
 │       │       └── NB-XX-<kebab>_v1.0.md
-│       ├── 02_especificacion_funcional/
-│       │   ├── README.md
-│       │   ├── especificacion-funcional_v1.0.md
-│       │   ├── casos-de-uso/
-│       │   │   ├── CU-01-<kebab>_v1.0.md
-│       │   │   └── CU-XX-<kebab>_v1.0.md
-│       │   ├── reglas-de-negocio/
-│       │   │   └── RN-XX-<kebab>_v1.0.md
-│       │   └── modelo-datos/
-│       │       └── modelo-conceptual_v1.0.md
-│       ├── 03_ux_ui_dx/
-│       │   ├── README.md
-│       │   └── (UX/UI o DX según gating)
-│       ├── 04_prompts_ai/                                # Solo si usa_llm == true
-│       │   ├── README.md
-│       │   └── prompt-<tarea>_v1.0.md
-│       ├── 05_arquitectura_tecnica/
-│       │   ├── README.md
-│       │   ├── arquitectura-solucion_v1.0.md
-│       │   ├── decisiones-arquitectura_v1.0.md
-│       │   └── adrs/
-│       │       ├── ADR-001-<kebab>_v1.0.md
-│       │       └── ADR-XX-<kebab>_v1.0.md
-│       ├── 06_backlog-tecnico/
-│       │   ├── README.md
-│       │   ├── product-backlog_v1.0.md
-│       │   ├── backlog-tecnico_v1.0.md
-│       │   └── definition-of-ready_v1.0.md
-│       ├── 07_plan-sprint/
-│       │   ├── README.md
-│       │   ├── plan-iteracion-sprint-00_v1.0.md
-│       │   ├── plan-iteracion-sprint-01_v1.0.md
-│       │   ├── template-sprint-review_v1.0.md
-│       │   ├── template-sprint-retrospectiva_v1.0.md
-│       │   └── velocidad-equipo_v1.0.md
-│       ├── 08_calidad_y_pruebas/
-│       │   ├── README.md
-│       │   ├── estrategia-calidad_v1.0.md
-│       │   ├── estrategia-testing_v1.0.md
-│       │   ├── plan-pruebas_v1.0.md
-│       │   ├── matriz-cobertura-pruebas_v1.0.md
-│       │   ├── casos-prueba-referenciales_v1.0.md
-│       │   ├── criterios-validacion_v1.0.md
-│       │   └── definition-of-done_v1.0.md
-│       ├── 09_devops/
-│       │   ├── README.md
-│       │   ├── pipeline-ci-cd_v1.0.md
-│       │   ├── estrategia-versionado_v1.0.md
-│       │   ├── entornos-deploy_v1.0.md
-│       │   └── supply-chain-seguridad_v1.0.md
-│       ├── 10_developer_guide/                           # Según gating y tipo
-│       │   ├── README.md
-│       │   ├── conceptos-fundamentales_v1.0.md
-│       │   ├── guia-onboarding-developer_v1.0.md
-│       │   ├── referencia-api_v1.0.md
-│       │   └── troubleshooting_v1.0.md
-│       ├── 11_examples/                                  # Según gating y tipo
-│       │   ├── README.md
-│       │   ├── ejemplo-01-<kebab>_v1.0.md
-│       │   ├── ejemplo-02-<kebab>_v1.0.md
-│       │   └── ejemplo-03-<kebab>_v1.0.md
-│       └── README.md                                     # README raíz consolidado
-├── src/                                                  # Código del proyecto (fase posterior)
-├── tests/                                                # Tests del proyecto (fase posterior)
+│       ├── _solucion/                                    # Solo si hay más de un proyecto (Fase H)
+│       │   ├── vista-solucion_v1.0.md                    # AG-05: mapa, contratos, grafo
+│       │   └── pipeline-solucion_v1.0.md                 # AG-09: build topológico, artefactos
+│       ├── proyectos/                                    # Un subárbol 02..11 por proyecto
+│       │   └── <nombre-proyecto-kebab>/                  # Repetido por cada proyecto del manifiesto
+│       │       ├── 02_especificacion_funcional/
+│       │       │   ├── README.md
+│       │       │   ├── especificacion-funcional_v1.0.md
+│       │       │   ├── casos-de-uso/
+│       │       │   │   ├── CU-01-<kebab>_v1.0.md
+│       │       │   │   └── CU-XX-<kebab>_v1.0.md
+│       │       │   ├── reglas-de-negocio/
+│       │       │   │   └── RN-XX-<kebab>_v1.0.md
+│       │       │   └── modelo-datos/
+│       │       │       └── modelo-conceptual_v1.0.md
+│       │       ├── 03_ux_ui_dx/
+│       │       │   ├── README.md
+│       │       │   └── (UX/UI o DX según gating)
+│       │       ├── 04_prompts_ai/                        # Solo si usa_llm == true
+│       │       │   ├── README.md
+│       │       │   └── prompt-<tarea>_v1.0.md
+│       │       ├── 05_arquitectura_tecnica/
+│       │       │   ├── README.md
+│       │       │   ├── arquitectura-solucion_v1.0.md
+│       │       │   ├── decisiones-arquitectura_v1.0.md
+│       │       │   └── adrs/
+│       │       │       ├── ADR-001-<kebab>_v1.0.md
+│       │       │       └── ADR-XX-<kebab>_v1.0.md
+│       │       ├── 06_backlog-tecnico/
+│       │       │   ├── README.md
+│       │       │   ├── product-backlog_v1.0.md
+│       │       │   ├── backlog-tecnico_v1.0.md
+│       │       │   └── definition-of-ready_v1.0.md
+│       │       ├── 07_plan-sprint/
+│       │       │   ├── README.md
+│       │       │   ├── plan-iteracion-sprint-00_v1.0.md
+│       │       │   ├── plan-iteracion-sprint-01_v1.0.md
+│       │       │   ├── template-sprint-review_v1.0.md
+│       │       │   ├── template-sprint-retrospectiva_v1.0.md
+│       │       │   └── velocidad-equipo_v1.0.md
+│       │       ├── 08_calidad_y_pruebas/
+│       │       │   ├── README.md
+│       │       │   ├── estrategia-calidad_v1.0.md
+│       │       │   ├── estrategia-testing_v1.0.md
+│       │       │   ├── plan-pruebas_v1.0.md
+│       │       │   ├── matriz-cobertura-pruebas_v1.0.md
+│       │       │   ├── casos-prueba-referenciales_v1.0.md
+│       │       │   ├── criterios-validacion_v1.0.md
+│       │       │   └── definition-of-done_v1.0.md
+│       │       ├── 09_devops/
+│       │       │   ├── README.md
+│       │       │   ├── pipeline-ci-cd_v1.0.md
+│       │       │   ├── estrategia-versionado_v1.0.md
+│       │       │   ├── entornos-deploy_v1.0.md
+│       │       │   └── supply-chain-seguridad_v1.0.md
+│       │       ├── 10_developer_guide/                   # Según gating y tipo
+│       │       │   ├── README.md
+│       │       │   ├── conceptos-fundamentales_v1.0.md
+│       │       │   ├── guia-onboarding-developer_v1.0.md
+│       │       │   ├── referencia-api_v1.0.md
+│       │       │   └── troubleshooting_v1.0.md
+│       │       └── 11_examples/                          # Según gating y tipo
+│       │           ├── README.md
+│       │           ├── ejemplo-01-<kebab>_v1.0.md
+│       │           ├── ejemplo-02-<kebab>_v1.0.md
+│       │           └── ejemplo-03-<kebab>_v1.0.md
+│       └── README.md                                     # README raíz consolidado de la solución
+├── src/                                                  # Código de la solución (fase posterior)
+│   ├── <NombreSolucionCodigo>.<Sufijo>/                  # Un proyecto por nombre de código
+│   └── Aplicada.<Paquete>/                               # Redistribuibles con prefijo Aplicada
+├── tests/                                                # Tests (fase posterior)
 ├── samples/                                              # Materializado desde 11_examples
 └── README.md                                             # README de la raíz del repo
 ```
@@ -1193,13 +1327,24 @@ Notas sobre el árbol:
 - Las carpetas marcadas con "según gating" se generan solo si los flags del intake las habilitan.
 - Cada categoría tiene un README.md propio que es el índice navegable.
 - `/SDD2.1D/docs/_audit/` se popula a medida que avanzan las fases.
-- El árbol mostrado es el caso completo; tu proyecto va a tener algunas omisiones según `project_type` y flags.
+- Las categorías `00_contexto/` y `01_necesidades_negocio/` viven a nivel solución (se generan una vez en la Fase A). Las categorías `02` a `11` se repiten bajo `proyectos/<nombre-proyecto-kebab>/`, un subárbol por proyecto del manifiesto.
+- La carpeta `_solucion/` y sus dos artefactos (vista de solución y pipeline de solución) se generan solo cuando hay más de un proyecto.
+- Caso degenerado (solución de un solo proyecto): el orquestador aplana el layout. Las categorías `00` a `11` van directo bajo `/SDD2.1D/docs/` (sin el subnivel `proyectos/<kebab>/` y sin la carpeta `_solucion/`), igual que en el árbol del template de tipo único. El README raíz se genera siempre.
+- El árbol mostrado es el caso completo; tu solución va a tener algunas omisiones por proyecto según el `project_type` de cada uno y sus flags.
 
 ---
 
 ## Resumen ejecutivo
 
-Esta guía de usuario tiene 1.121 líneas, distribuidas en 10 capítulos completos según la estructura solicitada. Incluye 3 mini-casos aplicados (rest-api de gestión de turnos médicos, library de parsing CSV, mobile-app-maui de inventario de almacén), cada uno con sus 4 sub-bloques (chat resumido, fragmentos de intake, output del orquestador y muestras de documentos). Aporta 15 entradas de FAQ con respuestas concretas y accionables, y 6 prompts ejemplo en bloques de texto para las distintas etapas del flujo. Ilustra explícitamente los 8 tipos D8 confirmados (library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service) con sus particularidades y reglas de gating, junto con un mapa visual ASCII completo de la estructura de carpetas.
+Esta guía de usuario está distribuida en 10 capítulos completos según la estructura solicitada, actualizada al modelo de solución más jerarquía de proyectos. Explica que una solución agrupa N proyectos (con N mayor o igual a 1), cada uno con uno de los 8 tipos D8, y que el intake son tres documentos de solución: SOLUTION-MANIFEST (enumeración y grafo de proyectos), PROJECT-BRIEF (negocio) y PROJECT-README (técnico, con bloque por proyecto). Incluye 4 mini-casos aplicados: tres soluciones de un proyecto (rest-api de gestión de turnos médicos, library de parsing CSV, mobile-app-maui de inventario de almacén), enmarcadas como caso degenerado, y una solución multi-proyecto (gestión de turnos con cuatro proyectos: api, domain, notificaciones y un paquete redistribuible) con su manifiesto, grafo de dependencias y orden topológico. Aporta 18 entradas de FAQ con respuestas concretas y accionables. Ilustra explícitamente los 8 tipos D8 confirmados (library, web-monolith, web-microservices, desktop-app, mobile-app-maui, rest-api, cli-tool, worker-service) y la convención de nombres de código `<NombreSolucionCodigo>.<Sufijo>` con la excepción `Aplicada` para redistribuibles, junto con un mapa visual ASCII completo de la estructura de carpetas (00/01 a nivel solución, `_solucion/`, `proyectos/<kebab>/02..11/` y README raíz, con el aplanado del caso degenerado).
+
+---
+
+## Control de cambios
+
+| Versión | Fecha | Cambios |
+|---|---|---|
+| 1.1 | 2026-06-10 | Actualización del contenido al modelo de solución más jerarquía de proyectos: intake de tres documentos (SOLUTION-MANIFEST + BRIEF + README de solución), generación por proyecto en orden topológico, layout con proyectos/<kebab>/ y _solucion/, caso degenerado aplanado, convención de nombres de código, caso aplicado multi-proyecto, FAQ y glosario ampliados. |
 
 ---
 

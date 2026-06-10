@@ -1,8 +1,8 @@
 # Reglas constructivas — 06 Backlog técnico
 
-**Carpeta target:** `/SDD2.1D/docs/06_backlog-tecnico/`
+**Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/06_backlog-tecnico/`
 **Subagente target del orquestador:** Scrum Master / Agile Coach senior (AG-06)
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -31,7 +31,7 @@ Scrum Master con perfil de Agile Coach orientado al backlog, equivalente al AG-0
 | cli-tool | Scrum Master | Épicas por comando o pipeline; BT por contrato de stdout/stderr y exit codes. |
 | worker-service | Scrum Master + Operations Lead | Épicas por flujo de mensajes y por capacidades operativas (idempotencia, dead-letter, backpressure); el Ops Lead arbitra prioridades operativas. |
 
-El orquestador lee esta tabla y, según el campo `Tipo de proyecto` declarado en PROJECT-README durante el intake, selecciona la variante correspondiente y la combina con la especialidad base.
+El orquestador lee esta tabla y, según el `project_type` del proyecto en curso (leído del manifiesto de solución), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada proyecto de la solución.
 
 ### 1.3 Multi-especialidad
 
@@ -428,7 +428,7 @@ Criterios de calidad: §6 de 06_rules_backlog_tecnico.md.
 
 Restricciones: no introducir stacks concretos, productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /SDD2.1D/docs/06_backlog-tecnico/<estructura>.
+Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/06_backlog-tecnico/<estructura>.
 ```
 
 ---
@@ -438,3 +438,4 @@ Salida: /SDD2.1D/docs/06_backlog-tecnico/<estructura>.
 | Versión | Fecha | Descripción |
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 06. Establece la convención obligatoria de dos dígitos uniformes en US, BT y EP como corrección del antecedente Motor DSL (mezcla `US-01` y `BT-001`), define las cinco secciones del product-backlog, las tres del backlog-tecnico, las siete de cada US individual y las siete de cada BT individual, las variantes por tipo D8, los umbrales de archivos individuales (20 US y 30 BT) y los criterios de aceptación. |
+| 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/06_backlog-tecnico/`; la frase de cierre de §1.2 y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. |

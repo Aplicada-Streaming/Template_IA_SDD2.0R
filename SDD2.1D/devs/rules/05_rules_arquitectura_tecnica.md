@@ -1,14 +1,20 @@
 # Reglas constructivas — 05 Arquitectura técnica
 
-**Carpeta target:** `/SDD2.1D/docs/05_arquitectura_tecnica/`
+**Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/05_arquitectura_tecnica/`
+**Carpeta target (nivel solución):** `/SDD2.1D/docs/_solucion/`
 **Subagente target del orquestador:** Arquitecto de Software Senior (AG-05)
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
 ## 0. Posición en la cadena SDD 2.1
 
 La categoría 05 es la primera categoría de diseño técnico de la cadena de trazabilidad D6. Recibe upstream de 00 (visión y restricciones técnicas implícitas), 01 (necesidades de negocio NB-XX), 02 (CU, RN, modelo conceptual y RC) y 04 (contratos de prompts si el proyecto delega lógica en un LLM). Produce los artefactos que sirven como ancla para 06 (US y backlog técnico), 07 (sprint plan), 08 (testing técnico y de integración), 09 (DevOps y despliegue), 10 (developer guide) y 11 (examples). Su salida define el cómo estructural del sistema sin entrar en detalle de implementación de cada US. Aplica de manera obligatoria a los ocho tipos D8: ningún tipo está exento de producir al menos una arquitectura de solución y una colección de ADRs individuales.
+
+La categoría 05 opera en dos niveles dentro de una solución con jerarquía de proyectos:
+
+- Nivel proyecto. Se genera una vez por cada proyecto del manifiesto, bajo `proyectos/<nombre-proyecto-kebab>/05_arquitectura_tecnica/`. El orquestador selecciona la variante de §1.2 según el `project_type` de ese proyecto. Es la arquitectura interna de cada proyecto y no cambia respecto del template de tipo único.
+- Nivel solución. Se genera una vez para toda la solución, bajo `_solucion/`, por encima de la arquitectura de cada proyecto. Documenta el mapa de proyectos, los contratos inter-proyecto y el grafo de dependencias del manifiesto. Es obligatoria para soluciones con más de un proyecto. Para una solución de un único proyecto (caso degenerado) se omite: su contenido se reduce a la arquitectura del único proyecto y al README raíz.
 
 ---
 
@@ -31,7 +37,9 @@ Arquitecto de Software Senior, equivalente al AG-05 del catálogo SDD. Su perfil
 | cli-tool | Arquitecto + CLI Designer | Parser de argumentos, pipeline command/handler, plugins, contrato de stdout/stderr y exit codes documentados como parte del diseño. |
 | worker-service | Arquitecto Event-Driven | Consumer groups, idempotencia, dead-letter queues, backpressure y políticas de reintento con jitter. |
 
-El orquestador lee esta tabla y, según el campo `Tipo de proyecto` declarado en PROJECT-README durante el intake, selecciona la variante correspondiente y la combina con la especialidad base.
+El orquestador lee esta tabla y, según el `project_type` del proyecto en curso (leído del manifiesto de solución), selecciona la variante correspondiente y la combina con la especialidad base. La variante se aplica una vez por cada proyecto de la solución.
+
+Para la vista de solución de nivel `_solucion/`, el orquestador no usa una variante por D8 (la solución no tiene un D8 propio): asume la especialidad base de Arquitecto de Soluciones Senior, y la variante de Arquitecto de Software Distribuido cuando la jerarquía implica comunicación entre proyectos autónomos. La vista de solución se produce una sola vez, al cierre del bucle de proyectos.
 
 ### 1.3 Multi-especialidad
 
@@ -50,6 +58,8 @@ El AG-05 mantiene siempre la titularidad del artefacto; las demás especialidade
 
 ### 2.1 Tabla maestra
 
+Artefactos de nivel proyecto (uno por proyecto, bajo `proyectos/<nombre-proyecto-kebab>/05_arquitectura_tecnica/`):
+
 | Archivo | Obligatorio para | Recomendado | Omitir para | Descripción |
 | --- | --- | --- | --- | --- |
 | `arquitectura-solucion_v1.0.md` | Todos los tipos D8 | — | — | Documento maestro con las cuatro vistas mínimas (lógica, procesos, despliegue, datos), cross-cutting concerns y NFR. |
@@ -60,6 +70,14 @@ El AG-05 mantiene siempre la titularidad del artefacto; las demás especialidade
 | `contratos-<area>_v1.0.md` | rest-api (OpenAPI), worker-service (mensajes AsyncAPI o referencia a esquema), library (Abstractions públicas) | web-microservices (contratos inter-servicio), cli-tool (contrato stdout/stderr) | web-monolith sin API externa | Contrato externo formal por área funcional. Un documento por área. |
 | `extensibilidad_v1.0.md` | library con plugins, cli-tool con plugins, web-microservices con plugins | rest-api con webhooks o handlers externos | Tipos sin puntos de extensión | Puntos de extensión, contratos de plugin y ejemplo de registro. |
 | `README.md` de la sección | Recomendado para todos | — | — | Índice navegable de la arquitectura, ADRs vigentes y NFR. |
+
+Artefactos de nivel solución (una vez para toda la solución, bajo `_solucion/`):
+
+| Archivo | Obligatorio para | Recomendado | Omitir para | Descripción |
+| --- | --- | --- | --- | --- |
+| `vista-solucion_v1.0.md` | Soluciones con más de un proyecto | — | Solución de un único proyecto (caso degenerado) | Vista de solución por encima de la arquitectura de cada proyecto: mapa de proyectos, grafo de dependencias, contratos inter-proyecto, decisiones de nivel solución, cross-cutting compartido y riesgos de integración. |
+| `contratos-inter-proyecto_v1.0.md` | Soluciones donde un proyecto expone un contrato consumido por otro proyecto de la misma solución | — | Soluciones sin dependencias inter-proyecto con contrato formal | Detalle de cada contrato que cruza la frontera entre dos proyectos de la solución, referenciando el `contratos-<area>` del proyecto productor. Puede integrarse como sección de `vista-solucion` si los contratos son pocos. |
+| `_solucion/adrs/ADR-XX-<kebab>_v1.0.md` | Soluciones con decisiones que afectan a más de un proyecto | — | Soluciones donde toda decisión es interna a un proyecto | ADRs de nivel solución (estilo de composición, política de versionado inter-proyecto, estrategia de comunicación entre proyectos). Mismas reglas de individualidad e inmutabilidad que los ADRs de proyecto. |
 
 ### 2.2 Reglas de inclusión y exclusión por tipo
 
@@ -89,6 +107,9 @@ El mínimo es piso, no techo. La cantidad real queda determinada por el conjunto
 - `flujo-ejecucion_v<X.Y>.md` para el pipeline de ejecución.
 - `contratos-<area>_v<X.Y>.md` para cada contrato externo (por ejemplo `contratos-rest_v1.0.md`, `contratos-mensajes_v1.0.md`, `contratos-abstractions_v1.0.md`, `contratos-stdout-stderr_v1.0.md`).
 - `extensibilidad_v<X.Y>.md` para los puntos de extensión.
+- `vista-solucion_v<X.Y>.md` para la vista de solución de nivel `_solucion/`.
+- `contratos-inter-proyecto_v<X.Y>.md` para el detalle de contratos que cruzan proyectos de la solución.
+- `_solucion/adrs/ADR-XX-<kebab-lowercase>_v<X.Y>.md` para los ADRs de nivel solución, con las mismas reglas de los ADRs de proyecto.
 
 Queda prohibido el patrón heredado `decisiones-arquitectura.v1.0.md` o el patrón consolidado `decisiones-arquitectura-todo-junto_v1.0.md`. La versión siempre va con `_v`, jamás con `.v`. El slug siempre va en minúsculas; queda prohibido `ADR-01-Eleccion-Base-Datos_v1.0.md` o variantes con mayúsculas o camelCase.
 
@@ -116,6 +137,7 @@ Esta convención asegura trazabilidad histórica de las decisiones y compatibili
 - El modelo lógico referencia el modelo conceptual de 02. Cada entidad lógica tiene una entidad conceptual de origen.
 - Los contratos referencian los CU que los consumen.
 - Los puntos de extensión referencian la ADR que justifica su existencia y el ejemplo de extensión en 11.
+- Nivel solución: cada contrato inter-proyecto referencia la dependencia del manifiesto que materializa (proyecto consumidor hacia proyecto productor) y el `contratos-<area>` del proyecto productor que lo define. No puede existir un contrato inter-proyecto que no corresponda a una arista del grafo de dependencias del manifiesto, ni una dependencia con contrato formal que no esté documentada en la vista de solución.
 
 ### 3.5 README de la sección
 
@@ -248,6 +270,21 @@ Tabla de trazabilidad del componente:
 | Componente como sinónimo de clase | Confunde diseño arquitectónico con diseño de código | Componente es un módulo con responsabilidad cohesiva |
 | Casing inconsistente en ADRs | Rompe automatizaciones | Forzar kebab-lowercase estricto en el slug |
 
+### 4.8 Secciones obligatorias de `vista-solucion_v1.0.md`
+
+Aplica solo a soluciones con más de un proyecto. La vista de solución se sitúa por encima de la arquitectura de cada proyecto y no la duplica: referencia, no reescribe..
+
+1. Objetivo y alcance. Qué documenta la vista de solución y para quién. Aclara que el detalle interno de cada proyecto vive en su propia `arquitectura-solucion`.
+2. Mapa de proyectos. Tabla con `nombre-proyecto-kebab`, `project_type` D8, rol en la solución, `nombre-proyecto-codigo` y bandera `redistribuible`. Refleja el manifiesto.
+3. Grafo de dependencias. El DAG del manifiesto representado como vista navegable, con el orden topológico de construcción. Debe ser acíclico; cualquier ciclo es un defecto del manifiesto y detiene la generación.
+4. Contratos inter-proyecto. Por cada arista de dependencia con contrato formal, qué expone el proyecto productor al consumidor, con referencia al `contratos-<area>` del productor. Si los contratos son numerosos, se detallan en `contratos-inter-proyecto_v1.0.md` y esta sección los indexa.
+5. Decisiones de nivel solución. Índice de los ADRs de `_solucion/adrs/` que afectan a más de un proyecto (estilo de composición, política de versionado inter-proyecto, estrategia de comunicación entre proyectos). Si no hay decisiones de nivel solución, declararlo explícitamente.
+6. Cross-cutting compartido. Convenciones transversales que la solución impone a todos sus proyectos: correlación de logging y tracing entre proyectos, formato de errores común, gestión de versiones de los paquetes compartidos y redistribuibles.
+7. Riesgos de integración inter-proyecto. Cada riesgo con impacto, probabilidad y mitigación, enfocado en las fronteras entre proyectos (incompatibilidad de contratos, acoplamiento de versiones, orden de despliegue).
+8. Trazabilidad. Tabla que liga cada contrato inter-proyecto a la dependencia del manifiesto que materializa y a los CU que cruzan la frontera entre proyectos.
+
+Para una solución de un único proyecto, la vista de solución se omite por completo: el mapa tendría un solo nodo y el grafo ninguna arista, de modo que su contenido se reduce a la arquitectura del único proyecto y al README raíz.
+
 ---
 
 ## 5. Preguntas guía para el subagente
@@ -303,6 +340,15 @@ Tabla de trazabilidad del componente:
 - [ ] Ningún ADR está consolidado dentro de otro documento; cada decisión vive en su archivo individual.
 - [ ] No hay menciones a stacks concretos, productos comerciales ni protocolos específicos del dominio fuente.
 - [ ] Existe `README.md` de la sección si así lo decide el equipo (recomendado).
+
+Criterios adicionales de nivel solución (solo si la solución tiene más de un proyecto):
+
+- [ ] Existe `_solucion/vista-solucion_v1.0.md` con las ocho secciones del §4.8.
+- [ ] El mapa de proyectos de la vista refleja el manifiesto sin divergencias (mismos proyectos, mismos D8, mismos nombres de código).
+- [ ] El grafo de dependencias de la vista es acíclico y coincide con las dependencias del manifiesto.
+- [ ] Cada contrato inter-proyecto corresponde a una arista de dependencia del manifiesto y referencia el `contratos-<area>` del proyecto productor.
+- [ ] Las decisiones de nivel solución, si existen, viven en `_solucion/adrs/` como ADRs individuales con las mismas reglas de inmutabilidad que los ADRs de proyecto.
+- [ ] Para una solución de un único proyecto, la vista de solución se omitió correctamente y no quedó `_solucion/` huérfano.
 
 ---
 
@@ -422,7 +468,27 @@ Criterios de calidad: §6 de 05_rules_arquitectura_tecnica.md.
 
 Restricciones: no introducir stacks concretos, productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /SDD2.1D/docs/05_arquitectura_tecnica/<estructura>.
+Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/05_arquitectura_tecnica/<estructura>.
+```
+
+Prompt-snippet de la vista de solución (se despacha una sola vez, al cierre del bucle de proyectos, solo si la solución tiene más de un proyecto):
+
+```text
+Sos un Arquitecto de Soluciones Senior (variante Arquitecto de Software Distribuido si la jerarquía implica comunicación entre proyectos autónomos) responsable de redactar la vista de solución de {{NOMBRE_SOLUCION}}.
+
+Insumos:
+- SOLUTION-MANIFEST: {{path}} (mapa de proyectos, dependencias, nombres de código).
+- Las arquitecturas de cada proyecto ya generadas y aprobadas en proyectos/<kebab>/05_arquitectura_tecnica/.
+
+A generar:
+- _solucion/vista-solucion_v1.0.md con las ocho secciones del §4.8.
+- _solucion/contratos-inter-proyecto_v1.0.md si los contratos que cruzan proyectos son numerosos.
+- _solucion/adrs/ADR-XX-<kebab>_v1.0.md por cada decisión que afecte a más de un proyecto.
+
+Reglas: el mapa y el grafo reflejan el manifiesto sin divergencias; cada contrato inter-proyecto corresponde a una arista de dependencia; no duplicar la arquitectura interna de cada proyecto, referenciarla.
+Criterios de calidad: §6 de 05_rules_arquitectura_tecnica.md (criterios de nivel solución).
+
+Salida: /SDD2.1D/docs/_solucion/<estructura>.
 ```
 
 ---
@@ -432,3 +498,4 @@ Salida: /SDD2.1D/docs/05_arquitectura_tecnica/<estructura>.
 | Versión | Fecha | Descripción |
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Versión inicial de las reglas constructivas de la categoría 05. Establece la convención obligatoria de ADRs individuales bajo `adrs/` como corrección del antecedente Motor DSL, define las cuatro vistas mínimas del documento maestro, las diez secciones obligatorias del ADR, las variantes por tipo D8 y los criterios de aceptación. |
+| 1.1 | 2026-06-09 | Reformulación a solución más jerarquía (ST-05). La categoría 05 opera en dos niveles: por proyecto (bajo `proyectos/<kebab>/05_arquitectura_tecnica/`, con la variante §1.2 del D8 del proyecto, sin cambios respecto del template de tipo único) y de solución (bajo `_solucion/`). Se introduce la vista de solución `vista-solucion_v1.0.md` con sus ocho secciones (§4.8): mapa de proyectos, grafo de dependencias, contratos inter-proyecto, decisiones de nivel solución, cross-cutting compartido, riesgos de integración y trazabilidad. Se agregan `contratos-inter-proyecto_v1.0.md` y `_solucion/adrs/`. La vista de solución es obligatoria para soluciones de más de un proyecto y se omite en el caso degenerado de un proyecto. | Reformulación SDD 2.1D |

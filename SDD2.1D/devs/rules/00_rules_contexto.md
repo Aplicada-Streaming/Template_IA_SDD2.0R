@@ -2,7 +2,7 @@
 
 **Carpeta target:** `/SDD2.1D/docs/00_contexto/`
 **Subagente target del orquestador:** Product Manager Senior (AG-00) en conjunción con Analista de Negocio Senior (AG-01) si el proyecto tiene stakeholders múltiples.
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.2
 
 ---
 
@@ -24,6 +24,8 @@ Product Manager Senior, equivalente a AG-00 del catálogo de especialidades. Def
 | rest-api | Product Manager + API Product Owner | Los consumidores son desarrolladores. La visión se expresa por capabilities de la API, contratos versionados y métricas de adopción. |
 | cli-tool | Product Manager + Developer Advocate | La audiencia es técnica. La visión enfatiza ergonomía de uso, scripting y documentación ejecutable; el roadmap suele ser ligero. |
 | worker-service | Product Manager + Operations Lead | La visión se mide por SLA operativos, throughput y resiliencia. El alcance se define por colas y eventos procesados, no por pantallas. |
+
+Esta categoría se genera a nivel solución, una vez por solución, a partir del PROJECT-BRIEF único. El orquestador selecciona la variante según el `project_type` del proyecto principal declarado en el manifiesto; la compatibilidad de plataformas agrega las plataformas de todos los proyectos de la solución.
 
 ### 1.3 Multi-especialidad
 
@@ -249,7 +251,7 @@ Todos los documentos de la categoría 00 arrancan con un bloque markdown estánd
 - [ ] El acuerdo-equipo declara herramientas, ceremonias, branching strategy y SLA de respuesta cuando aplica.
 - [ ] Cada documento de la carpeta declara su trazabilidad upstream (BRIEF/README con secciones específicas) y downstream (categorías 01, 02, 05, 07, 11 con detalle).
 - [ ] El nombre de cada archivo respeta el patrón `<kebab>_v1.0.md` con guion bajo antes de la versión.
-- [ ] Ningún documento contiene emojis, negritas decorativas ni referencias hardcoded a stack, frameworks o ejemplos del dominio Motor DSL.
+- [ ] Ningún documento contiene emojis, negritas decorativas ni referencias hardcoded a stack, frameworks o ejemplos del dominio fuente del bootstrap.
 
 ---
 
@@ -362,3 +364,5 @@ Salida: /SDD2.1D/docs/00_contexto/<archivos>_v1.0.md.
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1 |
+| 1.1 | 2026-06-08 | Higiene D7 (hallazgo H-02 de la matriz de coherencia ST-01): el criterio de aceptación de §6 deja de nombrar el dominio fuente ("Motor DSL") y pasa a referirse a "ejemplos del dominio fuente del bootstrap". |
+| 1.2 | 2026-06-09 | Validación ST-06: aclaración de que la categoría 00 se genera a nivel solución desde el PROJECT-BRIEF único y usa la variante §1.2 del proyecto principal del manifiesto. |

@@ -1,8 +1,8 @@
 # Reglas constructivas — 03 UX / UI / DX
 
-**Carpeta target:** `/SDD2.1D/docs/03_ux_ui_dx/`
+**Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/03_ux_ui_dx/`
 **Subagente target del orquestador:** Especialista UX/UI o Especialista DX (AG-03), según variante.
-**Versión de las reglas:** 1.0
+**Versión de las reglas:** 1.1
 
 ---
 
@@ -15,7 +15,7 @@ La categoría 03 tiene dos variantes principales:
 - Variante UX/UI, para tipos D8 con interfaz visible al usuario final.
 - Variante DX, para tipos D8 cuya superficie pública es código, contratos, mensajes de error y documentación.
 
-El orquestador elige la variante según el tipo D8 declarado en el intake y, en algunos casos, las combina (ver §1.3).
+El orquestador elige la variante según el `project_type` del proyecto en curso (leído del manifiesto) y, en algunos casos, las combina (ver §1.3). La variante se aplica una vez por cada proyecto de la solución.
 
 ---
 
@@ -490,7 +490,7 @@ Política de versionado: §3.5; una sola versión vigente; anteriores a `_legacy
 
 Restricciones: no introducir stacks concretos, productos comerciales ni protocolos del dominio fuente. Idioma rioplatense técnico, tildes correctas, sin emojis.
 
-Salida: /SDD2.1D/docs/03_ux_ui_dx/<estructura>.
+Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/03_ux_ui_dx/<estructura>.
 ```
 
 ---
@@ -500,3 +500,4 @@ Salida: /SDD2.1D/docs/03_ux_ui_dx/<estructura>.
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1. Variantes UX/UI y DX cubriendo los 8 tipos D8, accesibilidad WCAG 2.2 AA como piso, Diátaxis explícito, política de versionado con `_legacy/`. |
+| 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/03_ux_ui_dx/`; la selección de variante y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. |

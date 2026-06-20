@@ -1231,7 +1231,8 @@ mi-proyecto/
 │   │   │   └── design/
 │   │   │       ├── _index_design-rules.md
 │   │   │       ├── design-rules-web-generico_v1.0.md
-│   │   │       └── design-rules-blazor-mudblazor_v1.0.md
+│   │   │       ├── design-rules-blazor-mudblazor_v1.0.md
+│   │   │       └── design-rules-config-esquema_v1.0.md      # Extensión por capacidad: configuración dirigida por esquema
 │   │   └── _bootstrap/                                   # Material de bootstrapping
 │   ├── guides/
 │   │   ├── guia-usuario-sdd2.2_v1.0.md                   # Este documento

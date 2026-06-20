@@ -2,7 +2,7 @@
 
 **Carpeta target (por proyecto):** `/SDD2.1D/docs/proyectos/<nombre-proyecto-kebab>/03_ux_ui_dx/`
 **Subagente target del orquestador:** Especialista UX/UI o Especialista DX (AG-03), según variante.
-**Versión de las reglas:** 1.2
+**Versión de las reglas:** 1.3
 
 ---
 
@@ -57,6 +57,16 @@ Hay dos casos de combinación explícita de variantes:
 - web-microservices con frontend más SDK público. Se produce experiencia para el usuario final (UX/UI) y experiencia para el integrador externo (DX), en documentos separados.
 
 El AG-03 mantiene siempre la titularidad del artefacto; las demás especialidades aportan revisiones acotadas.
+
+### 1.4 Insumos normativos de diseño por stack
+
+Antes de redactar `experiencia-de-uso` y `wireframes`, el AG-03 carga el catálogo de diseño de `devs/references/design/` a través de su índice `_index_design-rules.md`.
+
+Aplica siempre el documento base `design-rules-web-generico_v1.0.md` y, si existe, la especialización del stack declarado en la Parte C del intake (por ejemplo `design-rules-blazor-mudblazor_v1.0.md` para Blazor Interactive Server + MudBlazor). Si no hay especialización para el stack, rige únicamente el documento base.
+
+Los tokens, patrones, estados y la iconografía SVG del catálogo son normativos: el subagente referencia sus patrones por nombre y hereda sus tokens; tiene prohibido definir tokens visuales ad hoc por proyecto. Un token nuevo solo se admite si es transversal y se promueve al catálogo.
+
+Trazabilidad: cada artefacto 03 con UI declara, en su tabla de trazabilidad, el o los documentos del catálogo de diseño aplicados.
 
 ---
 
@@ -282,6 +292,7 @@ Tabla de trazabilidad de un artefacto 03:
 | Wireframes asociados | <archivo o N/A> |
 | US a generar | <US-XX en 06> |
 | Tests previstos | <referencia tentativa a 08> |
+| Catálogo de diseño aplicado | <design-rules-web-generico y especialización por stack, o N/A para variante DX> |
 
 ### 4.4 Anti-patrones a evitar
 
@@ -298,6 +309,7 @@ Tabla de trazabilidad de un artefacto 03:
 | Wireframe sin estados | El developer de 05 no sabe qué dibujar cuando algo falla | Enumerar estados mínimos: vacío, cargando, con datos, error |
 | DX docs que no aplican Diátaxis | Documentación mezclada entre tutorial y reference, ilegible | Separar los cuatro modos y enlazarlos explícitamente |
 | Patrón `.v1.0` heredado | Convención prohibida en SDD 2.1 | Forzar `_v1.0` |
+| Definir paleta, tipografía, espaciado o íconos ad hoc por proyecto en vez de heredar del catálogo de diseño | Rompe consistencia cross-proyecto y duplica decisiones ya tomadas; los íconos raster fallan accesibilidad | Heredar tokens y patrones de `references/design/`; iconografía SVG con `currentColor`; agregar token nuevo solo si es transversal y se promueve al catálogo |
 
 ---
 
@@ -501,3 +513,4 @@ Salida: /SDD2.1D/docs/proyectos/{{NOMBRE_PROYECTO_KEBAB}}/03_ux_ui_dx/<estructur
 | 1.0 | 2026-05-17 | Reglas iniciales generadas durante bootstrap SDD 2.1. Variantes UX/UI y DX cubriendo los 8 tipos D8, accesibilidad WCAG 2.2 AA como piso, Diátaxis explícito, política de versionado con `_legacy/`. |
 | 1.1 | 2026-06-09 | Validación ST-06: la categoría se genera por proyecto bajo `proyectos/<nombre-proyecto-kebab>/03_ux_ui_dx/`; la selección de variante y la ruta de salida del prompt-snippet referencian el `project_type` del proyecto en curso (manifiesto). Tablas §1.2 sin reescritura. |
 | 1.2 | 2026-06-10 | Migración de referencias de intake al documento unificado SOLUTION-INTAKE (unificación de intake). |
+| 1.3 | 2026-06-19 | Incorporación del catálogo de reglas de diseño (`devs/references/design/`) como insumo normativo de AG-03: nueva §1.4 (carga del índice, documento base más especialización por stack, tokens y patrones normativos, trazabilidad del catálogo), anti-patrón de tokens ad hoc en §4.4 y fila "Catálogo de diseño aplicado" en la tabla de trazabilidad de §4.3. |

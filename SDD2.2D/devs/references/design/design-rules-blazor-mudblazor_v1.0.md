@@ -2,7 +2,7 @@
 
 **Proyecto:** {{nombre-solucion}}
 **Documento:** design-rules-blazor-mudblazor_v1.0.md
-**Versión:** 1.0
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-06-19
 **Autor:** {{equipo-o-rol}} (AG-03 UX/UI + Frontend Architect .NET)
@@ -138,6 +138,25 @@ Notas de fidelidad:
 - Stepper: usar el estado completado/actual/pendiente nativo de `MudStepper`; el paso final de revisión es un `MudStep` con resumen en `MudSimpleTable` o filas clave/valor y un `MudSwitch` de activación.
 - Formularios: el label va como `Label` del campo (no placeholder); `Variant="Variant.Outlined"` para el borde de control.
 
+### 4.1 Patrones de configuración dirigida por esquema → MudBlazor
+
+Cuando el proyecto carga la extensión `design-rules-config-esquema` (proyecto con superficies de configuración), sus patrones se realizan así, heredando el theme y la iconografía ya definidos:
+
+| Patrón de configuración (extensión) | Componentes MudBlazor |
+| --- | --- |
+| Campo dirigido por descriptor | `MudNumericField` / `MudTextField` / `MudSelect` con `Label` (de `etiqueta`), `Min`/`Max` (de los límites) y `HelperText` para el hint de default/límites |
+| Tarjeta de ayuda contextual | ícono de info (`MudIconButton`) que abre `MudPopover` (o `MudTooltip` en casos simples) con leyenda + ejemplos; estado `info` vía `Color.Info` |
+| Divulgación progresiva | `MudExpansionPanels` / `MudCollapse` para las opciones avanzadas, colapsadas por defecto |
+| Presets / recetas | `MudChipSet` o `MudMenu` con los presets aplicables; al elegir uno, precarga valores y entra en simulación |
+| Explicación en lenguaje natural | string computado en `MudText` o `MudAlert Severity="Severity.Info"`, regenerado al cambiar valores |
+| Indicador de modo simulación | `MudChip Color="Color.Warning"` con texto "Modo simulación" en la cabecera de la superficie |
+| Ranura del asistente | `MudPaper Outlined` deshabilitado, borde discontinuo (`Style="border-style: dashed"`) y badge "próximamente" (`MudChip Size="Size.Small"`) |
+
+Notas de fidelidad:
+- El estado `info` se materializa con `Color.Info` / `Palette.Info` del theme, fijado al `color.*.info` del documento base (`#185FA5`); desde CSS propio se accede como `var(--mud-palette-info)`, sin hex suelto.
+- La previsualización y confirmación de una `PropuestaDeConfiguracion` (lado UX) se arma con `MudDialog` (vía `IDialogService`) mostrando la explicación en palabras + alcance afectado antes de aplicar. El motor de validación y aplicación es de la categoría 05, no de la UI.
+- La ranura del asistente no dispara nada hoy: es un `MudPaper` deshabilitado. La IA se conecta después contra la frontera de propuesta, sin tocar componentes del dominio.
+
 ---
 
 ## 5. Estados y feedback en MudBlazor
@@ -232,3 +251,4 @@ Además de los criterios del documento base, una superficie Blazor + MudBlazor c
 | Versión | Fecha | Cambios | Autor |
 | --- | --- | --- | --- |
 | 1.0 | 2026-06-19 | Versión inicial. Mapeo del catálogo genérico a MudBlazor v9: theme tipado, render Interactive Server, patrones → componentes, estados, iconografía SVG con íconos custom, accesibilidad. | AG-03 UX/UI + Frontend Architect |
+| 1.1 | 2026-06-20 | Mapeo de los patrones de la extensión `design-rules-config-esquema` a componentes MudBlazor (nueva §4.1): campo dirigido por descriptor, ayuda contextual, divulgación progresiva, presets, explicación en palabras, indicador de simulación y ranura del asistente; estado `info` vía `Color.Info`/`Palette.Info`; previsualización de la propuesta con `MudDialog`. | AG-03 UX/UI + Frontend Architect |

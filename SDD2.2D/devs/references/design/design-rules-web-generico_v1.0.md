@@ -2,7 +2,7 @@
 
 **Proyecto:** {{nombre-solucion}}
 **Documento:** design-rules-web-generico_v1.0.md
-**Versión:** 1.0
+**Versión:** 1.1
 **Estado:** Vigente
 **Fecha:** 2026-06-19
 **Autor:** {{equipo-o-rol}} (AG-03 UX/UI)
@@ -32,6 +32,7 @@ Marco de referencia: heurísticas de Nielsen, reglas de Shneiderman, leyes UX (H
 5. Accesibilidad como piso, no como extra. WCAG 2.2 AA es requisito de aceptación, no una mejora opcional.
 6. Restricción del color y del movimiento. El color de marca señala acción y jerarquía, no decora. La animación sirve a la comprensión (transición de estado, orientación espacial), nunca al lucimiento.
 7. Vector primero. Iconos e ilustraciones son SVG por defecto (ver §6). El raster es la excepción justificada.
+8. Configuración dirigida por esquema. En superficies de configuración, cada parámetro se describe con un descriptor único, que es su fuente de verdad: el default, los límites, la leyenda y los ejemplos viven en el descriptor, no hardcodeados en la pantalla. El detalle de patrones, estados y la frontera de propuesta vive en la extensión por capacidad `design-rules-config-esquema`, que se carga solo cuando el proyecto tiene superficies de configuración.
 
 ---
 
@@ -75,7 +76,10 @@ Estados semánticos (texto + tint de fondo, siempre en par):
 | Éxito / activo | `#0F6E56` | `#E1F5EE` |
 | Atención | `#854F0B` | `#FAEEDA` |
 | Error / inactivo destructivo | `#993556` / `#A03030` | `#FBEAF0` |
+| Informativo / ayuda contextual | `#185FA5` | `#E7F0F9` |
 | Neutro / inactivo | `color.text.secondary` | `color.background.secondary` |
+
+El estado informativo se expresa con los tokens `color.text.info` (`#185FA5`, reusando el hue de `color.accent.module-d`), `color.background.info` (`#E7F0F9`) y `color.border.info` (`#BBD4EA`). Es un token transversal: lo consumen la tarjeta de ayuda contextual de la extensión `design-rules-config-esquema` y cualquier otro uso informativo en cualquier superficie. El estado `warning` corresponde al estado "Atención" ya existente; si una especialización agrega aliases `color.*.warning`, deben apuntar a los valores de Atención.
 
 Regla de contraste: todo texto cumple 4.5:1 sobre su fondo (3:1 para texto grande ≥ 24px o ≥ 18.66px bold). El color nunca es el único portador de significado: un estado se acompaña siempre de etiqueta textual o ícono.
 
@@ -240,6 +244,7 @@ Una superficie cumple el catálogo cuando: usa solo tokens del sistema (cero lit
 | Placeholder como label | Se pierde el rótulo al escribir | Label visible + placeholder de ejemplo |
 | Botón "Enviar/Aceptar" genérico | No comunica la acción | Nombrar el verbo real ("Guardar", "Publicar") |
 | Animación ambiental permanente | Distrae y delata diseño automático | Movimiento al servicio del estado, con `reduced-motion` |
+| Default hardcodeado en la pantalla o ayuda escrita a mano por campo | Se desincroniza del parámetro; dos fuentes de verdad | Derivar default, límites y ayuda del descriptor (ver `design-rules-config-esquema`) |
 
 ---
 
@@ -250,6 +255,7 @@ Una superficie cumple el catálogo cuando: usa solo tokens del sistema (cero lit
 | Especialidad dueña | AG-03 UX/UI |
 | Regla que lo invoca | `devs/rules/03_rules_ux_ui_dx.md` |
 | Documentos hijos | `design-rules-blazor-mudblazor_v1.0.md` y futuros por stack |
+| Extensión por capacidad | `design-rules-config-esquema_v1.0.md` (configuración dirigida por esquema) |
 | Artefactos operativos que lo aplican | `experiencia-de-uso`, `wireframes-<superficie>`, `representacion-<concepto>` por proyecto |
 | Marco teórico | `guides/marco-teorico-sdd2.2_v1.0.md`, cap. UX/UI/DX |
 
@@ -260,3 +266,4 @@ Una superficie cumple el catálogo cuando: usa solo tokens del sistema (cero lit
 | Versión | Fecha | Cambios | Autor |
 | --- | --- | --- | --- |
 | 1.0 | 2026-06-19 | Versión inicial. Tokens, layout, catálogo de patrones, estados, iconografía SVG, accesibilidad AA, responsive y anti-patrones. Base del catálogo `references/design/`. | AG-03 UX/UI |
+| 1.1 | 2026-06-20 | Configuración dirigida por esquema: principio rector 8, estado semántico `info` (`color.text/background/border.info`) en §2.1 con confirmación de que `warning` corresponde a Atención, anti-patrón de default/ayuda hardcodeados en §10 y registro de la extensión por capacidad `design-rules-config-esquema` en §11. | AG-03 UX/UI |

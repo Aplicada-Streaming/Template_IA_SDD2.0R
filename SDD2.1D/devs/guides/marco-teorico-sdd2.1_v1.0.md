@@ -98,6 +98,7 @@ e:/repos/...../SDD2.1D/
 │   ├── intake/              Plantillas de carga inicial
 │   ├── orchestrator/        Prompts orquestadores y subagentes
 │   ├── rules/               Reglas de nomenclatura, decisiones D1..D8
+│   ├── references/          Catálogo de reglas de diseño por stack (insumo de AG-03)
 │   └── _bootstrap/          Auditoría del fuente SDD 1.0, ADR de origen
 │
 └── docs/                    Plano operativo de la solución generada
@@ -1212,6 +1213,10 @@ Cuando el "usuario" es un desarrollador integrador, las heurísticas se instanci
 | Diseño minimalista | No exponer endpoints "por las dudas" |
 | Recuperar errores | Mensajes accionables: qué falló, qué hacer al respecto |
 | Ayuda y documentación | Quick start, ejemplos copy-paste, troubleshooting |
+
+## 8.7 Catálogo de reglas de diseño
+
+El plano `devs/` incluye un catálogo de reglas de diseño en `devs/references/design/`, insumo normativo de la categoría 03. Sigue un modelo base→especialización: un documento base de diseño web genérico (`design-rules-web-generico_v1.0.md`), agnóstico de framework, y especializaciones por stack que heredan del base y mapean cada token y patrón a su tecnología concreta (la primera es `design-rules-blazor-mudblazor_v1.0.md`; están previstas las de HTML puro, MAUI y Blazor en MAUI). El AG-03 carga el catálogo a través de su índice `_index_design-rules.md`, aplica siempre el documento base y, si existe, la especialización del stack declarado en el intake. Los tokens, patrones, estados e iconografía del catálogo son normativos: el subagente los hereda en lugar de definir decisiones visuales ad hoc por proyecto. Este subárbol es metodológico, vive en `devs/` y no en `docs/`.
 
 ---
 

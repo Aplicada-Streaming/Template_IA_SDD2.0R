@@ -1227,6 +1227,11 @@ mi-proyecto/
 │   │   │   ├── 09_rules_devops.md
 │   │   │   ├── 10_rules_developer_guide.md
 │   │   │   └── 11_rules_examples.md
+│   │   ├── references/                                  # Catálogo de reglas de diseño por stack, insumo de AG-03
+│   │   │   └── design/
+│   │   │       ├── _index_design-rules.md
+│   │   │       ├── design-rules-web-generico_v1.0.md
+│   │   │       └── design-rules-blazor-mudblazor_v1.0.md
 │   │   └── _bootstrap/                                   # Material de bootstrapping
 │   ├── guides/
 │   │   ├── guia-usuario-sdd2.1_v1.0.md                   # Este documento

@@ -1,9 +1,9 @@
 # Marco Teórico SDD 2.2
 
 **Documento:** marco-teorico-sdd2.2_v1.0.md
-**Versión:** 1.3
+**Versión:** 1.4
 **Estado:** Aprobado
-**Fecha:** 2026-06-10
+**Fecha:** 2026-06-20
 **Autor:** Equipo Template SDD 2.2 — UTN
 **Audiencia:** estudiantes universitarios (UTN), docentes, profesionales que adopten el template
 **Idioma:** español rioplatense neutro técnico
@@ -98,7 +98,7 @@ e:/repos/...../SDD2.2D/
 │   ├── intake/              Plantillas de carga inicial
 │   ├── orchestrator/        Prompts orquestadores y subagentes
 │   ├── rules/               Reglas de nomenclatura, decisiones D1..D8
-│   ├── references/          Catálogo de reglas de diseño por stack (insumo de AG-03)
+│   ├── references/          Catálogo de reglas de diseño por stack y por capacidad (insumo de AG-03)
 │   └── _bootstrap/          Auditoría del fuente SDD 1.0, ADR de origen
 │
 └── docs/                    Plano operativo de la solución generada
@@ -229,6 +229,8 @@ El contexto industrial de adopción de SDD 2.2 incluye el uso de asistentes de I
 2. **Mecanismo de verificación.** El equipo puede pedirle al modelo que verifique si el código existente cumple la spec, detectando deriva.
 3. **Unidad de regeneración.** Si se necesita reescribir un módulo, la spec es lo que se le pasa al modelo. El código viejo se descarta.
 4. **Anclaje de contexto.** Cuando la conversación con el modelo se alarga y el contexto se compacta, la spec funciona como ancla para que el modelo no pierda el hilo.
+
+Una instancia concreta de este encaje, ya presente en el template, es la configuración dirigida por esquema (§8.7): cada parámetro se describe con un descriptor que funciona como contrato para el modelo (la IA sabe qué puede tocar y dentro de qué límites), y toda propuesta de cambio —venga de un formulario o de la IA— se materializa en la frontera validable `PropuestaDeConfiguracion`, se previsualiza y se confirma antes de aplicar (propone, confirma, valida), con el modo simulación como red de seguridad. La spec deja de ser solo contrato y verificación: se vuelve también la superficie contra la que la IA propone sin ejecutar.
 
 ## 2.6 Limitaciones del enfoque
 
@@ -565,6 +567,7 @@ Las 13 especialidades siguen siendo válidas sin cambios en el modelo de soluci�
 | desktop-app | UX completo, ergonomía de teclado/mouse, accesibilidad |
 | mobile-app-maui | UX completo, gestos, touch targets, modos offline |
 
+**Configuración dirigida por esquema.** En proyectos con superficies de configuración, AG-03 carga la extensión por capacidad `design-rules-config-esquema` y produce superficies donde cada parámetro se describe por su descriptor (default, límites, leyenda y ejemplos), con ayuda contextual derivada del descriptor, presets, explicación en lenguaje natural, modo simulación y la ranura del asistente de IA reservada (forward-compat).
 **Interacciones cross-rol.** Consume casos de uso de AG-02, alimenta a AG-05 (contratos del API), AG-10 (developer guide), AG-11 (ejemplos).
 
 ### AG-04 — Ingeniero de Prompts
@@ -573,6 +576,7 @@ Las 13 especialidades siguen siendo válidas sin cambios en el modelo de soluci�
 **Responsabilidad principal.** Diseño de prompts estructurados, guardrails, esquemas JSON de salida, evaluación de outputs.
 **Documentos que produce.** Prompts versionados, esquemas de salida, few-shot examples, métricas de evaluación.
 **Variantes por tipo de proyecto.** Esta sección puede marcarse "no aplica" si el proyecto no incorpora IA en su superficie funcional. La distinción es importante: usar IA como asistente de desarrollo (Copilot) no requiere AG-04; integrarle IA al producto (clasificador, RAG, chatbot) sí.
+**Asistente de configuración por esquema.** Cuando se conecta el asistente de IA de las superficies de configuración (§8.7), AG-04 define los descriptores de parámetro como tool definitions y las salidas estructuradas con las que el modelo devuelve una `PropuestaDeConfiguracion` válida; el modelo propone contra esa frontera y nunca ejecuta directo.
 **Interacciones cross-rol.** Consume especificación de AG-02, alimenta a AG-05 (integración del modelo en la arquitectura) y AG-08 (evaluación de outputs).
 
 ### AG-05 — Arquitecto de Software Senior
@@ -581,6 +585,7 @@ Las 13 especialidades siguen siendo válidas sin cambios en el modelo de soluci�
 **Responsabilidad principal.** Diseño técnico del sistema, decisiones de arquitectura (ADR), contratos, modelo lógico de datos.
 **Documentos que produce.** Arquitectura de la solución, ADRs individuales (`ADR-XX-<kebab>_v1.0.md`), contratos, modelo lógico, extensibilidad, diagramas (C4 o equivalente).
 **Variantes por tipo de proyecto.** Ver §7 para la decisión arquitectónica por tipo D8.
+**Motor de configuración dirigida por esquema.** Cuando el proyecto tiene superficies de configuración, AG-05 diseña el motor detrás de la frontera `PropuestaDeConfiguracion`: el registro de descriptores como fuente única, la validación contra esos descriptores, las salidas estructuradas / tool calling del asistente de IA y la mecánica de plan-and-apply. El catálogo de diseño (AG-03) define el lado UX; la arquitectura define el motor.
 **Interacciones cross-rol.** Consume requisitos de AG-02 y AG-03, alimenta a AG-06 (BT técnico), AG-08 (testabilidad), AG-09 (deploy).
 
 ### AG-06 — Scrum Master / Agile Coach (Backlog)
@@ -1111,6 +1116,7 @@ Independientemente del tipo D8, hay patrones que aplican universalmente:
 - **CQRS** (Young, 2010): separación de lecturas y escrituras. Aplicable en rest-api, microservicios y monolitos modulares con dominio rico.
 - **Event-driven**: comunicación por eventos en lugar de llamadas directas. Aplicable en microservicios y worker-service.
 - **Repository pattern**: abstracción del acceso a datos. Aplicable en cualquier proyecto con persistencia.
+- **Plan-and-apply con frontera validable** (`PropuestaDeConfiguracion`): en sistemas con configuración, todo cambio se modela como una propuesta que se valida contra los descriptores, se previsualiza y se confirma antes de aplicar, con modo simulación y human-in-the-loop. Es transversal: aplica a cualquier tipo D8 con superficies de configuración, independiente del estilo interno. El lado UX se detalla en §8.7; el motor es responsabilidad de AG-05.
 
 ## 7.6 La composición de la solución como decisión arquitectónica
 
@@ -1156,6 +1162,8 @@ Jakob Nielsen (1994) propuso diez heurísticas que siguen siendo la herramienta 
 | **Ley de Miller** | La memoria de trabajo maneja 7±2 chunks | No exigir recordar más de 7 ítems simultáneamente |
 | **Ley de Jakob** | Los usuarios esperan que tu sitio funcione como los otros que ya usan | Respetar convenciones de la plataforma |
 | **Ley de Tesler** | Toda app tiene complejidad inherente; alguien debe absorberla | Decidir si la absorbe el usuario o el sistema |
+
+Aplicación en la configuración dirigida por esquema (§8.7): la divulgación progresiva —parámetros comunes a la vista, avanzados en un expander— es una aplicación directa de las leyes de Hick y Miller (menos opciones simultáneas, menos carga de decisión y de memoria); y la ayuda contextual derivada del descriptor instancia la heurística 10 de Nielsen (ayuda y documentación contextual, orientada a la tarea).
 
 ## 8.4 Accesibilidad WCAG 2.2 nivel AA
 
@@ -1458,6 +1466,8 @@ El patrón de trabajo con IA que SDD 2.2 adopta se llama **plan-then-confirm con
 2. **Subagentes especializados.** El trabajo se divide entre agentes con perfil profesional acotado (uno por especialidad AG-XX). Cada subagente conoce solo su scope y sus criterios. Esto evita que un solo agente cubra demasiado terreno y diluya criterios.
 3. **Audit independiente.** Un agente revisor distinto de los productores verifica el resultado contra los criterios. Esto evita que el productor sea juez de su propia obra.
 
+El mismo patrón opera en runtime dentro del producto cuando hay configuración dirigida por esquema (§8.7): la UI propone una `PropuestaDeConfiguracion`, el humano la confirma sobre una previsualización y el sistema la valida contra los descriptores antes de aplicar. Es plan-then-confirm con human-in-the-loop llevado del flujo de generación documental al comportamiento del sistema: la IA (o el formulario) propone, nunca ejecuta directo.
+
 ## 11.2 Separación orquestador / subagentes
 
 | Rol | Función | Acceso |
@@ -1634,6 +1644,9 @@ Este capítulo consolida los errores típicos al adoptar SDD 2.2, agrupados por 
 | **Sin verificación final** | No se valida que compila o pasa tests | Cada prompt termina con comandos de verificación |
 | **Productor que se autoaudita** | Sesgo de confirmación | Auditor independiente |
 | **Mezcla orquestador / productor** | Decisión y ejecución sin separación | Roles distintos, separados por prompt |
+| **IA que ejecuta en vez de proponer** | Saca al humano del lazo; cambios sin control | La IA llena una `PropuestaDeConfiguracion`; el humano confirma, el sistema valida |
+
+En superficies de configuración (§8.7) se suman dos anti-patrones de UX, detallados en `design-rules-config-esquema`: el default de un parámetro hardcodeado en la pantalla y la ayuda escrita a mano por campo, en vez de derivarlos del descriptor (fuente única). La corrección es tomar default, límites y ayuda del descriptor.
 
 ## 12.4 Anti-patrones arquitectónicos
 
@@ -1696,8 +1709,11 @@ Términos canónicos del template SDD 2.2. Cada uno con definición operativa en
 | **BRIEF** | Documento corto de 1 a 2 páginas que captura la esencia del proyecto antes de cargar las plantillas de intake. |
 | **BT-XX** | Identificador de Backlog Técnico. Tarea técnica que descompone una US o que cubre trabajo de infraestructura. |
 | **Clean Architecture** | Estilo arquitectónico que organiza el sistema en capas concéntricas donde las dependencias apuntan hacia el dominio. |
+| **Configuración dirigida por esquema** | Patrón de UX donde cada parámetro configurable se describe con un descriptor único (fuente de verdad de default, límites, leyenda y ejemplos), del que se derivan el render del campo, la ayuda, la validación y el contrato para IA. |
 | **CQRS** | Command Query Responsibility Segregation. Separación de operaciones de lectura (queries) y escritura (commands). |
 | **CU-XX** | Identificador de Caso de Uso. Especifica una intención del usuario o del sistema con flujo principal, alternativos y excepciones. |
+| **Descriptor de parámetro** | Declaración única de un parámetro configurable: etiqueta, leyenda, tipo, unidad, default, límites (min/max/enum), ejemplos y visibilidad condicional. Fuente de verdad que consume la UI. |
+| **Divulgación progresiva** | Patrón de UX que muestra los parámetros comunes y oculta los avanzados en un expander, para acotar las opciones simultáneas (leyes de Hick y Miller). |
 | **DoD (Definition of Done)** | Conjunto de criterios verificables que una historia debe cumplir para considerarse terminada. |
 | **DoR (Definition of Ready)** | Conjunto de criterios verificables que una historia debe cumplir para entrar a un sprint. |
 | **DORA metrics** | Cuatro métricas de rendimiento DevOps: lead time, deployment frequency, change failure rate, failed deployment recovery time. |
@@ -1708,17 +1724,22 @@ Términos canónicos del template SDD 2.2. Cada uno con definición operativa en
 | **GitHub Flow** | Modelo de branching: una rama main protegida, feature branches que mergean vía PR. |
 | **GitOps** | Patrón donde el estado deseado de infraestructura y aplicaciones se declara en git y un agente reconcilia el estado real. |
 | **Given/When/Then** | Formato BDD para criterios de aceptación: contexto inicial, evento, resultado esperado. |
+| **Human-in-the-loop** | Esquema en el que un cambio propuesto (por un formulario o por IA) requiere confirmación humana explícita antes de aplicarse. |
 | **Intake** | Documento inicial único que el humano completa para alimentar al template: `SOLUTION-INTAKE`, con tres partes (A negocio, B composición, C técnica por proyecto). Reemplaza a `PROJECT-BRIEF` y `PROJECT-README`, ahora deprecados. |
 | **SOLUTION-INTAKE** | Documento único de entrada del template (`SOLUTION-INTAKE-<nombre-solucion-kebab>_v1.0.md`). Parte A negocio (§1-§12), Parte B composición (§13 tabla de proyectos tipados, §14 estilo, §15 descomposición, §16 estructura), Parte C técnica por proyecto (§17, bloque P.1-P.12), más §18 samples y §19 checklist. Su §13 es la fuente desde la que se deriva el SOLUTION-MANIFEST. |
 | **ISO 25010** | Norma ISO que define ocho atributos de calidad de producto de software. |
 | **ISO 29148** | Norma ISO de ingeniería de requisitos de software y sistemas. |
 | **Manifest-driven** | Patrón donde cada componente expone un manifest declarativo que un sistema consumidor lee para configurar UI o comportamiento. |
+| **Modo simulación** | Estado de una superficie de configuración en el que los cambios se prueban sin aplicarse; red de seguridad previa a la confirmación. |
 | **MoSCoW** | Técnica de priorización: Must Have, Should Have, Could Have, Won't Have v1. |
 | **Orden topológico** | Ordenamiento de los proyectos de una solución derivado del grafo acíclico de dependencias: primero las dependencias, después los dependientes. Define la secuencia de generación y de build. |
 | **MVP** | Minimum Viable Product. Versión mínima del producto con la que se valida una hipótesis de valor. |
 | **NB-XX** | Identificador de Necesidad de Negocio. Problema concreto que el producto resuelve, con criterios de éxito medibles. |
 | **OpenAPI** | Estándar de especificación de APIs REST en formato YAML o JSON, parseable por herramientas. |
 | **PKCE** | Proof Key for Code Exchange. Extensión de OAuth2 que protege el flujo Authorization Code contra interceptación. |
+| **Plan-and-apply** | Ciclo en el que un cambio se propone y previsualiza primero (plan) y solo se aplica tras la confirmación y la validación (apply). |
+| **Preset / receta** | Configuración completa y coherente, lista para aplicar, que el usuario elige, ajusta y aterriza en simulación. Una forma de llenar una `PropuestaDeConfiguracion`. |
+| **PropuestaDeConfiguracion** | Frontera que representa un conjunto de cambios de configuración; se valida contra los descriptores, se previsualiza y se confirma antes de aplicar. Un formulario, un preset o la IA son formas de llenarla. |
 | **Proyecto** | Unidad de especialización del template. Lleva exactamente uno de los ocho valores D8. Las variantes por tipo D8 y las categorías 02 a 11 se aplican por proyecto. |
 | **Pull Request (PR)** | Solicitud de merge de una rama a otra; mecanismo de revisión de código y aplicación de quality gates. |
 | **RACI** | Matriz Responsible / Accountable / Consulted / Informed. Define quién hace qué para cada actividad. |
@@ -1738,6 +1759,7 @@ Términos canónicos del template SDD 2.2. Cada uno con definición operativa en
 | **Spec-as-Source** | Nivel 3 de SDD: la spec es el artefacto principal y el código se regenera bajo demanda. |
 | **Spec-First** | Nivel 1 de SDD: la spec guía la implementación inicial y luego se descarta. |
 | **Story point** | Unidad relativa de estimación de esfuerzo. No representa horas; representa complejidad / esfuerzo relativo. |
+| **Structured outputs / tool calling** | Mecanismo por el que un LLM devuelve una salida con estructura validable o invoca herramientas tipadas; usado para que el asistente de configuración produzca una `PropuestaDeConfiguracion` válida. |
 | **Subagente** | Agente IA especializado en un scope acotado, despachado por un agente orquestador. |
 | **TDD** | Test-Driven Development. Escribir el test antes que el código que lo hace pasar. |
 | **Trazabilidad vertical** | Cadena que conecta visión → necesidad → caso de uso → arquitectura → US → BT → test. |
@@ -1875,6 +1897,7 @@ W3C. (2024). *ARIA — Accessible Rich Internet Applications*. https://www.w3.or
 | 1.1 | 2026-06-10 | Actualización al modelo de solución más jerarquía de proyectos: fundamentación del modelo (solución, proyecto como unidad de especialización, manifiesto como fuente única de verdad, orden topológico, caso degenerado como garantía de no ruptura), estructura del template con niveles solución/proyecto y _solucion/, y aclaración de que las variantes D8 y la trazabilidad se aplican por proyecto. Conjunto D8 sin cambios (8 valores). |
 | 1.2 | 2026-06-10 | Actualización al intake unificado: un único documento `SOLUTION-INTAKE` reemplaza a `PROJECT-BRIEF` y `PROJECT-README`; el `SOLUTION-MANIFEST` pasa a artefacto derivado del §13 del intake; se incorpora la fundamentación de la Fase de validación de intake (validación de completitud semántica, batería de preguntas, derivación y confirmación del manifiesto). Conjunto D8 sin cambios. |
 | 1.3 | 2026-06-10 | Higiene (resolución de P3): el archivo se renombra a `marco-teorico-sdd2.2_v1.0.md` para alinear el marcador de variante con `guia-usuario-sdd2.2` (se actualizan metadato y auto-referencias). Se agrega en §3.9 la aclaración del alcance de D3: el casing kebab-lowercase gobierna los artefactos generados; los identificadores de variante de la metodología (`SDD1.0`, `SDD2.2D`, `SDD2.1M`, `SDD2.1R`) y los prefijos de organización quedan fuera de su alcance. | Reformulación SDD 2.2D |
+| 1.4 | 2026-06-20 | Auditoría de reflexión de la configuración dirigida por esquema: §1.5 (eje por capacidad en `references/`), §2.5 (descriptor como contrato + frontera validable + simulación + propone/confirma/valida como encaje con IA), §4.2 (AG-03 carga la extensión; AG-05 el motor de la frontera; AG-04 el asistente como tool definitions), §7.5 (`PropuestaDeConfiguracion` como patrón transversal agnóstico de D8), §8.3 (divulgación progresiva ligada a Hick/Miller y ayuda contextual a la heurística 10), §11.1 (propone/confirma/valida como instancia de plan-then-confirm con human-in-the-loop), §12.3 (anti-patrones nuevos) y §13 (nueve términos de glosario). | Reformulación SDD 2.2D (auditoría config-esquema) |
 
 ---
 
